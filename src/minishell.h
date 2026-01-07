@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/07 20:49:37 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/07 21:01:12 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,20 @@ typedef enum e_type
 
 typedef struct s_token
 {
-	char	*content;
-	t_type	type;
-	struct s_token *next;
+	char			*content;
+	t_type			type;
+	struct s_token	*next;
 }	t_token;
+
+typedef struct s_cmd
+{
+	char			**args; //Arguments for execve {"ls", "-l"}
+	char			*cmd_path; //Route "/bin/ls"
+	int				fd_in;
+	int				fd_out;
+	struct s_cmd	*next; //Next command
+	int				pid;
+}	t_cmd;
 
 typedef struct s_mini
 {
@@ -47,6 +57,6 @@ typedef struct s_mini
 	t_cmd	*cmds;
 	// ---STATUS---
 	// ---CONTROL---
-	int	stdin_backup;
-	int	stdout_backup;
+	int		stdin_backup;
+	int		stdout_backup;
 }	t_mini;
