@@ -1,0 +1,9 @@
+Crear rama de trabajo - git checkout -b "tu_puto_nombre"
+Haciendo esto creas dicha rama y te teletransportas allá.
+Ver en qué puta rama estás vaya a ser que la puto lies en lo más básico, papi - git status
+Hacer la teletransportacion - git checkout "nombre_de_la_rama" (ej: main)
+ANTES DE HACER NINGUN MERGE, ACTUALIZA LA MAIN!!! (git pull origin main ante todo, maricón)
+Una vez en la rama principal, se hace el merge - git merge "tu_puto_nombre" ESTANDO EN LA MAIN
+Y ni se te ocurra olvidarte de hacer el famosisimo git push origin main.
+Es importantisimo que nos comuniquemos cuando hagamos un merge y un push para no pisarnos los push a la main
+
