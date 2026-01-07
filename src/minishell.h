@@ -1,5 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
+/*   Updated: 2026/01/07 20:49:37 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
+# include <stdio.h>
+# include <errno.h>
+# include <string.h>
+# include "libft/libft.h"
+
+#endif
 
 typedef enum e_type
 {
