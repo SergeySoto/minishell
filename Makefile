@@ -6,7 +6,7 @@ RED = \033[0;31m
 RESET = \033[0m
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -lreadline
 INCLUDES = -I./includes -I./libft
 LIBS = -L./libft -lft -lreadline
 
