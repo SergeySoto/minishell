@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/09 18:33:41 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:29:42 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-char	*shell_loop()
+char	*shell_loop(void)
 {
 	char *input;
-	while(1)
+
+	while (1)
 	{
 		input = readline("Minishell$>");
 		if (input == NULL)
@@ -31,7 +32,7 @@ char	*shell_loop()
 	return (input);
 }
 
-int main(void)
+int	main(void)
 {
 	shell_loop();
 	return (0);
