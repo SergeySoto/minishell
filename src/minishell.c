@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/09 19:29:42 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/09 20:34:36 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 char	*shell_loop(void)
 {
 	char *input;
-
+/*
+	Gestionar mas adelante el Enter sin salto de linea
+*/
 	while (1)
 	{
-		input = readline("Minishell$>");
-		if (input == NULL)
+		input = readline("Minishell$> ");
+		if (!input)
 		{
 			rl_clear_history();
 			printf("exit");
 			exit(0);
 		}
-		printf("%s\n", input);
 		add_history(input);
 		free(input);
 	}
