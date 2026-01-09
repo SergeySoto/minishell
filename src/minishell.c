@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/09 15:03:35 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:33:41 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 
 char	*shell_loop()
 {
-	char *str;
+	char *input;
 	while(1)
 	{
-		str = readline("Minishell$>");
-		if (str == NULL)
-			continue ;
-		else if (str)
-			return (str);
+		input = readline("Minishell$>");
+		if (input == NULL)
+		{
+			rl_clear_history();
+			printf("exit");
+			exit(0);
+		}
+		printf("%s\n", input);
+		add_history(input);
+		free(input);
 	}
-	return (str);
+	return (input);
 }
 
 int main(void)
