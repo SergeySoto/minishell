@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/09 15:21:04 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:18:58 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include "libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-
-#endif
 
 typedef enum e_type
 {
@@ -62,3 +60,5 @@ typedef struct s_mini
 	int		stdin_backup;
 	int		stdout_backup;
 }	t_mini;
+
+#endif
