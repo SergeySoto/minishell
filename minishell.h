@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/09 19:18:58 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/09 23:02:08 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_mini
 	t_token	*tokens;
 	t_cmd	*cmds;
 	// ---STATUS---
+	// -- Añadido exit_status para el futuro -- //
+	int		exit_status; // Símbolo especial $?
 	// ---CONTROL---
 	int		stdin_backup;
 	int		stdout_backup;
