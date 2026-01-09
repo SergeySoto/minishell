@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/07 21:01:12 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/09 15:21:04 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <errno.h>
 # include <string.h>
 # include "libft/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 #endif
 
