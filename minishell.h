@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/09 23:02:08 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/10 19:37:07 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,16 @@ typedef enum e_type
 	APPEND, //>> [cite: 117]
 }	t_type;
 
+/* 
+	Añado otra variable a esta struct para saber si tiene el metacaracter '$'.
+	En caso de NO tenerlo, expand = 0; en caso afirmativo expand = 1.
+	Asi sabemos que luego debemos expandir este token!
+*/
 typedef struct s_token
 {
 	char			*content;
 	t_type			type;
+	int				expand;
 	struct s_token	*next;
 }	t_token;
 
