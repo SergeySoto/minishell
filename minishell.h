@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/10 14:28:11 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/10 17:46:49 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+//Maybe we should include an ENV_VAR (enviroment variables )for the $USER
 typedef enum e_type
 {
 	WORD,

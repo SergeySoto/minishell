@@ -20,17 +20,18 @@ char	*shell_loop(void)
 */
 	while (1)
 	{
-		input = readline("Minishell$> ");
-		if (!input)
+		t_mini	*t_mini;
+		t_mini->input = readline("Minishell$> ");
+		if (!t_mini->input)
 		{
 			rl_clear_history();
 			printf("exit");
 			exit(0);
 		}
-		add_history(input);
-		free(input);
+		add_history(t_mini->input);
+		free(t_mini->input);
 	}
-	return (input);
+	return (t_mini->input);
 }
 
 int	main(void)
