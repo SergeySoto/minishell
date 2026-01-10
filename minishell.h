@@ -56,6 +56,7 @@ typedef struct s_mini
 	t_token	*tokens;
 	t_cmd	*cmds;
 	// ---STATUS---
+	int exit_status; // $? value (error or success)
 	// ---CONTROL---
 	int		stdin_backup;
 	int		stdout_backup;
