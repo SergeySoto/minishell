@@ -23,6 +23,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC = \
 	$(SRC_DIR)/minishell.c \
+	$(SRC_DIR)/error.c \
+	$(SRC_DIR)/token_utils.c \
+				
 
 # ARCHIVOS OBJETO
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
