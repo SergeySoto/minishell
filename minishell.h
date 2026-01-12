@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/11 18:47:23 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/12 16:42:48 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct s_mini
 // -- Error function -- //
 void	*free_token(char *str, char **env);
 // -- Lists functions -- //
-t_token	*create_token(char *token);
-t_token	*add_token_back(t_token *head, char *token);
+t_token	*create_token(char *token, int type);
+void	add_token_back(t_token **head, char *token);
 
 
 #endif

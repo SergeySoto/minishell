@@ -6,34 +6,41 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/11 19:06:02 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/12 17:08:56 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*create_token(char *token)
+t_token	*create_token(char *str, int type)
 {
-	t_token	*head;
+	t_token	*token;
 
-	head = malloc(1 * sizeof(t_token));
-	if (!head)
+	token = malloc(1 * sizeof(t_token));
+	if (!token)
 		return (NULL);
-	head->content = token;
-	head->type = -1;
-	head->expand = 0;
-	head->next = NULL;
-	return (head);
+	token->content = str;
+	token->type = type;
+	token->expand = 0;
+	token->next = NULL;
+	return (token);
 }
 
-void	add_token_back(t_token *head, char *token)
+void	add_token_back(t_token **head, char *token)
 {
-	t_token	*new_token;
-	
-	new_token = create_token(token);
-	if (!head)
-		head = new_token;
-	// Verifico aqui si mi head->next = NULL??
-	// Le debo de poner un else para ver si el next de head apunta a NULL le meto el siguiente nodo??
-	head->next = new_token;
+	if (!head || !(*head))
+	{
+		//El 1 se sustituye por la funcion que nos asigne el type.
+		(*head) = create_token(token, 1);
+		return ;
+	}
+	while ((*head))
+	{
+		printf("Token: %s\n", (*head)->content);
+		printf("Type: %d\n", (*head)->type);
+		printf("Expand: %d\n", (*head)->expand);
+		printf("Next: %p\n", (void *)(*head)->next);
+		(*head) = (*head)->next;
+	}
+	(*head) = create_token(token, 1);
 }

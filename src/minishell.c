@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/11 19:02:16 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/12 17:01:33 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,26 @@ char	*shell_loop(void)
 
 int	main(void)
 {
-	char	*token;
+	char	*token1;
+	char	*token2;
 	t_token	*node;
 
-	token = "echo";
+	token1 = "echo";
+	token2 = "hola";
 	//shell_loop();
-	node = create_token(token);
+	node = create_token(token1, 1);
 	if (!node)
 	{
 		printf("No se pudo crear el nodo\n");
 		return (1);
 	}
-	printf("Token: %s\n", node->content);
-	printf("Type: %d\n", node->type);
-	printf("Expand: %d\n", node->expand);
-	printf("Next: %p\n", (void *)node->next);
+	// Prueba de que puto funciona nuestras funciones de nodos
+	int i = 0;
+	while (i < 2)
+	{
+		add_token_back(&node, token2);
+		i++;
+	}
 	free(node);
 	return (0);
 }
