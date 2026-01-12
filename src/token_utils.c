@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/12 19:42:09 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/12 20:42:00 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,21 @@ t_token	*create_token(char *str, int type)
 
 void	add_token_back(t_token **head, char *token)
 {
-	if (!head || !(*head))
+	t_token *temp;
+
+	if (!head || !*head)
 	{
-		//El 1 se sustituye por la funcion que nos asigne el type.
-		(*head) = create_token(token, get_type(token));
+		*head = create_token(token, get_type(token));
 		return ;
 	}
-	while ((*head))
+	temp = *head;
+	while (temp->next != NULL)
 	{
-		printf("Token: %s\n", (*head)->content);
-		printf("Type: %d\n", (*head)->type);
-		printf("Expand: %d\n", (*head)->expand);
-		printf("Next: %p\n", (void *)(*head)->next);
-		(*head) = (*head)->next;
+		printf("Token: %s\n", temp->content);
+		printf("Type: %d\n", temp->type);
+		printf("Expand: %d\n", temp->expand);
+		printf("Next: %p\n", (void *)temp->next);
+		temp = temp->next;
 	}
-	(*head) = create_token(token, get_type(token));
+	temp->next = create_token(token, get_type(token));
 }
