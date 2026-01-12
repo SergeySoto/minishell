@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/11 00:06:12 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/12 19:17:35 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,16 @@ typedef enum e_type
 	APPEND, //>> [cite: 117]
 }	t_type;
 
+/* 
+	Añado otra variable a esta struct para saber si tiene el metacaracter '$'.
+	En caso de NO tenerlo, expand = 0; en caso afirmativo expand = 1.
+	Asi sabemos que luego debemos expandir este token!
+*/
 typedef struct s_token
 {
 	char			*content;
 	t_type			type;
+	int				expand;
 	struct s_token	*next;
 }	t_token;
 
@@ -63,5 +69,12 @@ typedef struct s_mini
 	int		stdin_backup;
 	int		stdout_backup;
 }	t_mini;
+
+// -- Error function -- //
+void	*free_token(char *str, char **env);
+// -- Lists functions -- //
+t_token	*create_token(char *token, int type);
+void	add_token_back(t_token **head, char *token);
+
 
 #endif
