@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/12 17:01:33 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/12 17:50:26 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ char	*shell_loop(void)
 
 int	main(void)
 {
+	shell_loop();
+	return (0);
+}
+
+//! PRUEBA DE MAIN PARA COMPROBAR QUE LAS FUNCIONES DE LOS NODOS WORKS //
+/* int	main(void)
+{
 	char	*token1;
 	char	*token2;
 	t_token	*node;
@@ -57,4 +64,4 @@ int	main(void)
 	}
 	free(node);
 	return (0);
-}
+} */
