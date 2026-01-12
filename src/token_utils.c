@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/12 17:08:56 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/12 19:42:09 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_token_back(t_token **head, char *token)
 	if (!head || !(*head))
 	{
 		//El 1 se sustituye por la funcion que nos asigne el type.
-		(*head) = create_token(token, 1);
+		(*head) = create_token(token, get_type(token));
 		return ;
 	}
 	while ((*head))
@@ -42,5 +42,5 @@ void	add_token_back(t_token **head, char *token)
 		printf("Next: %p\n", (void *)(*head)->next);
 		(*head) = (*head)->next;
 	}
-	(*head) = create_token(token, 1);
+	(*head) = create_token(token, get_type(token));
 }
