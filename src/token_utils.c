@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/12 20:42:00 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/13 20:47:58 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ void	add_token_back(t_token **head, char *token)
 	}
 	temp = *head;
 	while (temp->next != NULL)
-	{
-		printf("Token: %s\n", temp->content);
-		printf("Type: %d\n", temp->type);
-		printf("Expand: %d\n", temp->expand);
-		printf("Next: %p\n", (void *)temp->next);
 		temp = temp->next;
-	}
 	temp->next = create_token(token, get_type(token));
 }

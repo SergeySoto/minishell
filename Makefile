@@ -25,6 +25,8 @@ SRC = \
 	$(SRC_DIR)/minishell.c \
 	$(SRC_DIR)/error.c \
 	$(SRC_DIR)/token_utils.c \
+	$(SRC_DIR)/lexer.c\
+	$(SRC_DIR)/validator.c\
 				
 
 # ARCHIVOS OBJETO

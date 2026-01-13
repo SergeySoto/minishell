@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/12 19:17:35 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/13 20:40:06 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	*free_token(char *str, char **env);
 // -- Lists functions -- //
 t_token	*create_token(char *token, int type);
 void	add_token_back(t_token **head, char *token);
+int		validator(char	*input);
+int		get_type(char *line);
 
 
 #endif

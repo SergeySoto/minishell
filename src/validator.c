@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/13 20:05:55 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/13 20:50:59 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	check_quotes(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i] == '"' || str[i] == "\'") && quotes == 0)
+		if ((str[i] == '"' || str[i] == '\'') && quotes == 0)
 			quotes = str[i];
 		else if (str[i] == quotes)
 			quotes = 0;
@@ -64,7 +64,7 @@ static int	check_forbidden(char *str)
 	quotes = 0;
 	while (str[i])
 	{
-		if (str[i] == "'" && quotes != 2)
+		if (str[i] == '\'' && quotes != 2)
 			quotes = !quotes;
 		else if (str[i] == '\"' && quotes != 1)
 			quotes = !quotes;
@@ -88,7 +88,9 @@ int	validator(char *input)
 		return (0);
 	if (!check_forbidden(input))
 		return (0);
+	return (1);
 	//pensaba en hacer la funcion de checkear los caracteres de redireccion,
 	//pero la ia me recomendo dejar esa parte para cuando ya tengamos los tokens
 	// que es mucho mas facil hacer eso en ese punto.
+	//tratar los "||" y el "&&"
 }
