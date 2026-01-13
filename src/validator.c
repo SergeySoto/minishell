@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/13 19:06:53 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/13 19:47:53 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ static int	check_forbidden(char *str)
 
 int	validator(char *input)
 {
-
 	if (!input)
 		return (0);
 	if (!check_pipe(input))
