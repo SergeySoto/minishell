@@ -34,8 +34,13 @@ static int	ft_word_counter(char const *str, char c)
 	i = 0;
 	flag = 1;
 	words = 0;
+	//quotes=0;
 	while (str[i])
 	{
+		//if (str[i] = '\'' || str[i] = '\"')
+			//quote = str[i];
+			//str = ft_strchr(str[i] + 1, quote);
+			//i = 0;
 		if (str[i] == c)
 			flag = 1;
 		if (str[i] != c && flag)

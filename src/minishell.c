@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/13 20:33:54 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/14 19:05:55 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ char	*shell_loop(void)
 	char	*input;
 	t_token	*tokens;
 	char	**temp_split;
+	char	quote;
 	int		i;
-/*
-	Gestionar mas adelante el Enter sin salto de linea
-*/
+
 	tokens = NULL;
 	while (1)
 	{
@@ -64,8 +63,23 @@ char	*shell_loop(void)
 			continue ;
 		}
 		printf("Input Valido: %s\n", input);
-		temp_split = ft_split(input, ' ');
 		i = 0;
+		while (input[i])
+		{
+			if (check_quotes(input) == 1)
+			{
+				quote = get_quote(input);
+				temp_split = ft_split(input, quote);
+				//add_token_back(&tokens, temp_split[i]);
+			}
+			else
+			{
+				temp_split = ft_split(input, ' ');
+				//add_token_back(&tokens, temp_split[i]);
+			}
+			i++;
+		}
+		//add_token_back(&tokens, temp_split[i]);
 		while (temp_split && temp_split[i])
 		{
 			add_token_back(&tokens, temp_split[i]);
@@ -79,35 +93,10 @@ char	*shell_loop(void)
 	return (NULL);
 }
 
+
+
 int	main(void)
 {
 	shell_loop();
 	return (0);
 }
-
-//! PRUEBA DE MAIN PARA COMPROBAR QUE LAS FUNCIONES DE LOS NODOS WORKS //
-/* int	main(void)
-{
-	char	*token1;
-	char	*token2;
-	t_token	*node;
-
-	token1 = "echo";
-	token2 = "hola";
-	//shell_loop();
-	node = create_token(token1, 1);
-	if (!node)
-	{
-		printf("No se pudo crear el nodo\n");
-		return (1);
-	}
-	// Prueba de que puto funciona nuestras funciones de nodos
-	int i = 0;
-	while (i < 2)
-	{
-		add_token_back(&node, token2);
-		i++;
-	}
-	free(node);
-	return (0);
-} */

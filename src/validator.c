@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/14 16:25:49 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/14 19:02:16 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ static int	check_pipe(char *str)
 	return (1);
 }
 
-static int	check_quotes(char *str)
+int	check_quotes(char *str)
 {
 	int		i;
 	char	quotes;
 
 	quotes = 0;
 	i = 0;
+
 	while (str[i])
 	{
 		if ((str[i] == '"' || str[i] == '\'') && quotes == 0)
@@ -53,6 +54,19 @@ static int	check_quotes(char *str)
 		return (0);
 	}
 	return (1);
+}
+/* 
+	Creo una funcion que devuelva el caracter " o ' en caso de que check_quote haya encontrado una de estas comillas cerradas!
+*/
+
+char	get_quote(char *input)
+{
+	char	quote;
+
+	quote = '\0';
+	if (check_quotes(input) == 1)
+		quote = *input;
+	return (quote);
 }
 
 static int	check_forbidden(char *str)

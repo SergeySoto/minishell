@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/13 20:40:06 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/14 18:39:54 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,12 @@ void	*free_token(char *str, char **env);
 // -- Lists functions -- //
 t_token	*create_token(char *token, int type);
 void	add_token_back(t_token **head, char *token);
+// -- Check and get the quotes --//
+int		check_quotes(char *str);
+char	get_quote(char *input);
+// -- Validator tokens -- //
 int		validator(char	*input);
+// -- Types tokens -- //
 int		get_type(char *line);
 
 
