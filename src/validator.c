@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/13 20:50:59 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/14 16:25:49 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	check_quotes(char *str)
 static int	check_forbidden(char *str)
 {
 	int	i;
-	int	quotes; //0 = nada, 1 = simple quotes ('), 2 = double quotes (")
+	int	quotes; //0 = nothing, 1 = simple quotes ('), 2 = double quotes (")
 
 	i = 0;
 	quotes = 0;
