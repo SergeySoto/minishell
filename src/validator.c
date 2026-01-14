@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/14 16:25:49 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/14 18:49:44 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,34 @@ static int	check_pipe(char *str)
 	i = 0;
 	while (str[i] && is_space(str[i]))
 		i++;
-	if (str[i] == '|')
+	if (ft_strncmp(&str[i], "||", 2) == 0)
 	{
-		printf("Error: Syntax error near unexpected token `|'\n");
+		printf("Error: Syntax error near unexpected token '||'\n");
+		return (0);
+	}
+	else if (str[i] == '|')
+	{
+		printf("Error: Syntax error near unexpected token '|'\n");
+		return (0);
+	}
+	return (1);
+}
+
+static int	check_pending_pipe(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str);
+	while (i > 0 && is_space(str[i - 1]))
+		i--;
+	if (str[i - 1] == '|')
+	{
+		if (str[i - 2] == '|')
+		{
+			printf("Error: Syntax error near unexpected token '||'\n");
+			return (0);
+		}
+		printf("Error: Syntax error near unexpected token '|'\n");
 		return (0);
 	}
 	return (1);
@@ -86,11 +111,13 @@ int	validator(char *input)
 		return (0);
 	if (!check_quotes(input))
 		return (0);
+	if (!check_pending_pipe(input))
+		return (0);
 	if (!check_forbidden(input))
 		return (0);
 	return (1);
 	//pensaba en hacer la funcion de checkear los caracteres de redireccion,
 	//pero la ia me recomendo dejar esa parte para cuando ya tengamos los tokens
 	// que es mucho mas facil hacer eso en ese punto.
-	//tratar los "||" y el "&&"
+	//tratar los "echo || caca" y el "&&"
 }
