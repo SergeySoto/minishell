@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:28:18 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/14 20:29:27 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/15 18:44:06 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,23 @@ int	check_quotes(char *str)
 int	check_forbidden(char *str)
 {
 	int	i;
-	int	quotes; //0 = nothing, 1 = simple quotes ('), 2 = double quotes (")
+	int	quotes;
 
 	i = 0;
 	quotes = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && quotes != 2)
-			quotes = !quotes;
-		else if (str[i] == '\"' && quotes != 1)
-			quotes = !quotes;
-		if (!quotes && (str[i] == '\\' || str[i] == ';'))
+		if ((str[i] == '"' || str[i] == '\'') && quotes == 0)
+			quotes = str[i];
+		else if (str[i] == quotes)
+			quotes = 0;
+		if (quotes == 0)
 		{
-			printf("Error: Forbidden character found\n");
-			return (0);
+			if (str[i] == '\\' || str[i] == ';')
+			{
+				printf("Error: Forbidden character found\n");
+				return (0);
+			}
 		}
 		i++;
 	}
