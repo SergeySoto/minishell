@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/15 20:30:10 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/15 20:35:58 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,4 @@ int	validator(char *input)
 	if (!check_forbidden(input))
 		return (0);
 	return (1);
-	//pensaba en hacer la funcion de checkear los caracteres de redireccion,
-	//pero la ia me recomendo dejar esa parte para cuando ya tengamos los tokens
-	// que es mucho mas facil hacer eso en ese punto.
-	//tratar los "echo || caca" y el "&&"
 }
