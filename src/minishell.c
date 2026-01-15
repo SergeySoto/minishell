@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/14 20:39:24 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/15 18:01:35 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,30 @@ static void	print_tokens(t_token **head)
 	printf("-------------------------\n\n");
 }
 
+static void	input_to_token(char *input, t_token **tokens)
+{
+	char	**temp_split;
+	int		i;
+
+	add_history(input);
+	if (!validator(input))
+		return ;
+	printf("Input Valido: %s\n", input);
+	temp_split = ft_split(input, ' ');
+	i = 0;
+	while (temp_split && temp_split[i])
+	{
+		add_token_back(tokens, temp_split[i]);
+		i++;
+	}
+	free(temp_split);
+	print_tokens(tokens);
+}
+
 char	*shell_loop(void)
 {
 	char	*input;
 	t_token	*tokens;
-	char	**temp_split;
-	int		i;
 /*
 	Gestionar mas adelante el Enter sin salto de linea
 */
@@ -50,29 +68,7 @@ char	*shell_loop(void)
 			break ;
 		}
 		if (input[0] != '\0')
-		{
-			add_history(input);
-			if (!validator(input))
-			{
-				free(input);
-				continue ;
-			}
-		}
-		else
-		{
-			free(input);
-			continue ;
-		}
-		printf("Input Valido: %s\n", input);
-		temp_split = ft_split(input, ' ');
-		i = 0;
-		while (temp_split && temp_split[i])
-		{
-			add_token_back(&tokens, temp_split[i]);
-			i++;
-		}
-		free(temp_split);
-		print_tokens(&tokens);
+			input_to_token(input, &tokens);
 		free(input);
 	}
 	rl_clear_history();

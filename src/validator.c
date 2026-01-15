@@ -6,11 +6,14 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/14 20:28:04 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/15 17:42:23 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*Idea: create a function that looks for the right heredoc and if there is
+something an < after de dobule << return 0 else return 1. Check that logic*/
 
 static int	check_mid_double_pipes(char *str)
 {
