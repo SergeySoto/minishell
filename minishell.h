@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/14 20:27:52 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/16 19:31:32 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,16 @@ void	*free_token(char *str, char **env);
 t_token	*create_token(char *token, int type);
 void	add_token_back(t_token **head, char *token);
 int		is_space(char c);
-int	check_pipe(char *str);
-int	check_pending_pipe(char *str);
-int	check_quotes(char *str);
-int	check_forbidden(char *str);
+int		check_pipe(char *str);
+int		check_pending_pipe(char *str);
+int		check_quotes(char *str);
+int		check_forbidden(char *str);
+void	update_quote_status(char c, char *quotes);
 int		validator(char	*input);
 int		get_type(char *line);
+
+int		word_count(char *str);
+
 
 
 #endif

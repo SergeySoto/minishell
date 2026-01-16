@@ -28,6 +28,7 @@ SRC = \
 	$(SRC_DIR)/lexer.c\
 	$(SRC_DIR)/validator.c\
 	$(SRC_DIR)/validator_utils.c\
+	$(SRC_DIR)/new_split.c\
 				
 
 # ARCHIVOS OBJETO

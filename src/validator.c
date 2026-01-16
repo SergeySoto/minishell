@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/15 20:35:58 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/16 19:01:42 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*Idea: create a function that looks for the right heredoc and if there is
 something after de dobule << return 0 else return 1. Check that logic*/
 
-static void	update_quote_status(char c, char *quotes)
+void	update_quote_status(char c, char *quotes)
 {
 	if ((c == '"' || c == '\'') && *quotes == 0)
 		*quotes = c;
