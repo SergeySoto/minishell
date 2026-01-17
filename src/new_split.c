@@ -26,3 +26,15 @@ int	word_count(char *str)
 	}
 	return (count);
 }
+char	**c_mem(int n_words)
+{
+	char	**words;
+
+	words = malloc((n_words + 1) * sizeof(char *));
+	if (!words)
+	{
+		free(words);
+		return (NULL);
+	}
+	return (words);
+}
