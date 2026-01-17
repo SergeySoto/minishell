@@ -38,3 +38,32 @@ char	**c_mem(int n_words)
 	}
 	return (words);
 }
+
+void	fill_mem(char **str, char *input)
+{
+	int		i;
+	char	quote;
+	int		word;
+	int		start;
+
+	start = 0;
+	word = -1;
+	quote = 0;
+	i = 0;
+	while (input[i])
+	{
+		if (is_space(input[i]))
+			i++;
+		else
+		{
+			start = i;
+			while (input[i] && (!is_space(input[i]) || quote != 0))
+			{
+				update_quote_status(input[i], &quote);
+				i++;
+			}
+			str[word++] = ft_substr(input, start, i - start);
+		}
+	}
+	start[word + 1] = NULL;
+}
