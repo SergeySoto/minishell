@@ -1,7 +1,7 @@
 
 #include "../minishell.h"
 
-int	word_count(char *str)
+static int	word_count(char *str)
 {
 	int		i;
 	char	in_quotes;
@@ -26,7 +26,7 @@ int	word_count(char *str)
 	}
 	return (count);
 }
-char	**c_mem(int n_words)
+static char	**c_mem(int n_words)
 {
 	char	**words;
 
@@ -39,7 +39,7 @@ char	**c_mem(int n_words)
 	return (words);
 }
 
-void	fill_mem(char **str, char *input)
+static void	fill_mem(char **str, char *input)
 {
 	int		i;
 	char	quote;
@@ -47,7 +47,7 @@ void	fill_mem(char **str, char *input)
 	int		start;
 
 	start = 0;
-	word = -1;
+	word = 0;
 	quote = 0;
 	i = 0;
 	while (input[i])
@@ -65,5 +65,18 @@ void	fill_mem(char **str, char *input)
 			str[word++] = ft_substr(input, start, i - start);
 		}
 	}
-	start[word + 1] = NULL;
+	str[word] = NULL;
+}
+
+char	**smart_split(char *input)
+{
+	char	**words;
+
+	if (!input)
+		return (NULL);
+	words = c_mem(word_count(input));
+	if (!words)
+		return (NULL);
+	fill_mem(words, input);
+	return (words);
 }

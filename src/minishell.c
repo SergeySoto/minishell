@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/17 01:18:34 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/17 17:04:03 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	input_to_token(char *input, t_token **tokens)
 	if (!validator(input))
 		return ;
 	printf("Input Valido: %s\n", input);
-	temp_split = ft_split(input, ' ');
+	temp_split = smart_split(input);
 	i = 0;
 	while (temp_split && temp_split[i])
 	{

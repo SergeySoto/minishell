@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/16 19:31:32 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/17 17:06:43 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ int		check_forbidden(char *str);
 void	update_quote_status(char c, char *quotes);
 int		validator(char	*input);
 int		get_type(char *line);
-
-int		word_count(char *str);
+char	**smart_split(char *input);
 
 
 
