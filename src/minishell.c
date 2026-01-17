@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/16 19:39:15 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/17 01:18:34 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/*static void	print_tokens(t_token **head)
+static void	print_tokens(t_token **head)
 {
 	t_token	*temp;
 	t_token	*next;
@@ -29,9 +29,9 @@
 	}
 	*head = NULL;
 	printf("-------------------------\n\n");
-}*/
+}
 
-/*static void	input_to_token(char *input, t_token **tokens)
+static void	input_to_token(char *input, t_token **tokens)
 {
 	char	**temp_split;
 	int		i;
@@ -49,7 +49,7 @@
 	}
 	free(temp_split);
 	print_tokens(tokens);
-}*/
+}
 
 char	*shell_loop(void)
 {
@@ -69,9 +69,9 @@ char	*shell_loop(void)
 		}
 		if (input[0] != '\0')
 		{
-			printf("%d\n", word_count(input));
+			input_to_token(input, &tokens);
 		}
-			//input_to_token(input, &tokens);
+		//printf("%d\n", word_count(input));
 		free(input);
 	}
 	rl_clear_history();
