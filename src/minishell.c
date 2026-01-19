@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/17 17:04:03 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/19 20:59:11 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,52 @@ static void	print_tokens(t_token **head)
 	printf("-------------------------\n\n");
 }
 
+/**
+ * @brief Removes surrounding quotes from a string while handling nested quotes.
+ *
+ * This function iterates through the input string and copies characters to a
+ * new string, omitting quoting characters (' or ") unless they are preserved
+ * by context. It maintains a state to track whether the current character is
+ * inside quotes to correctly handle nested or escaped sequences (though logic
+ * for escaping is delegated to `update_quote_status`).
+ *
+ * @param input The input string containing potential quotes to be trimmed.
+ * @return A newly allocated string with the quotes removed. The caller is
+ *         responsible for freeing this memory.
+ */
+static char	*trim_quotes(char *input)
+{
+	int		i;
+	int		j;
+	char	quote;
+	char	*result;
+
+	i = 0;
+	j = 0;
+	quote = 0;
+	result = malloc(ft_strlen(input) + 1);
+	while (input[i])
+	{
+		update_quote_status(input[i], &quote);
+		if (quote == 0 && (input[i] == '"' || input[i] == '\''))
+			i++;
+		else if (input[i] == quote && quote != 0)
+			i++;
+		else
+		{
+			result[j] = input[i];
+			j++;
+			i++;
+		}
+	}
+	result[j] = '\0';
+	return (result);
+}
+
 static void	input_to_token(char *input, t_token **tokens)
 {
 	char	**temp_split;
+	char	*trimmed;
 	int		i;
 
 	add_history(input);
@@ -44,7 +87,9 @@ static void	input_to_token(char *input, t_token **tokens)
 	i = 0;
 	while (temp_split && temp_split[i])
 	{
-		add_token_back(tokens, temp_split[i]);
+		trimmed = trim_quotes(temp_split[i]);
+		add_token_back(tokens, trimmed);
+		free(temp_split[i]);
 		i++;
 	}
 	free(temp_split);
@@ -71,7 +116,6 @@ char	*shell_loop(void)
 		{
 			input_to_token(input, &tokens);
 		}
-		//printf("%d\n", word_count(input));
 		free(input);
 	}
 	rl_clear_history();
