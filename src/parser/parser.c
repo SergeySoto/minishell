@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validator.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/16 19:01:42 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:44:38 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../.././includes/minishell.h"
 
 /*Idea: create a function that looks for the right heredoc and if there is
 something after de dobule << return 0 else return 1. Check that logic*/
@@ -87,7 +87,7 @@ static int	check_invalid_double(char *str)
 	return (1);
 }
 
-int	validator(char *input)
+int	parser(char *input)
 {
 	if (!input)
 		return (0);

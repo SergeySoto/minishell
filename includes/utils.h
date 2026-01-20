@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/11 11:41:15 by carmegon         ###   ########.fr       */
+/*   Created: 2026/01/20 18:06:54 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/01/20 18:45:20 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-void	*free_token(char *str, char **env)
-{
-	int	i;
+void	*free_token(char *str, char **env);
 
-	if (env)
-	{
-		i = 0;
-		while (env[i])
-		{
-			free(env[i]);
-			i++;
-		}
-		free(env);
-	}
-	if (str)
-		free(str);
-	return (NULL);
-}
+#endif

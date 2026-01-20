@@ -1,5 +1,5 @@
 
-#include "../minishell.h"
+#include "../.././includes/minishell.h"
 
 static int	word_count(char *str)
 {
@@ -26,6 +26,7 @@ static int	word_count(char *str)
 	}
 	return (count);
 }
+
 static char	**c_mem(int n_words)
 {
 	char	**words;

@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/17 17:06:43 by ssoto-su         ###   ########.fr       */
+/*   Created: 2026/01/20 17:52:52 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/01/20 17:53:38 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
-# include "libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-
-//Maybe we should include an ENV_VAR (enviroment variables )for the $USER
 typedef enum e_type
 {
 	WORD,
@@ -69,22 +61,5 @@ typedef struct s_mini
 	int		stdin_backup;
 	int		stdout_backup;
 }	t_mini;
-
-// -- Error function -- //
-void	*free_token(char *str, char **env);
-// -- Lists functions -- //
-t_token	*create_token(char *token, int type);
-void	add_token_back(t_token **head, char *token);
-int		is_space(char c);
-int		check_pipe(char *str);
-int		check_pending_pipe(char *str);
-int		check_quotes(char *str);
-int		check_forbidden(char *str);
-void	update_quote_status(char c, char *quotes);
-int		validator(char	*input);
-int		get_type(char *line);
-char	**smart_split(char *input);
-
-
 
 #endif

@@ -23,12 +23,11 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC = \
 	$(SRC_DIR)/minishell.c \
-	$(SRC_DIR)/error.c \
-	$(SRC_DIR)/token_utils.c \
-	$(SRC_DIR)/lexer.c\
-	$(SRC_DIR)/validator.c\
-	$(SRC_DIR)/validator_utils.c\
-	$(SRC_DIR)/new_split.c\
+	$(SRC_DIR)/utils/free.c \
+	$(SRC_DIR)/lexer/tokenizer.c \
+	$(SRC_DIR)/lexer/smart_split.c \
+	$(SRC_DIR)/parser/parser.c \
+	$(SRC_DIR)/parser/parser_utils.c
 				
 
 # ARCHIVOS OBJETO
