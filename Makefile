@@ -24,8 +24,10 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC = \
 	$(SRC_DIR)/minishell.c \
 	$(SRC_DIR)/utils/free.c \
+	$(SRC_DIR)/utils/token_utils.c \
 	$(SRC_DIR)/lexer/tokenizer.c \
 	$(SRC_DIR)/lexer/smart_split.c \
+	$(SRC_DIR)/lexer/expander.c \
 	$(SRC_DIR)/parser/parser.c \
 	$(SRC_DIR)/parser/parser_utils.c
 				

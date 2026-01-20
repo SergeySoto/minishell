@@ -1,45 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/20 20:15:58 by ssoto-su         ###   ########.fr       */
+/*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/01/20 20:12:50 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	*shell_loop(void)
+void	expand_checker(t_token *lst)
 {
-	char	*input;
-	t_token	*tokens;
-/*
-	Gestionar mas adelante el Enter sin salto de linea
-*/
-	tokens = NULL;
-	while (1)
+	int		i;
+	char	quote;
+
+	if (!lst || !lst->content)
+		return ;
+	quote = 0;
+	i = 0;
+	while (lst->content[i])
 	{
-		input = readline("Minishell$> ");
-		if (!input)
+		update_quote_status(lst->content[i], &quote);
+		if (lst->content[i] == '$' && quote != '\'')
 		{
-			printf("exit\n");
+			lst->expand = 1;
 			break ;
 		}
-		if (input[0] != '\0')
-		{
-			input_to_token(input, &tokens);
-		}
-		free(input);
+		i++;
 	}
-	rl_clear_history();
-	return (NULL);
 }
 
-int	main(void)
+void	ft_lstiter(t_token *lst, void (*f)(t_token *))
 {
-	shell_loop();
-	return (0);
+	if (!lst)
+		return ;
+	while (lst != NULL)
+	{
+		f(lst);
+		lst = lst->next;
+	}
 }

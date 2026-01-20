@@ -6,30 +6,11 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/20 18:52:03 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/20 20:12:10 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../.././includes/minishell.h"
-
-static void	print_tokens(t_token **head)
-{
-	t_token	*temp;
-	t_token	*next;
-
-	temp = *head;
-	printf("\n--- VISTAS DE NODOS ---\n");
-	while (temp)
-	{
-		printf("Token: [%s] | Type: %d\n", temp->content, temp->type);
-		next = temp->next;
-		free(temp->content);
-		free(temp);
-		temp = next;
-	}
-	*head = NULL;
-	printf("-------------------------\n\n");
-}
 
 static int	get_type(char *line)
 {
@@ -97,5 +78,6 @@ void	input_to_token(char *input, t_token **tokens)
 		i++;
 	}
 	free(temp_split);
+	ft_lstiter(*tokens, expand_checker);
 	print_tokens(tokens);
 }
