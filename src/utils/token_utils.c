@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/21 17:46:15 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/21 20:32:57 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_tokens(t_token **head)
 	printf("\n--- VISTAS DE NODOS ---\n");
 	while (temp)
 	{
-		printf("Token: [%s] | Expand: %d\n", temp->content, temp->expand);
+		printf("Token: [%s] | Type: %u | Expand: %d\n", temp->content, temp->type, temp->expand);
 		next = temp->next;
 		free(temp->content);
 		free(temp);
