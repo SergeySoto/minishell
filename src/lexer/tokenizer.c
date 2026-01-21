@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/20 20:12:10 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/21 17:52:46 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	add_token_back(t_token **head, char *token)
 void	input_to_token(char *input, t_token **tokens)
 {
 	char	**temp_split;
-	//char	*trimmed;
 	int		i;
 
 	add_history(input);
@@ -71,13 +70,11 @@ void	input_to_token(char *input, t_token **tokens)
 	i = 0;
 	while (temp_split && temp_split[i])
 	{
-		//trimmed = trim_quotes(temp_split[i]);
-		//add_token_back(tokens, trimmed);
 		add_token_back(tokens, temp_split[i]);
-		//free(temp_split[i]);
 		i++;
 	}
 	free(temp_split);
 	ft_lstiter(*tokens, expand_checker);
+	ft_lstiter(*tokens, trim_quotes);
 	print_tokens(tokens);
 }
