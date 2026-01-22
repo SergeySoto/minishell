@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/21 20:32:57 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/22 19:46:53 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	ft_lstiter(t_token *lst, void (*f)(t_token *))
 	}
 }
 
-void	print_tokens(t_token **head)
+void	print_tokens(t_token *head)
 {
 	t_token	*temp;
 	t_token	*next;
 
-	temp = *head;
+	temp = head;
 	printf("\n--- VISTAS DE NODOS ---\n");
 	while (temp)
 	{
@@ -38,7 +38,7 @@ void	print_tokens(t_token **head)
 		free(temp);
 		temp = next;
 	}
-	*head = NULL;
+	head = NULL;
 	printf("-------------------------\n\n");
 }
 
@@ -70,19 +70,6 @@ static void	trim_loop(t_token *lst, char *result)
 	lst->content = result;
 }
 
-/**
- * @brief Removes surrounding quotes from a string while handling nested quotes.
- *
- * This function iterates through the input string and copies characters to a
- * new string, omitting quoting characters (' or ") unless they are preserved
- * by context. It maintains a state to track whether the current character is
- * inside quotes to correctly handle nested or escaped sequences (though logic
- * for escaping is delegated to `update_quote_status`).
- *
- * @param input The input string containing potential quotes to be trimmed.
- * @return A newly allocated string with the quotes removed. The caller is
- *         responsible for freeing this memory.
- */
 void	trim_quotes(t_token *lst)
 {
 	char	quote;

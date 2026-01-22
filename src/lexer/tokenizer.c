@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/21 20:22:24 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/22 19:49:50 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ void	add_token_back(t_token **head, char *token)
 	temp->next = create_token(token, get_type(token));
 }
 
-void	input_to_token(char *input, t_token **tokens)
+void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 {
 	char	**temp_split;
 	int		i;
-
+	/* creo que debemos crear la estructura t_mini aqui y asignar la estructura
+	t_token al puntero de la estrutura t_mini. */
 	add_history(input);
 	if (!parser(input))
 		return ;
@@ -77,5 +78,6 @@ void	input_to_token(char *input, t_token **tokens)
 	ft_lstiter(*tokens, expand_checker);
 	ft_lstiter(*tokens, trim_quotes);
 	ft_lstiter(*tokens, heredoc_bf_dollar);
-	print_tokens(tokens);
+	mini->tokens = (*tokens);
+	print_tokens(mini->tokens);
 }
