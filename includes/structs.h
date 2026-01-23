@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 17:52:52 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/20 17:53:38 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/21 20:05:03 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 typedef enum e_type
 {
 	WORD,
-	PIPE,
+	PIPE, //|
 	REDIR_IN, //<
 	REDIR_OUT, //>
 	HEREDOC, //<< [cite: 115]
 	APPEND, //>> [cite: 117]
+	ENV_VAR, //$USER
+	EXIT_STATUS, //$?
 }	t_type;
 
 /* 
