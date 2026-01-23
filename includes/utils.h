@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:06:54 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/22 19:45:10 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/23 19:48:32 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	*free_token(char *str, char **env);
 void	print_tokens(t_token *head);
+void	free_struct_token(t_token **token);
+void	free_struct_mini(t_mini *mini);
 /**
  * @brief Removes surrounding quotes from a string while handling nested quotes.
  *
