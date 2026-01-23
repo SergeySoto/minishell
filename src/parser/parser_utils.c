@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:28:18 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/20 18:44:33 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/23 16:50:19 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	is_space(char c)
 int	check_pipe(char *str)
 {
 	int	i;
-
 	i = 0;
 	while (str[i] && is_space(str[i]))
 		i++;
@@ -64,6 +63,7 @@ int	check_quotes(char *str)
 
 	quotes = 0;
 	i = 0;
+
 	while (str[i])
 	{
 		if ((str[i] == '"' || str[i] == '\'') && quotes == 0)
@@ -78,6 +78,19 @@ int	check_quotes(char *str)
 		return (0);
 	}
 	return (1);
+}
+/* 
+	Creo una funcion que devuelva el caracter " o ' en caso de que check_quote haya encontrado una de estas comillas cerradas!
+*/
+
+char	get_quote(char *input)
+{
+	char	quote;
+
+	quote = '\0';
+	if (check_quotes(input) == 1)
+		quote = *input;
+	return (quote);
 }
 
 int	check_forbidden(char *str)
