@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:28:18 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/20 18:44:33 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/23 16:50:19 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	is_space(char c)
 int	check_pipe(char *str)
 {
 	int	i;
-
 	i = 0;
 	while (str[i] && is_space(str[i]))
 		i++;
