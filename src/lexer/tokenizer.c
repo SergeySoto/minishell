@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_utils.c                                      :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/13 20:47:58 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/21 17:52:46 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../.././includes/minishell.h"
+
+static int	get_type(char *line)
+{
+	if (ft_strncmp(line, "|", 2) == 0)
+		return (1);
+	else if (ft_strncmp(line, "<", 2) == 0)
+		return (2);
+	else if (ft_strncmp(line, ">", 2) == 0)
+		return (3);
+	else if (ft_strncmp(line, "<<", 3) == 0)
+		return (4);
+	else if (ft_strncmp(line, ">>", 3) == 0)
+		return (5);
+	else
+		return (0);
+}
 
 t_token	*create_token(char *str, int type)
 {
@@ -39,4 +55,26 @@ void	add_token_back(t_token **head, char *token)
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = create_token(token, get_type(token));
+}
+
+void	input_to_token(char *input, t_token **tokens)
+{
+	char	**temp_split;
+	int		i;
+
+	add_history(input);
+	if (!parser(input))
+		return ;
+	printf("Input Valido: %s\n", input);
+	temp_split = smart_split(input);
+	i = 0;
+	while (temp_split && temp_split[i])
+	{
+		add_token_back(tokens, temp_split[i]);
+		i++;
+	}
+	free(temp_split);
+	ft_lstiter(*tokens, expand_checker);
+	ft_lstiter(*tokens, trim_quotes);
+	print_tokens(tokens);
 }
