@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/23 19:53:36 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/23 21:16:47 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,64 @@ void	heredoc_bf_dollar(t_token *lst)
 		lst->next->expand = 0;
 }
 
-int	get_name_len(t_token *lst)
+static int	get_after_dollar(char *str)
 {
 	int		i;
-	char	*new_str;
 
 	i = 0;
-	while (lst->content[i])
+	while (str[i])
 	{
-		if (lst->content[i] == '$')
+		if (str[i] == '$')
 		{
 			return (i + 1);
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	get_env_value(t_mini *mini)
+static int	get_len(char *str, int c)
 {
 	int	i;
 
 	i = 0;
-	while (mini->env[i])
+	while (str[i] != c)
+		i++;
+	return (i);
+}
+
+static t_token	*is_expander(t_token *tokens)
+{
+	if (tokens->expand == 1)
+		return (tokens);
+	else
+		return (tokens);
+}
+
+void	get_env_value(t_mini *mini)
+{
+	int		i;
+	t_token	*tokens;
+	char	**envp;
+	int		pos;
+	char	*str;
+
+	tokens = (*mini).tokens;
+	envp = mini->env;
+	i = 0;
+	while (tokens)
 	{
-		if (ft_strncmp(mini->env[i], mini->tokens->content[i], get_name_len(mini->tokens)))
+		if (is_expander(tokens))
+		{
+			pos = get_after_dollar(tokens->content);
+			str = tokens->content;
+			while (envp[i])
+			{
+				//revisar la longitud completa y el caracter siguiente si es un '='
+				if (ft_strncmp(envp[i], &tokens->content[pos], ft_strlen(str)))
+				i++;
+			}
+		}
+		tokens = tokens->next;
 	}
 }
