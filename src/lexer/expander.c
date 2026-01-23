@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/22 20:23:03 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/23 19:48:18 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,17 @@ void	heredoc_bf_dollar(t_token *lst)
 
 int	get_name_len(t_token *lst)
 {
-	int	i;
-	int	j;
+	int		i;
+	char	*new_str;
 
 	i = 0;
-	if (lst->expand == 1)
+	while (lst->content[i])
 	{
-		while (lst->content[i])
+		if (lst->content[i] == '$')
 		{
-			if (lst->content[i] == '$')
-			{
-				j = i + 1;
-				while (lst->content[j])
-					j++;
-				return (j - i);
-			}
-			i++;
+			return (i + 1);
 		}
+		i++;
 	}
 }
 
@@ -78,6 +72,6 @@ void	get_env_value(t_mini *mini)
 	i = 0;
 	while (mini->env[i])
 	{
-		if (ft_strncmp(mini->env[i], aqui el comando sin el $, get_name_len(mini->tokens)))
+		if (ft_strncmp(mini->env[i], mini->tokens->content[i], get_name_len(mini->tokens)))
 	}
 }

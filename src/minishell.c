@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/23 18:07:11 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/23 19:08:00 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int ac, char **av, char **envp)
 	t_mini	mini;
 
 	ft_bzero(&mini, sizeof(t_mini));
-	mini.env = envp;
+	mini.env = dup_arr(envp);
 	shell_loop(&mini);
 	return (0);
 }
