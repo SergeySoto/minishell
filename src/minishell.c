@@ -6,22 +6,22 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/20 20:15:58 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/23 17:31:46 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include ".././includes/minishell.h"
 
-char	*shell_loop(void)
+char	*shell_loop(t_mini *mini)
 {
 	char	*input;
 	t_token	*tokens;
 /*
 	Gestionar mas adelante el Enter sin salto de linea
 */
-	tokens = NULL;
 	while (1)
 	{
+		tokens = NULL;
 		input = readline("Minishell$> ");
 		if (!input)
 		{
@@ -30,7 +30,7 @@ char	*shell_loop(void)
 		}
 		if (input[0] != '\0')
 		{
-			input_to_token(input, &tokens);
+			input_to_token(input, &tokens, mini);
 		}
 		free(input);
 	}
@@ -38,10 +38,14 @@ char	*shell_loop(void)
 	return (NULL);
 }
 
-
-
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
-	shell_loop();
+	(void)ac;
+	(void)av;
+	t_mini	mini;
+
+	ft_bzero(&mini, sizeof(t_mini));
+	mini.env = envp;
+	shell_loop(&mini);
 	return (0);
 }

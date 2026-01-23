@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 17:52:52 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/21 20:05:03 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/22 15:41:27 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ typedef enum e_type
 	EXIT_STATUS, //$?
 }	t_type;
 
-/* 
-	Añado otra variable a esta struct para saber si tiene el metacaracter '$'.
-	En caso de NO tenerlo, expand = 0; en caso afirmativo expand = 1.
-	Asi sabemos que luego debemos expandir este token!
-*/
 typedef struct s_token
 {
 	char			*content;
@@ -57,7 +52,6 @@ typedef struct s_mini
 	t_token	*tokens;
 	t_cmd	*cmds;
 	// ---STATUS---
-	// -- Añadido exit_status para el futuro -- //
 	int		exit_status; // Símbolo especial $?
 	// ---CONTROL---
 	int		stdin_backup;
