@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/23 19:48:21 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/23 20:32:17 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	free_struct_mini(t_mini *mini)
 		free_struct_token(&mini->tokens);
 	if (mini->input || mini->env)
 	{
-		free_token(mini->input, &mini->env);
+		free_token(mini->input, mini->env);
 		mini->input = NULL;
 		mini->env = NULL;
 	}
