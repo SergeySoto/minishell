@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/20 18:44:43 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/23 19:48:21 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,36 @@ void	*free_token(char *str, char **env)
 	if (str)
 		free(str);
 	return (NULL);
+}
+
+void	free_struct_token(t_token **token)
+{
+	t_token	*temp;
+	
+	if (!token || !*token)
+		return ;
+	
+	while ((*token) != NULL)
+	{
+		temp = (*token)->next;
+		free((*token)->content);
+		free((*token));
+		(*token) = temp;
+	}
+}
+
+void	free_struct_mini(t_mini *mini)
+{
+	if (!mini)
+		return ;
+
+	if (mini->tokens)
+		free_struct_token(&mini->tokens);
+	if (mini->input || mini->env)
+	{
+		free_token(mini->input, &mini->env);
+		mini->input = NULL;
+		mini->env = NULL;
+	}
+	// FALTA LIBERAR LOS CMDS, PERO AUN NO LOS TENEMOS
 }
