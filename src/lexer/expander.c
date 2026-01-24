@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/23 21:19:17 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/24 23:13:50 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,38 +75,58 @@ static int	get_len(char *str, int c)
 	return (i);
 }
 
-static t_token	*is_expander(t_token *tokens)
-{
-	if (tokens->expand == 1)
-		return (tokens);
-	else
-		return (tokens);
-}
-
-void	get_env_value(t_mini *mini)
+char	*get_env_content( char *var_name, char **envp)
 {
 	int		i;
-	t_token	*tokens;
-	char	**envp;
-	int		pos;
-	char	*str;
+	int		len_name;
 
-	tokens = (*mini).tokens;
-	envp = mini->env;
 	i = 0;
-	while (tokens)
+	len_name = ft_strlen(var_name);
+	while (envp[i])
 	{
-		if (is_expander(tokens))
-		{
-			pos = get_after_dollar(tokens->content);
-			str = tokens->content;
-			while (envp[i])
-			{
-				//revisar la longitud completa y el caracter siguiente si es un '='
-				if (ft_strncmp(envp[i], &tokens->content[pos], ft_strlen(str)))
-				i++;
-			}
-		}
-		tokens = tokens->next;
+		if ((ft_strncmp(envp[i], var_name, len_name) == 0) && envp[i][len_name] == '=')
+			return (ft_strdup(&envp[i][len_name + 1]));
+		i++;
 	}
+	return (ft_strdup(""));
+}
+
+char	*get_var_name(char *str)
+{
+	int		i;
+
+	if (str[0] == '?')
+		return (ft_strdup("?"));
+	else
+	{
+		i = 0;
+		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+			i++;
+		return (ft_substr(str, 0, i));
+	}
+}
+
+char	*replace_string(char *str, char *replacement, int start, int len_remove)
+{
+	int		len_mid;
+	char	*new_str;
+	int		len_end;
+	int		len_str;
+	int		i;
+
+	len_str = ft_strlen(str);
+	len_mid = (start + len_remove) - ft_strlen(replacement);
+	new_str = malloc(start + len_mid + len_str + 1);
+	if (!new_str)
+		return (NULL);
+	ft_strlcpy(new_str, str, start);
+	ft_strlcat(new_str, replacement, len_mid);
+	i = start + len_remove;
+	while (str[i])
+	{
+		new_str[i] = str[i];
+		i++;
+	}
+	new_str[i] = '\0';
+	return (new_str);
 }
