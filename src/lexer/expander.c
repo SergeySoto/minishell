@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/24 23:13:50 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/25 13:42:51 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,25 +108,15 @@ char	*get_var_name(char *str)
 
 char	*replace_string(char *str, char *replacement, int start, int len_remove)
 {
-	int		len_mid;
+	int		len_total;
 	char	*new_str;
-	int		len_end;
-	int		len_str;
-	int		i;
 
-	len_str = ft_strlen(str);
-	len_mid = (start + len_remove) - ft_strlen(replacement);
-	new_str = malloc(start + len_mid + len_str + 1);
+	len_total = ft_strlen(str) + ft_strlen(replacement) - len_remove;
+	new_str = malloc(sizeof(char) * (len_total + 1));
 	if (!new_str)
 		return (NULL);
-	ft_strlcpy(new_str, str, start);
-	ft_strlcat(new_str, replacement, len_mid);
-	i = start + len_remove;
-	while (str[i])
-	{
-		new_str[i] = str[i];
-		i++;
-	}
-	new_str[i] = '\0';
+	ft_strlcpy(new_str, str, start + 1);
+	ft_strlcat(new_str, replacement, len_total + 1);
+	ft_strlcat(new_str, &str[start + len_remove], len_total + 1);
 	return (new_str);
 }
