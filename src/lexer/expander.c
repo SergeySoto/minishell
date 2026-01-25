@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/25 13:42:51 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/26 00:44:18 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,32 +65,6 @@ static int	get_after_dollar(char *str)
 	return (0);
 }
 
-static int	get_len(char *str, int c)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != c)
-		i++;
-	return (i);
-}
-
-char	*get_env_content( char *var_name, char **envp)
-{
-	int		i;
-	int		len_name;
-
-	i = 0;
-	len_name = ft_strlen(var_name);
-	while (envp[i])
-	{
-		if ((ft_strncmp(envp[i], var_name, len_name) == 0) && envp[i][len_name] == '=')
-			return (ft_strdup(&envp[i][len_name + 1]));
-		i++;
-	}
-	return (ft_strdup(""));
-}
-
 char	*get_var_name(char *str)
 {
 	int		i;
@@ -106,6 +80,22 @@ char	*get_var_name(char *str)
 	}
 }
 
+char	*get_env_content(char *var_name, char **envp)
+{
+	int		i;
+	int		len_name;
+
+	i = 0;
+	len_name = ft_strlen(var_name);
+	while (envp[i])
+	{
+		if ((ft_strncmp(envp[i], var_name, len_name) == 0) && envp[i][len_name] == '=')
+			return (ft_strdup(&envp[i][len_name + 1]));
+		i++;
+	}
+	return (ft_strdup(""));
+}
+
 char	*replace_string(char *str, char *replacement, int start, int len_remove)
 {
 	int		len_total;
@@ -119,4 +109,30 @@ char	*replace_string(char *str, char *replacement, int start, int len_remove)
 	ft_strlcat(new_str, replacement, len_total + 1);
 	ft_strlcat(new_str, &str[start + len_remove], len_total + 1);
 	return (new_str);
+}
+
+void	expander(t_mini *mini)
+{
+	int		dollar_pos;
+	char	*content;
+	t_token	*tmp;
+	char	*tmp_content;
+	char	*var_name;
+
+	tmp = mini->tokens;
+	while (tmp)
+	{
+		if (tmp->expand == 1)
+		{
+			dollar_pos = get_after_dollar(tmp->content);
+			var_name = get_var_name(&tmp->content[dollar_pos]);
+			content = get_env_content( var_name, mini->env);
+			tmp_content = tmp->content;
+			tmp->content = replace_string(tmp_content, content, dollar_pos - 1, ft_strlen(var_name) + 1);
+			free(tmp_content);
+			free(var_name);
+			free(content);
+		}
+		tmp = tmp->next;
+	}
 }
