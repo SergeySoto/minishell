@@ -3,81 +3,110 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/23 21:02:13 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:41:56 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	expand_checker(t_token *lst)
+static char	*get_var_name(char *str)
 {
 	int		i;
-	char	quote;
 
-	i = 0;
-	quote = 0;
-	while (lst->content[i])
+	if (str[0] == '?')
+		return (ft_strdup("?"));
+	else
 	{
-		update_quote_status(lst->content[i], &quote);
-		if (lst->content[i] == '$' && quote != '\'')
-		{
-			if (lst->content[i + 1] == '?')
-			{
-				lst->type = 7;
-				lst->expand = 1;
-			}
-			else if (ft_isalnum(lst->content[i + 1])
-				|| lst->content[i + 1] == '_')
-			{
-				lst->type = 6;
-				lst->expand = 1;
-			}
-			break ;
-		}
+		i = 0;
+		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+			i++;
+		return (ft_substr(str, 0, i));
+	}
+}
+
+static char	*get_env_content(char *var_name, t_mini *mini)
+{
+	int		i;
+	int		len_name;
+	char	**envp;
+
+	envp = mini->env;
+	if (ft_strncmp(var_name, "?", 2) == 0)
+		return (ft_itoa(mini->exit_status));
+	i = 0;
+	len_name = ft_strlen(var_name);
+	while (envp[i])
+	{
+		if ((ft_strncmp(envp[i], var_name, len_name) == 0)
+			&& envp[i][len_name] == '=')
+			return (ft_strdup(&envp[i][len_name + 1]));
 		i++;
 	}
+	return (ft_strdup(""));
 }
 
-void	heredoc_bf_dollar(t_token *lst)
+static char	*replace_string(char *str, char *replacement, int start, int len_remove)
 {
-	if (!lst || !lst->content)
+	int		len_total;
+	char	*new_str;
+
+	len_total = ft_strlen(str) + ft_strlen(replacement) - len_remove;
+	new_str = malloc(sizeof(char) * (len_total + 1));
+	if (!new_str)
+		return (NULL);
+	ft_strlcpy(new_str, str, start + 1);
+	ft_strlcat(new_str, replacement, len_total + 1);
+	ft_strlcat(new_str, &str[start + len_remove], len_total + 1);
+	return (new_str);
+}
+
+static void	perform_expansion(t_token *token, int dollar_pos, t_mini *mini)
+{
+	char	*var_name;
+	char	*env_value;
+	char	*new_content;
+
+	var_name = get_var_name(&token->content[dollar_pos]);
+	if (!var_name)
 		return ;
-	if (lst->type == 4 && lst->next->expand == 1)
-		lst->next->expand = 0;
-}
-
-int	get_name_len(t_token *lst)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (lst->expand == 1)
+	env_value = get_env_content(var_name, mini);
+	if (!env_value)
 	{
-		while (lst->content[i])
-		{
-			if (lst->content[i] == '$')
-			{
-				j = i + 1;
-				while (lst->content[j])
-					j++;
-				return (j - i);
-			}
-			i++;
-		}
+		free(var_name);
+		return ;
 	}
+	new_content = replace_string(token->content, env_value,
+			dollar_pos - 1, ft_strlen(var_name) + 1);
+	if (new_content)
+	{
+		free(token->content);
+		token->content = new_content;
+	}
+	free(var_name);
+	free(env_value);
 }
 
-void	get_env_value(t_mini *mini)
+void	expander(t_mini *mini)
 {
-	int	i;
+	int		dollar_pos;
+	t_token	*tmp;
 
-	i = 0;
-	while (mini->env[i])
+	tmp = mini->tokens;
+	while (tmp)
 	{
-		if (ft_strncmp(mini->env[i], aqui el comando sin el $, get_name_len(mini->tokens)))
+		if (tmp->expand == 1)
+		{
+			dollar_pos = get_after_dollar(tmp->content);
+			while (dollar_pos != 0)
+			{
+				perform_expansion(tmp, dollar_pos, mini);
+				tmp->expand = 0;
+				dollar_pos = get_after_dollar(tmp->content);
+			}
+		}
+		tmp = tmp->next;
 	}
 }
