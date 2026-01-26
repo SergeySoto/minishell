@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/26 17:56:28 by carmegon         ###   ########.fr       */
+/*   Created: 2026/01/26 16:54:59 by carmegon          #+#    #+#             */
+/*   Updated: 2026/01/26 17:50:49 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../includes/minishell.h"
 
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
-# include "libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
+int	ft_pwd(void)
+{
+	char	*cwd;
 
-# include "structs.h"
-# include "lexer.h"
-# include "parser.h"
-# include "utils.h"
+	cwd = getcwd(NULL, 0);
+	if (cwd)
+	{
+		printf("%s\n", cwd);
+		free(cwd);
+	}
+	else
+	{
+		perror("pwd");
+		return (0);
+	}
+	return (1);
+}
 
-// FUNCIONES BUILTINS AQUI POR AHORA
-int	ft_pwd(void);
-
-#endif
