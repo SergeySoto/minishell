@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/23 21:01:53 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:25:05 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*shell_loop(t_mini *mini)
 		{
 			input_to_token(input, &tokens, mini);
 		}
+		if (mini->tokens)
+			free_struct_token(&mini->tokens);
 		free(input);
 	}
 	rl_clear_history();
@@ -45,7 +47,8 @@ int	main(int ac, char **av, char **envp)
 	t_mini	mini;
 
 	ft_bzero(&mini, sizeof(t_mini));
-	mini.env = envp;
+	mini.env = dup_arr(envp);
 	shell_loop(&mini);
+	free_struct_mini(&mini);
 	return (0);
 }

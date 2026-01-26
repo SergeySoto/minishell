@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/22 19:49:50 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/26 18:11:43 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 	}
 	free(temp_split);
 	ft_lstiter(*tokens, expand_checker);
-	ft_lstiter(*tokens, trim_quotes);
 	ft_lstiter(*tokens, heredoc_bf_dollar);
 	mini->tokens = (*tokens);
+	expander(mini);
+	ft_lstiter(*tokens, trim_quotes);
 	print_tokens(mini->tokens);
 }

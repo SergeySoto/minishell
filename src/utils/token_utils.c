@@ -6,11 +6,36 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/22 19:46:53 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:23:07 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	**dup_arr(char **envp)
+{
+	int		i;
+	char	**result;
+
+	i = 0;
+	if (!envp)
+		return (NULL);
+	while (envp[i])
+		i++;
+	result = malloc(sizeof(char *) * (i + 1));
+	if (!result)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		result[i] = ft_strdup(envp[i]);
+		if (!result[i])
+			return (NULL);
+		i++;
+	}
+	result[i] = NULL;
+	return (result);
+}
 
 void	ft_lstiter(t_token *lst, void (*f)(t_token *))
 {
@@ -34,8 +59,6 @@ void	print_tokens(t_token *head)
 	{
 		printf("Token: [%s] | Type: %u | Expand: %d\n", temp->content, temp->type, temp->expand);
 		next = temp->next;
-		free(temp->content);
-		free(temp);
 		temp = next;
 	}
 	head = NULL;

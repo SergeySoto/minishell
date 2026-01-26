@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/23 20:32:17 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:24:43 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	free_struct_token(t_token **token)
 		free((*token));
 		(*token) = temp;
 	}
+	*token = NULL;
 }
 
 void	free_struct_mini(t_mini *mini)
