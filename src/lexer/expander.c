@@ -3,69 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/26 00:44:18 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:41:56 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	expand_checker(t_token *lst)
-{
-	int		i;
-	char	quote;
-
-	i = 0;
-	quote = 0;
-	while (lst->content[i])
-	{
-		update_quote_status(lst->content[i], &quote);
-		if (lst->content[i] == '$' && quote != '\'')
-		{
-			if (lst->content[i + 1] == '?')
-			{
-				lst->type = 7;
-				lst->expand = 1;
-			}
-			else if (ft_isalnum(lst->content[i + 1])
-				|| lst->content[i + 1] == '_')
-			{
-				lst->type = 6;
-				lst->expand = 1;
-			}
-			break ;
-		}
-		i++;
-	}
-}
-
-void	heredoc_bf_dollar(t_token *lst)
-{
-	if (!lst || !lst->content)
-		return ;
-	if (lst->type == 4 && lst->next->expand == 1)
-		lst->next->expand = 0;
-}
-
-static int	get_after_dollar(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-		{
-			return (i + 1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-char	*get_var_name(char *str)
+static char	*get_var_name(char *str)
 {
 	int		i;
 
@@ -80,23 +27,28 @@ char	*get_var_name(char *str)
 	}
 }
 
-char	*get_env_content(char *var_name, char **envp)
+static char	*get_env_content(char *var_name, t_mini *mini)
 {
 	int		i;
 	int		len_name;
+	char	**envp;
 
+	envp = mini->env;
+	if (ft_strncmp(var_name, "?", 2) == 0)
+		return (ft_itoa(mini->exit_status));
 	i = 0;
 	len_name = ft_strlen(var_name);
 	while (envp[i])
 	{
-		if ((ft_strncmp(envp[i], var_name, len_name) == 0) && envp[i][len_name] == '=')
+		if ((ft_strncmp(envp[i], var_name, len_name) == 0)
+			&& envp[i][len_name] == '=')
 			return (ft_strdup(&envp[i][len_name + 1]));
 		i++;
 	}
 	return (ft_strdup(""));
 }
 
-char	*replace_string(char *str, char *replacement, int start, int len_remove)
+static char	*replace_string(char *str, char *replacement, int start, int len_remove)
 {
 	int		len_total;
 	char	*new_str;
@@ -111,13 +63,36 @@ char	*replace_string(char *str, char *replacement, int start, int len_remove)
 	return (new_str);
 }
 
+static void	perform_expansion(t_token *token, int dollar_pos, t_mini *mini)
+{
+	char	*var_name;
+	char	*env_value;
+	char	*new_content;
+
+	var_name = get_var_name(&token->content[dollar_pos]);
+	if (!var_name)
+		return ;
+	env_value = get_env_content(var_name, mini);
+	if (!env_value)
+	{
+		free(var_name);
+		return ;
+	}
+	new_content = replace_string(token->content, env_value,
+			dollar_pos - 1, ft_strlen(var_name) + 1);
+	if (new_content)
+	{
+		free(token->content);
+		token->content = new_content;
+	}
+	free(var_name);
+	free(env_value);
+}
+
 void	expander(t_mini *mini)
 {
 	int		dollar_pos;
-	char	*content;
 	t_token	*tmp;
-	char	*tmp_content;
-	char	*var_name;
 
 	tmp = mini->tokens;
 	while (tmp)
@@ -125,13 +100,12 @@ void	expander(t_mini *mini)
 		if (tmp->expand == 1)
 		{
 			dollar_pos = get_after_dollar(tmp->content);
-			var_name = get_var_name(&tmp->content[dollar_pos]);
-			content = get_env_content( var_name, mini->env);
-			tmp_content = tmp->content;
-			tmp->content = replace_string(tmp_content, content, dollar_pos - 1, ft_strlen(var_name) + 1);
-			free(tmp_content);
-			free(var_name);
-			free(content);
+			while (dollar_pos != 0)
+			{
+				perform_expansion(tmp, dollar_pos, mini);
+				tmp->expand = 0;
+				dollar_pos = get_after_dollar(tmp->content);
+			}
 		}
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/23 19:07:09 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:23:07 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	print_tokens(t_token *head)
 	{
 		printf("Token: [%s] | Type: %u | Expand: %d\n", temp->content, temp->type, temp->expand);
 		next = temp->next;
-		free(temp->content);
-		free(temp);
 		temp = next;
 	}
 	head = NULL;
