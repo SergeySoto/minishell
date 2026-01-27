@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/26 19:41:56 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:33:28 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@ static char	*get_env_content(char *var_name, t_mini *mini)
 	return (ft_strdup(""));
 }
 
-static char	*replace_string(char *str, char *replacement, int start, int len_remove)
+static char	*replace_string(char *str, char *replace, int start, int len_remove)
 {
 	int		len_total;
 	char	*new_str;
 
-	len_total = ft_strlen(str) + ft_strlen(replacement) - len_remove;
+	len_total = ft_strlen(str) + ft_strlen(replace) - len_remove;
 	new_str = malloc(sizeof(char) * (len_total + 1));
 	if (!new_str)
 		return (NULL);
 	ft_strlcpy(new_str, str, start + 1);
-	ft_strlcat(new_str, replacement, len_total + 1);
+	ft_strlcat(new_str, replace, len_total + 1);
 	ft_strlcat(new_str, &str[start + len_remove], len_total + 1);
 	return (new_str);
 }
