@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/27 17:50:58 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:33:27 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ int	main(int ac, char **av, char **envp)
 
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.env = dup_arr(envp);
-	char *test_av[] = {"env", "algo", NULL};
-	//shell_loop(&mini);
-	ft_env(&mini, test_av);
+	shell_loop(&mini);
 	free_struct_mini(&mini);
 	return (0);
 }
