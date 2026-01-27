@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/26 17:56:28 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:44:47 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@
 
 // FUNCIONES BUILTINS AQUI POR AHORA
 int	ft_pwd(void);
+int	ft_env(t_mini *mini, char **av);
 
 #endif

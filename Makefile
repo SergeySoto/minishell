@@ -30,7 +30,9 @@ SRC = \
 	$(SRC_DIR)/lexer/expander.c \
 	$(SRC_DIR)/lexer/expander_utils.c \
 	$(SRC_DIR)/parser/parser.c \
-	$(SRC_DIR)/parser/parser_utils.c
+	$(SRC_DIR)/parser/parser_utils.c \
+	$(SRC_DIR)/builtins/pwd.c \
+	$(SRC_DIR)/builtins/env.c \
 				
 
 # ARCHIVOS OBJETO

@@ -1,18 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 18:08:14 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/26 20:46:44 by carmegon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/minishell.h"
 
-char	*ft_env(t_mini mini)
+int	ft_env(t_mini *mini, char **av)
 {
-	while (mini.env)
+	int	i;
+	
+	if (!mini || !mini->env)
+		return (0);
+	
+	if (av[1] != NULL)
+	{
+		printf("env: '%s': No such file or directory\n", av[1]);
+		return (127);
+	}
+	i = 0;
+	while (mini->env[i] != NULL)
+	{
+		printf("%s\n", mini->env[i]);
+		i++;
+	}
+	return (1);
 }
