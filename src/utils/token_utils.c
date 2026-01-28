@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/26 19:23:07 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/28 20:16:24 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,23 @@ void	print_tokens(t_token *head)
 		temp = next;
 	}
 	head = NULL;
+	printf("-------------------------\n\n");
+}
+
+void	print_env(t_env *envp)
+{
+	t_env	*temp;
+	t_env	*next;
+
+	temp = envp;
+	printf("\n--- VISTAS DE NODOS ---\n");
+	while (temp)
+	{
+		printf("Key: [%s] | Value: [%s]\n", temp->key, temp->value);
+		next = temp->next;
+		temp = next;
+	}
+	envp = NULL;
 	printf("-------------------------\n\n");
 }
 
