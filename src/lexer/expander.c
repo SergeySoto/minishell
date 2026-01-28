@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/26 19:41:56 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/28 18:16:21 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,36 +29,34 @@ static char	*get_var_name(char *str)
 
 static char	*get_env_content(char *var_name, t_mini *mini)
 {
-	int		i;
 	int		len_name;
-	char	**envp;
+	t_env	*temp;
 
-	envp = mini->env;
+	temp = mini->env;
 	if (ft_strncmp(var_name, "?", 2) == 0)
 		return (ft_itoa(mini->exit_status));
-	i = 0;
 	len_name = ft_strlen(var_name);
-	while (envp[i])
+	while (temp)
 	{
-		if ((ft_strncmp(envp[i], var_name, len_name) == 0)
-			&& envp[i][len_name] == '=')
-			return (ft_strdup(&envp[i][len_name + 1]));
-		i++;
+		if ((ft_strncmp(temp->key, var_name, len_name) == 0)
+			&& (len_name == (int)ft_strlen(temp->key)))
+			return (ft_strdup(temp->value));
+		temp = temp->next;
 	}
 	return (ft_strdup(""));
 }
 
-static char	*replace_string(char *str, char *replacement, int start, int len_remove)
+static char	*replace_string(char *str, char *replace, int start, int len_remove)
 {
 	int		len_total;
 	char	*new_str;
 
-	len_total = ft_strlen(str) + ft_strlen(replacement) - len_remove;
+	len_total = ft_strlen(str) + ft_strlen(replace) - len_remove;
 	new_str = malloc(sizeof(char) * (len_total + 1));
 	if (!new_str)
 		return (NULL);
 	ft_strlcpy(new_str, str, start + 1);
-	ft_strlcat(new_str, replacement, len_total + 1);
+	ft_strlcat(new_str, replace, len_total + 1);
 	ft_strlcat(new_str, &str[start + len_remove], len_total + 1);
 	return (new_str);
 }

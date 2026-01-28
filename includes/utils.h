@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:06:54 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/26 18:13:38 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/28 18:58:24 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	free_struct_mini(t_mini *mini);
 void	trim_quotes(t_token *input);
 void	ft_lstiter(t_token *lst, void (*f)(t_token *));
 char	**dup_arr(char **envp);
+void	free_env(t_env **envp);
 
 #endif
