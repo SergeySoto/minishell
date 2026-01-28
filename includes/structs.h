@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 17:52:52 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/27 17:25:00 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/28 18:28:37 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_mini
 	t_env	*env;
 	char	**env_array;
 	// ---READ AND PARSE---
+	char	*input;
 	t_token	*tokens;
 	t_cmd	*cmds;
 	// ---STATUS---

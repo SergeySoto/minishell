@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/27 16:33:28 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/28 18:16:21 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,19 @@ static char	*get_var_name(char *str)
 
 static char	*get_env_content(char *var_name, t_mini *mini)
 {
-	int		i;
 	int		len_name;
-	char	**envp;
+	t_env	*temp;
 
-	envp = mini->env;
+	temp = mini->env;
 	if (ft_strncmp(var_name, "?", 2) == 0)
 		return (ft_itoa(mini->exit_status));
-	i = 0;
 	len_name = ft_strlen(var_name);
-	while (envp[i])
+	while (temp)
 	{
-		if ((ft_strncmp(envp[i], var_name, len_name) == 0)
-			&& envp[i][len_name] == '=')
-			return (ft_strdup(&envp[i][len_name + 1]));
-		i++;
+		if ((ft_strncmp(temp->key, var_name, len_name) == 0)
+			&& (len_name == (int)ft_strlen(temp->key)))
+			return (ft_strdup(temp->value));
+		temp = temp->next;
 	}
 	return (ft_strdup(""));
 }

@@ -1,22 +1,20 @@
 
 #include "../../includes/minishell.h"
 
-t_env	*create_env_node(char *key, char *value)
+static t_env	*create_env_node(char *key, char *value)
 {
 	t_env	*env;
 
 	env = malloc(sizeof(t_env) * 1);
 	if (!env)
 		return (NULL);
-	env->key = ft_strdup(key);
-	env->value = ft_strdup(value);
+	env->key = key;
+	env->value = value;
 	env->next = NULL;
-	free(key);
-	free(value);
 	return (env);
 }
 
-void	add_env_back(t_env **env, char *key, char *value)
+static void	add_env_back(t_env **env, char *key, char *value)
 {
 	t_env	*temp;
 	t_env	*new_node;
@@ -58,10 +56,3 @@ t_env	*init_env(char **envp)
 	}
 	return (env);
 }
-
-env_to_array()
-{
-
-}
-
-get_env_value()
