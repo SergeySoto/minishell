@@ -61,6 +61,7 @@ echo "-----------------------------------------"
 # 1. BASICO
 run_test "Palabra simple" "ls"
 run_test "Espacios" "   ls    -la   "
+run_test "Tabulaciones" "	ls		-la	"
 run_test "Comando vacío" ""
 
 # 2. PIPES Y REDIRECCIONES (Tokenizer check)

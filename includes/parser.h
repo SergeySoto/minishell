@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:02:25 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/28 18:26:34 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:27:08 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		check_pending_pipe(char *str);
 int		check_quotes(char *str);
 int		check_forbidden(char *str);
 void	update_quote_status(char c, char *quotes);
-int		parser(char	*input);
+int		pre_pars(char	*input);
 t_env	*init_env(char **envp);
 char	**env_to_array(t_env *envp);
 
