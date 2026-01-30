@@ -17,20 +17,20 @@ static t_env	*create_env_node(char *key, char *value)
 static void	add_env_back(t_env **env, char *key, char *value)
 {
 	t_env	*temp;
-	t_env	*new_node;
+	t_env	*new_env;
 
-	new_node = create_env_node(key, value);
-	if (!new_node)
+	new_env = create_env_node(key, value);
+	if (!new_env)
 		return ;
 	if (!*env)
 	{
-		*env = new_node;
+		*env = new_env;
 		return ;
 	}
 	temp = *env;
 	while (temp->next)
 		temp = temp->next;
-	temp->next = new_node;
+	temp->next = new_env;
 }
 
 t_env	*init_env(char **envp)
