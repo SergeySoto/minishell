@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-static t_cmd	*create_cmd_node(char *content)
+static t_cmd	*create_cmd_node(void)
 {
 	t_cmd	*cmd;
 
@@ -22,7 +22,7 @@ static void	add_cmd_back(t_cmd **cmd, char *content)
 	t_cmd	*temp;
 	t_cmd	*new_cmd;
 
-	new_cmd = create_cmd_node(content);
+	new_cmd = create_cmd_node();
 	if (!new_cmd)
 		return ;
 	if (!*cmd)
@@ -47,6 +47,28 @@ t_cmd	*init_cmd(t_mini **mini)
 		//usar una flag para crear o no un nuevo nodo t_cmd *
 		if (c_token->type == WORD || c_token->type == ENV_VAR)
 	}
+}
+
+int	count_args(t_token **token)
+{
+	t_token *tmp;
+	int		count;
+
+	count = 0;
+	tmp = *token;
+	while (tmp && tmp->type != PIPE)
+	{
+		if (tmp->type > 1 && tmp->type < 6)
+			tmp = tmp->next->next;
+		else if (tmp->type == WORD || tmp->type == ENV_VAR || tmp->type == EXIT_STATUS)
+		{
+			count++;
+			tmp = tmp->next;
+		}
+		else
+			tmp = tmp->next;
+	}
+	return (count);
 }
 
 void	free_cmd(t_cmd **cmd)

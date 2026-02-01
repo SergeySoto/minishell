@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/28 20:16:24 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:31:05 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,10 @@ static void	trim_loop(t_token *lst, char *result)
 
 void	trim_quotes(t_token *lst)
 {
-	char	quote;
 	char	*result;
 
 	if (!lst || !lst->content)
 		return ;
-	quote = 0;
 	result = malloc(ft_strlen(lst->content) + 1);
 	if (!result)
 		return ;
