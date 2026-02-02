@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/28 19:06:09 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/02 20:34:38 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,33 @@ void	free_env(t_env **envp)
 	*envp = NULL;
 }
 
+void	free_cmd(t_cmd **cmd)
+{
+	int		i;
+	t_cmd	*tmp;
+
+	if (!cmd || !*cmd)
+		return ;
+	while ((*cmd) != NULL)
+	{
+		i = 0;
+		while ((*cmd)->args && (*cmd)->args[i])
+		{
+			free((*cmd)->args[i]);
+			i++;
+		}
+		free((*cmd)->args);
+		free((*cmd)->cmd_path);
+		if ((*cmd)->fd_in > 2)
+			close((*cmd)->fd_in);
+		if ((*cmd)->fd_out > 2)
+			close((*cmd)->fd_out);
+		tmp = (*cmd)->next;
+		free((*cmd));
+		(*cmd) = tmp;
+	}
+}
+
 void	free_struct_mini(t_mini *mini)
 {
 	if (!mini)
@@ -75,11 +102,12 @@ void	free_struct_mini(t_mini *mini)
 		free_struct_token(&mini->tokens);
 	if (mini->env)
 		free_env(&mini->env);
+	if (mini->cmds)
+		free_cmd(&mini->cmds);
 	if (mini->input || mini->env_array)
 	{
 		free_token(mini->input, mini->env_array);
 		mini->input = NULL;
 		mini->env = NULL;
 	}
-	// FALTA LIBERAR LOS CMDS, PERO AUN NO LOS TENEMOS
 }

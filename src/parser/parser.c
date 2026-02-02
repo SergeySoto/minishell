@@ -17,45 +17,32 @@ static t_cmd	*create_cmd_node(void)
 	return (cmd);
 }
 
-static void	add_cmd_back(t_cmd **cmd, char *content)
+static void	add_cmd_back(t_cmd **cmd_list, t_cmd *cmd)
 {
 	t_cmd	*temp;
 	t_cmd	*new_cmd;
 
-	new_cmd = create_cmd_node();
+	new_cmd = cmd;
 	if (!new_cmd)
 		return ;
-	if (!*cmd)
+	if (!*cmd_list)
 	{
-		*cmd = new_cmd;
+		*cmd_list = new_cmd;
 		return ;
 	}
-	temp = *cmd;
+	temp = *cmd_list;
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new_cmd;
 }
 
-t_cmd	*init_cmd(t_mini **mini)
-{
-	t_token	*c_token;
-	t_cmd	*cmd;
-
-	c_token = (*mini)->tokens;
-	while (c_token->next)
-	{
-		//usar una flag para crear o no un nuevo nodo t_cmd *
-		if (c_token->type == WORD || c_token->type == ENV_VAR)
-	}
-}
-
-int	count_args(t_token **token)
+int	count_args(t_token *token)
 {
 	t_token *tmp;
 	int		count;
 
 	count = 0;
-	tmp = *token;
+	tmp = token;
 	while (tmp && tmp->type != PIPE)
 	{
 		if (tmp->type > 1 && tmp->type < 6)
@@ -71,23 +58,47 @@ int	count_args(t_token **token)
 	return (count);
 }
 
-void	free_cmd(t_cmd **cmd)
+static void	handler_redirects(t_token **token, t_cmd *cmd, int *i)
 {
-	int		i;
-	t_cmd	*tmp;
-
-	if (!cmd || !*cmd)
-		return ;
-	i = 0;
-	while ((*cmd) != NULL)
+	if ((*token)->type > 1 && (*token)->type < 6)
 	{
-		while ((*cmd)->args[i])
+		if ((*token)->type == REDIR_IN)
+			cmd->fd_in = open((*token)->next->content, O_RDONLY);
+		else if ((*token)->type == REDIR_OUT)
+			cmd->fd_out = open((*token)->next->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else if ((*token)->type == APPEND)
+			cmd->fd_out = open((*token)->next->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else if ((*token)->type == HEREDOC)
 		{
-			free((*cmd)->args[i]);
-			i++;
+			//cmd->fd_in = ; //Aqui va la logica del heredoc
 		}
-		tmp = (*cmd)->next;
-		free((*cmd)->cmd_path);
-		free((*cmd));
+		(*token) = (*token)->next->next;
+	}
+	else if ((*token)->type == WORD || (*token)->type == ENV_VAR ||(*token)->type == EXIT_STATUS)
+	{
+		cmd->args[*i] = ft_strdup((*token)->content);
+		(*i)++;
+		(*token) = (*token)->next;
+	}
+}
+
+void	init_cmd(t_mini **mini)
+{
+	t_token	*c_token;
+	t_cmd	*cmd;
+	int		i;
+
+	c_token = (*mini)->tokens;
+	while (c_token)
+	{
+		cmd = create_cmd_node();
+		cmd->args = malloc(sizeof(char *) * (count_args(c_token) + 1));
+		i = 0;
+		while (c_token && c_token->type != PIPE)
+			handler_redirects(&c_token, cmd, &i);
+		cmd->args[i] = NULL;
+		add_cmd_back(&(*mini)->cmds, cmd);
+		if (c_token)
+			c_token = c_token->next;
 	}
 }

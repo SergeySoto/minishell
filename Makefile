@@ -29,6 +29,7 @@ SRC = \
 	$(SRC_DIR)/lexer/smart_split.c \
 	$(SRC_DIR)/lexer/expander.c \
 	$(SRC_DIR)/lexer/expander_utils.c \
+	$(SRC_DIR)/parser/parser.c \
 	$(SRC_DIR)/parser/pre_pars.c \
 	$(SRC_DIR)/parser/pre_pars_utils.c\
 	$(SRC_DIR)/parser/envp.c\

@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/01 15:31:05 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/02 21:11:19 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,54 @@ void	print_env(t_env *envp)
 	}
 	envp = NULL;
 	printf("-------------------------\n\n");
+}
+
+void	print_cmds(t_cmd *cmds)
+{
+    t_cmd	*current;
+    int		i;
+    int		count;
+
+    current = cmds;
+    count = 1;
+    printf("\n--- VISTA DE COMANDOS (PARSER) ---\n");
+    if (!current)
+        printf("Lista de comandos vacía.\n");
+    while (current)
+    {
+        printf("CMD #%d:\n", count);
+        
+        // 1. Imprimir Argumentos (Char **)
+        printf("  Args: [");
+        if (current->args)
+        {
+            i = 0;
+            while (current->args[i])
+            {
+                printf("\"%s\"", current->args[i]);
+                if (current->args[i + 1])
+                    printf(", ");
+                i++;
+            }
+        }
+        else
+            printf("(null)");
+        printf("]\n");
+
+        // 2. Imprimir File Descriptors
+        printf("  FDs : In [%d] | Out [%d]\n", current->fd_in, current->fd_out);
+
+        // 3. Imprimir Path (si ya lo has buscado, si no saldrá null)
+        if (current->cmd_path)
+            printf("  Path: %s\n", current->cmd_path);
+        else
+            printf("  Path: (null)\n");
+
+        printf("----------------------------------\n");
+        current = current->next;
+        count++;
+    }
+    printf("\n");
 }
 
 static void	trim_loop(t_token *lst, char *result)
