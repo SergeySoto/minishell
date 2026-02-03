@@ -10,6 +10,8 @@ static t_cmd	*create_cmd_node(void)
 		return (NULL);
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
+	cmd->infile = 0;
+	cmd->outfile = 0;
 	cmd->pid = 0;
 	cmd->cmd_path = 0;
 	cmd->args = NULL;
@@ -38,7 +40,7 @@ static void	add_cmd_back(t_cmd **cmd_list, t_cmd *cmd)
 
 int	count_args(t_token *token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 	int		count;
 
 	count = 0;
@@ -47,7 +49,8 @@ int	count_args(t_token *token)
 	{
 		if (tmp->type > 1 && tmp->type < 6)
 			tmp = tmp->next->next;
-		else if (tmp->type == WORD || tmp->type == ENV_VAR || tmp->type == EXIT_STATUS)
+		else if (tmp->type == WORD || tmp->type == ENV_VAR
+			|| tmp->type == EXIT_STATUS)
 		{
 			count++;
 			tmp = tmp->next;
@@ -63,18 +66,25 @@ static void	handler_redirects(t_token **token, t_cmd *cmd, int *i)
 	if ((*token)->type > 1 && (*token)->type < 6)
 	{
 		if ((*token)->type == REDIR_IN)
-			cmd->fd_in = open((*token)->next->content, O_RDONLY);
+			cmd->infile = ft_strdup((*token)->next->content);
 		else if ((*token)->type == REDIR_OUT)
-			cmd->fd_out = open((*token)->next->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		{
+			cmd->outfile = ft_strdup((*token)->next->content);
+			cmd->append = 0;
+		}
 		else if ((*token)->type == APPEND)
-			cmd->fd_out = open((*token)->next->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		{
+			cmd->outfile = ft_strdup((*token)->next->content);
+			cmd->append = 1;
+		}
 		else if ((*token)->type == HEREDOC)
 		{
 			//cmd->fd_in = ; //Aqui va la logica del heredoc
 		}
 		(*token) = (*token)->next->next;
 	}
-	else if ((*token)->type == WORD || (*token)->type == ENV_VAR ||(*token)->type == EXIT_STATUS)
+	else if ((*token)->type == WORD || (*token)->type == ENV_VAR
+		|| (*token)->type == EXIT_STATUS)
 	{
 		cmd->args[*i] = ft_strdup((*token)->content);
 		(*i)++;
@@ -92,6 +102,8 @@ void	init_cmd(t_mini **mini)
 	while (c_token)
 	{
 		cmd = create_cmd_node();
+		if (!cmd)
+			return ;
 		cmd->args = malloc(sizeof(char *) * (count_args(c_token) + 1));
 		i = 0;
 		while (c_token && c_token->type != PIPE)

@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 17:52:52 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/29 19:42:38 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/03 19:51:46 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_cmd
 	char			*cmd_path; //Route "/bin/ls"
 	int				fd_in;
 	int				fd_out;
+	char			*infile;
+	char			*outfile;
 	int				append; // flag for > or >>
 	struct s_cmd	*next; //Next command
 	int				pid;

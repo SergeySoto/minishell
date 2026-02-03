@@ -3,7 +3,10 @@
 # --- CONFIGURACIÓN ---
 MINISHELL="./minishell"
 VALGRIND_LOG="valgrind_out.log"
-USE_VALGRIND=1 # Cambia a 1 para activar chequeo de memoria lento pero seguro
+USE_VALGRIND=0 # Cambia a 1 para activar chequeo de memoria lento pero seguro
+
+# --- OTRA FORMA DE TESTEAR ---
+# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=supresion.supp ./minishell
 
 # --- COLORES ---
 GREEN="\033[32m"
