@@ -6,11 +6,11 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/02/02 20:34:38 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/04 19:47:08 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../.././includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	*free_token(char *str, char **env)
 {
@@ -19,7 +19,7 @@ void	*free_token(char *str, char **env)
 	if (env)
 	{
 		i = 0;
-		while (env[i])
+		while (env && env[i])
 		{
 			free(env[i]);
 			i++;
@@ -68,25 +68,21 @@ void	free_env(t_env **envp)
 
 void	free_cmd(t_cmd **cmd)
 {
-	int		i;
 	t_cmd	*tmp;
 
 	if (!cmd || !*cmd)
 		return ;
 	while ((*cmd) != NULL)
 	{
-		i = 0;
-		while ((*cmd)->args && (*cmd)->args[i])
-		{
-			free((*cmd)->args[i]);
-			i++;
-		}
-		free((*cmd)->args);
-		free((*cmd)->cmd_path);
+		free_token((*cmd)->cmd_path, (*cmd)->args);
 		if ((*cmd)->fd_in > 2)
 			close((*cmd)->fd_in);
 		if ((*cmd)->fd_out > 2)
 			close((*cmd)->fd_out);
+		if ((*cmd)->infile)
+			free((*cmd)->infile);
+		if ((*cmd)->outfile)
+			free((*cmd)->outfile);
 		tmp = (*cmd)->next;
 		free((*cmd));
 		(*cmd) = tmp;
