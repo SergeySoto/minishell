@@ -1,12 +1,13 @@
 
 #include "../../includes/minishell.h"
 
-char	*get_cmd_path(t_mini *mini)
+void	get_cmd_path(t_mini *mini)
 {
 	char	*path_found;
 	char	**path_splited;
 	t_env	*env;
 
+	path_splited = NULL;
 	path_found = 0;
 	env = (*mini).env;
 	while (env)
@@ -14,35 +15,41 @@ char	*get_cmd_path(t_mini *mini)
 		if (ft_strncmp(env->key, "PATH", 4) == 0)
 		{
 			path_splited = ft_split(env->value, ':');
+			if (!path_splited)
+				printf("Environment path not found\n");
+			else
+				find_command(path_splited, &(*mini).cmds);
+			free_token(NULL, path_splited);
 			break ;
 		}
 		env = env->next;
 	}
-	if (!path_splited)
-		printf("Environment path not found\n");
-	else
-		path_splited = ft_split(path_found, ':');
 	return ;
 }
 
-char	*find_command(t_mini *mini)
+void	find_command(char **path_env, t_cmd **cmd)
 {
 	char	*aux;
 	char	*full_path;
-	t_env	*env;
+	int		i;
 
-	env = (*mini).env
+	i = 0;
 	full_path = NULL;
-
-	while (env)
+	while (path_env[i])
 	{
-		aux = ft_strjoin(env_path[i], "/");
-		full_path = ft_strjoin(aux, cmd);
-		free(aux);
-		if (access(full_path, X_OK) == 0)
-			return (full_path);
-		free_all(NULL, full_path);
+		while (cmd)
+		{
+			aux = ft_strjoin(path_env[i], "/");
+			full_path = ft_strjoin(aux, (*cmd)->args[0]);
+			free(aux);
+			if (access(full_path, X_OK) == 0)
+			{
+				(*cmd)->cmd_path = full_path;
+				return ;
+			}
+			free(full_path);
+		}
 		i++;
 	}
-	return (NULL);
+	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/02/04 20:34:02 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:45:13 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 	expander(mini);
 	ft_lstiter(*tokens, trim_quotes);
 	init_cmd(&mini);
-	//print_cmds(mini->cmds);
+	print_cmds(mini->cmds);
 	//print_tokens(mini->tokens);
-	print_env(mini->env);
+	//print_env(mini->env);
 }
