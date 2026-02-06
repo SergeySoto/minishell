@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.h                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/04 19:20:37 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/06 18:01:29 by ssoto-su         ###   ########.fr       */
+/*   Created: 2026/02/06 17:59:42 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/02/06 18:00:58 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_H
-# define EXECUTOR_H
+#include "../libft.h"
 
-//void	get_cmd_path(t_mini *mini);
-//void	find_command(char **path_env, t_cmd **cmd);
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
 
-
-#endif
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}

@@ -49,6 +49,7 @@ SRC = \
 	src/get_next_line.c \
 	src/ft_printf.c \
 	src/ft_printf_complements.c \
+	src/ft_strcmp.c \
 	src/ft_lstsize.c
 
 

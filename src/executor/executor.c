@@ -1,86 +1,64 @@
 
 #include "../../includes/minishell.h"
 
-void	get_cmd_path(t_mini *mini)
+char	*get_env_val(char *name, t_mini *mini)
+{
+	t_env	*env;
+
+	env = mini->env;
+	while (env)
+	{
+		if (ft_strcmp(env->key, name) == 0)
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
+}
+
+char	*find_full_path(t_mini *mini)
 {
 	char	*path_found;
 	char	**path_splited;
-	t_env	*env;
 
 	path_splited = NULL;
 	path_found = 0;
-	env = (*mini).env;
-	while (env)
+	path_found = get_env_val("PATH", mini);
+	path_splited = ft_split(path_found, ':');
+	if (!path_splited)
 	{
-		if (ft_strncmp(env->key, "PATH", 4) == 0)
-		{
-			path_splited = ft_split(env->value, ':');
-			if (!path_splited)
-				printf("Environment path not found\n");
-			break ;
-		}
-		env = env->next;
+		free_token(NULL, path_splited);
+		printf("Environment path not found\n");
 	}
-	find_command2(path_splited, &(*mini).cmds);
+	assign_full_path(path_splited, &(*mini).cmds);
 	free_token(NULL, path_splited);
 	return ;
 }
 
-/*
-void	find_command(char **path_env, t_cmd **cmd)
+void	assign_full_path(char **path_env, t_cmd **cmd)
 {
-	char	*aux;
-	char	*full_path;
-	int		i;
-	
-	i = 0;
-	full_path = NULL;
-	while (path_env[i])
-	{
-		while (cmd)
-		{
-			aux = ft_strjoin(path_env[i], "/");
-			full_path = ft_strjoin(aux, (*cmd)->args[0]);
-			free(aux);
-			if (access(full_path, X_OK) == 0)
-			{
-				(*cmd)->cmd_path = full_path;
-				return ;
-			}
-			free(full_path);
-		}
-		i++;
-	}
-	return ;
-}
-*/
-
-void	find_command2(char **path_env, t_cmd **cmd)
-{
-	t_cmd	*current;
 	char	*aux;
 	char	*full_path;
 	int		i;
 
 	full_path = NULL;
 	aux = NULL;
-	current = (*cmd);
-	while (current)
+	if (ft_strchr((*cmd)->args[0], '/') && access((*cmd)->args[0], X_OK) == 0)
 	{
-		i = 0;
-		while (path_env[i])
+		(*cmd)->cmd_path = ft_strdup((*cmd)->args[0]);
+		return ;
+	}
+	i = 0;
+	while (path_env && path_env[i])
+	{
+		aux = ft_strjoin(path_env[i], "/");
+		full_path = ft_strjoin(aux, (*cmd)->args[0]);
+		free(aux);
+		if (access(full_path, X_OK) == 0)
 		{
-			aux = ft_strjoin(path_env[i], "/");
-			full_path = ft_strjoin(aux, current->args[0]);
-			free(aux);
-			if (access(full_path, X_OK) == 0)
-			{
-				current->cmd_path = full_path;
-				break ;
-			}
-			free(full_path);
+			(*cmd)->cmd_path = full_path;
+			break ;
 		}
+		free(full_path);
 		i++;
-		current = current->next;
 	}
 }
