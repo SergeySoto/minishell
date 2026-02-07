@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/02 21:11:19 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/07 20:23:17 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,15 @@ void	print_cmds(t_cmd *cmds)
 
     current = cmds;
     count = 1;
-    printf("\n--- VISTA DE COMANDOS (PARSER) ---\n");
+    printf("\n--- VISTA DE COMANDOS (PARSER/EXECUTOR) ---\n");
     if (!current)
         printf("Lista de comandos vacía.\n");
     while (current)
     {
         printf("CMD #%d:\n", count);
         
-        // 1. Imprimir Argumentos (Char **)
-        printf("  Args: [");
+        // 1. Imprimir Argumentos
+        printf("  Args    : [");
         if (current->args)
         {
             i = 0;
@@ -114,14 +114,25 @@ void	print_cmds(t_cmd *cmds)
             printf("(null)");
         printf("]\n");
 
-        // 2. Imprimir File Descriptors
-        printf("  FDs : In [%d] | Out [%d]\n", current->fd_in, current->fd_out);
-
-        // 3. Imprimir Path (si ya lo has buscado, si no saldrá null)
+        // 2. Imprimir Path encontrado
         if (current->cmd_path)
-            printf("  Path: %s\n", current->cmd_path);
+            printf("  Path    : %s\n", current->cmd_path);
         else
-            printf("  Path: (null)\n");
+            printf("  Path    : (null)\n");
+
+        // 3. Imprimir Info de Entrada (FD e Infile)
+        printf("  Input   : FD [%d]", current->fd_in);
+        if (current->infile)
+            printf(" | Infile [%s]\n", current->infile);
+        else
+            printf(" | Infile [(null)]\n");
+
+        // 4. Imprimir Info de Salida (FD, Outfile y Append)
+        printf("  Output  : FD [%d]", current->fd_out);
+        if (current->outfile)
+            printf(" | Outfile [%s] | Append Mode [%d]\n", current->outfile, current->append);
+        else
+            printf(" | Outfile [(null)]\n");
 
         printf("----------------------------------\n");
         current = current->next;

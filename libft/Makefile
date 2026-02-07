@@ -27,6 +27,7 @@ SRC = \
 	src/ft_toupper.c \
 	src/ft_tolower.c \
 	src/ft_strrchr.c \
+	src/ft_strcmp.c \
 	src/ft_strncmp.c \
 	src/ft_memchr.c \
 	src/ft_memcmp.c \
