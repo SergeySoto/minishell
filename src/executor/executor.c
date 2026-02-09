@@ -32,7 +32,7 @@ void	find_full_path(t_mini *mini)
 	if (!path_splited)
 	{
 		free_token(NULL, path_splited);
-		printf("Environment path not found\n");
+		assign_full_path(NULL, &(*mini).cmds);
 		return ;
 	}
 	assign_full_path(path_splited, &(*mini).cmds);
@@ -40,16 +40,34 @@ void	find_full_path(t_mini *mini)
 	return ;
 }
 
-void	get_cmd_path(char **path_env, t_cmd *cmd)
+static void	join_path(char *path, t_cmd *cmd)
 {
 	char	*aux;
 	char	*full_path;
-	int		i;
 
-	if (!cmd->args || !cmd->args[0])
-		return ;
 	full_path = NULL;
 	aux = NULL;
+	aux = ft_strjoin(path, "/");
+	if (!aux)
+		return ;
+	full_path = ft_strjoin(aux, cmd->args[0]);
+	free(aux);
+	if (!full_path)
+		return ;
+	if (access(full_path, X_OK) == 0)
+	{
+		cmd->cmd_path = full_path;
+		return ;
+	}
+	free(full_path);
+}
+
+void	get_cmd_path(char **path_env, t_cmd *cmd)
+{
+	int	i;
+
+	if (!cmd->args || !cmd->args[0] || cmd->args[0][0] == '\0')
+		return ;
 	i = 0;
 	if (ft_strchr(cmd->args[0], '/') && access(cmd->args[0], F_OK) == 0)
 	{
@@ -58,15 +76,9 @@ void	get_cmd_path(char **path_env, t_cmd *cmd)
 	}
 	while (path_env && path_env[i])
 	{
-		aux = ft_strjoin(path_env[i], "/");
-		full_path = ft_strjoin(aux, cmd->args[0]);
-		free(aux);
-		if (access(full_path, X_OK) == 0)
-		{
-			cmd->cmd_path = full_path;
+		join_path(path_env[i], cmd);
+		if (cmd->cmd_path != NULL)
 			return ;
-		}
-		free(full_path);
 		i++;
 	}
 }

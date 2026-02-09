@@ -65,23 +65,7 @@ static void	handler_redirects(t_token **token, t_cmd *cmd, int *i)
 {
 	if ((*token)->type > 1 && (*token)->type < 6)
 	{
-		if ((*token)->type == REDIR_IN)
-			cmd->infile = ft_strdup((*token)->next->content);
-		else if ((*token)->type == REDIR_OUT)
-		{
-			cmd->outfile = ft_strdup((*token)->next->content);
-			cmd->append = 0;
-		}
-		else if ((*token)->type == APPEND)
-		{
-			cmd->outfile = ft_strdup((*token)->next->content);
-			cmd->append = 1;
-		}
-		else if ((*token)->type == HEREDOC)
-		{
-			//cmd->fd_in = ; //Aqui va la logica del heredoc
-		}
-		(*token) = (*token)->next->next;
+		set_redirects(token, cmd);
 	}
 	else if ((*token)->type == WORD || (*token)->type == ENV_VAR
 		|| (*token)->type == EXIT_STATUS)
