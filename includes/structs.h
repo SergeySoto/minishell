@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 17:52:52 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/22 15:41:27 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/03 19:51:46 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,22 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+} t_env;
+
 typedef struct s_cmd
 {
 	char			**args; //Arguments for execve {"ls", "-l"}
 	char			*cmd_path; //Route "/bin/ls"
 	int				fd_in;
 	int				fd_out;
+	char			*infile;
+	char			*outfile;
+	int				append; // flag for > or >>
 	struct s_cmd	*next; //Next command
 	int				pid;
 }	t_cmd;
@@ -46,7 +56,8 @@ typedef struct s_cmd
 typedef struct s_mini
 {
 	// ---MEMORY AND ENVIROMENT---
-	char	**env;
+	t_env	*env;
+	char	**env_array;
 	// ---READ AND PARSE---
 	char	*input;
 	t_token	*tokens;
