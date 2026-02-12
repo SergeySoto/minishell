@@ -28,7 +28,7 @@ char	*shell_loop(t_mini *mini)
 	return (NULL);
 }
 
-int	main(int ac, char **av, char **envp)
+/* int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
 	(void)av;
@@ -39,4 +39,4 @@ int	main(int ac, char **av, char **envp)
 	shell_loop(&mini);
 	free_struct_mini(&mini);
 	return (0);
-}
+} */

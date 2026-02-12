@@ -16,28 +16,69 @@
 
 int	is_valid(char *str)
 {
-	int	i;
 	if (!str || !*str)
 		return (1);
+	else if (ft_isdigit(str[0]) || str[0] == '=')
+	{
+		write(1, "not a valid identifier", 23);
+		write(1, "\n", 1);
+		return (1);
+	}
+	return (0);
+}
+
+char	*key(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && is_valid(str) == 0)
+	{
+		write(1, &str[i], 1);
+		if (str[i] == '=')
+			break ;
+		i++;
+	}
+	return (str);
+}
+
+char	*value(char *str)
+{
+	int		i;
+	int		j;
+	char	*name;
 	
-		i = 0;
-		while (str[i])
+	name = key(str);
+	i = 0;
+	j = 0;
+	while(name[i] && name[i] != '=')
+		i++;
+	if (!name[i])
+	{
+		str[j] = name[i];
+		return (str);
+	}
+	if (name[i] && name[i] == '=' && name[i + 1] == '\0')
+	{
+		i++;
+		while (name[i])
 		{
-			if (ft_isdigit(str[0]) || str[0] == '=')
-			{
-				write(1, "not a valid identifier", 23);
-				write(1, '\n', 1);
-				return (1);
-			}
-			write(1, &str[i], 1);
-			if (str[i] == '=')
-			{
-				write(1, &str[i], 1);
-				break ;
-			}
+			str[j] = name[i];
+			return (str);
+		}
+	}
+	if (name[i] && name[i] == '=' && name[i + 1] != '\0')
+	{
+		i++;
+		while (name[i])
+		{
+			str[j] = name[i];
+			write(1, &str[j], 1);
+			j++;
 			i++;
 		}
-		return (0);
+	}
+	return (str);
 }
 
 /*
@@ -45,3 +86,16 @@ int	ft_export(char **env, char **av)
 {
 
 } */
+
+int	main(int ac, char **av)
+{
+	(void)ac;
+	int i = 1;
+/* 	while (av[i])
+	{
+		key(av[i]);
+		i++;
+	} */
+	value(av[i]);
+	return (0);
+}
