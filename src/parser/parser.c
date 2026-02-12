@@ -1,107 +1,100 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/20 18:44:38 by ssoto-su         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../.././includes/minishell.h"
+#include "../../includes/minishell.h"
 
-/*Idea: create a function that looks for the right heredoc and if there is
-something after de dobule << return 0 else return 1. Check that logic*/
-
-void	update_quote_status(char c, char *quotes)
+static t_cmd	*create_cmd_node(void)
 {
-	if ((c == '"' || c == '\'') && *quotes == 0)
-		*quotes = c;
-	else if (c == *quotes)
-		*quotes = 0;
+	t_cmd	*cmd;
+
+	cmd = malloc(sizeof(t_cmd) * 1);
+	if (!cmd)
+		return (NULL);
+	cmd->fd_in = 0;
+	cmd->fd_out = 1;
+	cmd->infile = 0;
+	cmd->outfile = 0;
+	cmd->pid = 0;
+	cmd->cmd_path = 0;
+	cmd->args = NULL;
+	cmd->next = NULL;
+	return (cmd);
 }
 
-static int	invalid_neighbor(char c)
+static void	add_cmd_back(t_cmd **cmd_list, t_cmd *cmd)
 {
-	if (c == '|' || c == '<' || c == '>' || c == '\0')
-		return (1);
-	return (0);
-}
+	t_cmd	*temp;
+	t_cmd	*new_cmd;
 
-static int	check_redirect(char *str)
-{
-	int		i;
-	int		j;
-	char	quote;
-
-	i = 0;
-	quote = 0;
-	while (str[i])
+	new_cmd = cmd;
+	if (!new_cmd)
+		return ;
+	if (!*cmd_list)
 	{
-		update_quote_status(str[i], &quote);
-		if ((str[i] == '<' || str[i] == '>') && quote == 0)
-		{
-			j = i + 1;
-			if (str[i + 1] == str[i])
-				j++;
-			while (str[j] && is_space(str[j]))
-				j++;
-			if (invalid_neighbor(str[j]))
-			{
-				printf("Error: Syntax error near unexpected token\n");
-				return (0);
-			}
-		}
-		i++;
+		*cmd_list = new_cmd;
+		return ;
 	}
-	return (1);
+	temp = *cmd_list;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new_cmd;
 }
 
-static int	check_invalid_double(char *str)
+int	count_args(t_token *token)
 {
-	int		i;
-	char	quotes;
+	t_token	*tmp;
+	int		count;
 
-	quotes = 0;
-	i = 0;
-	while (str[i])
+	count = 0;
+	tmp = token;
+	while (tmp && tmp->type != PIPE)
 	{
-		update_quote_status(str[i], &quotes);
-		if (quotes == 0)
+		if (tmp->type > 1 && tmp->type < 6)
+			tmp = tmp->next->next;
+		else if (tmp->type == WORD || tmp->type == ENV_VAR
+			|| tmp->type == EXIT_STATUS)
 		{
-			if (str[i] == '|' && str[i + 1] == '|')
-			{
-				printf("Error: Syntax error near unexpected token `||'\n");
-				return (0);
-			}
-			if (str[i] == '&' && str[i + 1] == '&')
-			{
-				printf("Error: Syntax error near unexpected token `&&'\n");
-				return (0);
-			}
+			count++;
+			tmp = tmp->next;
 		}
-		i++;
+		else
+			tmp = tmp->next;
 	}
-	return (1);
+	return (count);
 }
 
-int	parser(char *input)
+static void	handler_redirects(t_token **token, t_cmd *cmd, int *i)
 {
-	if (!input)
-		return (0);
-	if (!check_quotes(input))
-		return (0);
-	if (!check_pipe(input))
-		return (0);
-	if (!check_pending_pipe(input))
-		return (0);
-	if (!check_redirect(input))
-		return (0);
-	if (!check_invalid_double(input))
-		return (0);
-	if (!check_forbidden(input))
-		return (0);
-	return (1);
+	if ((*token)->type > 1 && (*token)->type < 6)
+	{
+		set_redirects(token, cmd);
+	}
+	else if ((*token)->type == WORD || (*token)->type == ENV_VAR
+		|| (*token)->type == EXIT_STATUS)
+	{
+		cmd->args[*i] = ft_strdup((*token)->content);
+		(*i)++;
+		(*token) = (*token)->next;
+	}
+}
+
+void	init_cmd(t_mini **mini)
+{
+	t_token	*c_token;
+	t_cmd	*cmd;
+	int		i;
+
+	c_token = (*mini)->tokens;
+	while (c_token)
+	{
+		cmd = create_cmd_node();
+		if (!cmd)
+			return ;
+		cmd->args = malloc(sizeof(char *) * (count_args(c_token) + 1));
+		i = 0;
+		while (c_token && c_token->type != PIPE)
+			handler_redirects(&c_token, cmd, &i);
+		cmd->args[i] = NULL;
+		add_cmd_back(&(*mini)->cmds, cmd);
+		if (c_token)
+			c_token = c_token->next;
+	}
 }

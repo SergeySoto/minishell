@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/26 18:11:43 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/07 20:29:33 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../.././includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	get_type(char *line)
 {
@@ -64,7 +64,7 @@ void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 	/* creo que debemos crear la estructura t_mini aqui y asignar la estructura
 	t_token al puntero de la estrutura t_mini. */
 	add_history(input);
-	if (!parser(input))
+	if (!pre_pars(input))
 		return ;
 	printf("Input Valido: %s\n", input);
 	temp_split = smart_split(input);
@@ -80,5 +80,9 @@ void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 	mini->tokens = (*tokens);
 	expander(mini);
 	ft_lstiter(*tokens, trim_quotes);
-	print_tokens(mini->tokens);
+	init_cmd(&mini);
+	find_full_path(mini);
+	print_cmds(mini->cmds);
+	//print_tokens(mini->tokens);
+	//print_env(mini->env);
 }

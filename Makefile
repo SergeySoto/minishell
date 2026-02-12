@@ -34,6 +34,16 @@ SRC = \
 	$(SRC_DIR)/builtins/ft_pwd.c \
 	$(SRC_DIR)/builtins/ft_env.c \
 	$(SRC_DIR)/builtins/ft_echo.c \
+	$(SRC_DIR)/parser/pre_pars.c \
+	$(SRC_DIR)/parser/pre_pars_utils.c\
+	$(SRC_DIR)/parser/envp.c\
+	$(SRC_DIR)/parser/envp_utils.c\
+	$(SRC_DIR)/executor/path.c\
+				
+
+
+TOTAL_FILES := $(words $(SRC))
+CURRENT_INDEX = 0
 
 # ARCHIVOS OBJETO
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -48,17 +58,19 @@ $(LIBFT):
 	&& echo "$(BLUE)	Libft compiled $<$(RESET)" \
 	|| (echo "$(RED)	✖ Failed to compile files $<$(RESET)" && exit 1)
 
-# CREAR DIRECTORIOS DE OBJETOS
+# MODIFICA TU REGLA DE OBJETOS (.o)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ \
-	&& echo "$(CYAN)Compiled: $<$(RESET)" \
-	|| (echo "$(RED)	✖ Failed to compile files: $<$(RESET)" && exit 1)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(eval CURRENT_INDEX=$(shell echo $$(($(CURRENT_INDEX)+1))))
+	@PERCENTAGE=$$(($(CURRENT_INDEX) * 100 / $(TOTAL_FILES))); \
+	printf "$(CYAN)Compiling: [%-20s] %d%% $(RESET)\r" "$$(yes '#' | head -n $$(($$PERCENTAGE / 5)) | tr -d '\n')" $$PERCENTAGE
 
 # CREAR EL EJECUTABLE
 $(NAME): $(LIBFT) $(OBJ)
+	@printf "$(CYAN)Compiling: [%-20s] 100%% $(RESET)\n" "####################"
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $(NAME)
-	@echo  "$(GREEN)	✓ Minishell compiled successfully!$(RESET)"
+	@echo "$(GREEN)✓ Minishell compiled successfully!$(RESET)"
 
 # LIMPIAR OBJETOS
 clean:

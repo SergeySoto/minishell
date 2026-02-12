@@ -4,7 +4,7 @@ int	ft_env(t_mini *mini, char **av)
 {
 	int	i;
 	
-	if (!mini || !mini->env)
+	if (!mini || !mini->env_array)
 		return (1);
 	
 	if (av[1] != NULL)
@@ -13,9 +13,9 @@ int	ft_env(t_mini *mini, char **av)
 		return (127);
 	}
 	i = 0;
-	while (mini->env[i] != NULL)
+	while (mini->env_array[i] != NULL)
 	{
-		printf("%s\n", mini->env[i]);
+		printf("%s\n", mini->env_array[i]);
 		i++;
 	}
 	return (0);

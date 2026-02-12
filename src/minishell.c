@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/27 18:33:27 by carmegon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include ".././includes/minishell.h"
 
 char	*shell_loop(t_mini *mini)
@@ -47,7 +35,7 @@ int	main(int ac, char **av, char **envp)
 	t_mini	mini;
 
 	ft_bzero(&mini, sizeof(t_mini));
-	mini.env = dup_arr(envp);
+	mini.env_array = dup_arr(envp);
 	shell_loop(&mini);
 	free_struct_mini(&mini);
 	return (0);

@@ -17,3 +17,4 @@ obj/
 # Debug files
 *.dSYM/
 vgcore.*
+*.log
