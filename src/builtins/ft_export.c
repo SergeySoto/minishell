@@ -29,8 +29,15 @@ int	is_valid(char *str)
 				write(1, '\n', 1);
 				return (1);
 			}
-			
+			write(1, &str[i], 1);
+			if (str[i] == '=')
+			{
+				write(1, &str[i], 1);
+				break ;
+			}
+			i++;
 		}
+		return (0);
 }
 
 /*
