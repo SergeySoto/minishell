@@ -52,15 +52,19 @@ char	*key(char *str)
 		}
 		i++;
 	}
-	//k_word = (char *)ft_calloc(len + 1, sizeof(char));
-	k_word = (char *)malloc((len + 1) * sizeof(char));
+	k_word = (char *)ft_calloc(len + 1, sizeof(char));
+	//k_word = (char *)malloc((len + 1) * sizeof(char));
 	i = 0;
 	if (str[i] && is_valid(str) == 0)
 		ft_strlcpy(k_word, str, len);
 	else
 		return (NULL);
 	k_word[len] = '\0';
-	printf("Esta es la KEY: %s\n", k_word);
+	while (i < len)
+	{
+		printf("Esta es la KEY: %c\n", k_word[i]);
+		i++;
+	}
 	return (k_word);
 }
 
