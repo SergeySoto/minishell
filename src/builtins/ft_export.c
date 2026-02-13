@@ -46,20 +46,21 @@ char	*key(char *str)
 			aux = ft_strchr(str, '=');
 			len_aux = ft_strlen(aux);
 			printf("Len de mi aux: %d\n", len_aux);
-			len = (len - len_aux) + 2;
+			len = (len - len_aux) + 1;
 			printf("Len que quiero para mi k_word: %d\n", len);
 			break ;
 		}
 		i++;
 	}
-	k_word = (char *)ft_calloc(len + 1, sizeof(char));
+	k_word = (char *)ft_calloc(len, sizeof(char));
+	printf("Len de mi str DESPUES de la reserva de memoria: %d\n", len);
 	//k_word = (char *)malloc((len + 1) * sizeof(char));
 	i = 0;
 	if (str[i] && is_valid(str) == 0)
-		ft_strlcpy(k_word, str, len);
+		ft_strlcpy(k_word, str, len + 1);
 	else
 		return (NULL);
-	k_word[len] = '\0';
+	//k_word[len] = '\0';
 	while (i < len)
 	{
 		printf("Esta es la KEY: %c\n", k_word[i]);
@@ -122,6 +123,7 @@ int	main(int ac, char **av)
 		key(av[i]);
 		i++;
 	}
+	free(av[i]);
 	//value(av[i]);
 	return (0);
 }
