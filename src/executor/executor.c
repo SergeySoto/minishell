@@ -49,16 +49,14 @@ void	exec_built_father(t_mini *mini, t_cmd *cmd)
 
 void	exec_simple_cmd(t_mini *mini, t_cmd *cmd)
 {
-	if (cmd && cmd->args[0])
-	{
-		if (is_builtin(cmd->args[0]) && is_built_father(cmd->args[0]))
-		{
-			exec_built_father(mini, cmd);
-			return ;
-		}
-	}
-	else
+	if (!cmd)
 		return ;
+	if (cmd->args[0] && is_builtin(cmd->args[0])
+		&& is_built_father(cmd->args[0]))
+	{
+		exec_built_father(mini, cmd);
+		return ;
+	}
 	cmd->pid = fork();
 	if (cmd->pid == -1)
 	{
@@ -68,7 +66,16 @@ void	exec_simple_cmd(t_mini *mini, t_cmd *cmd)
 		return ;
 	}
 	if (cmd->pid == 0)
-		exec_built_child(mini, cmd);
+	{
+		if (cmd->args[0])
+			exec_built_child(mini, cmd);
+		else
+		{
+			if(!apply_redirections(cmd))
+				exit(1);
+			exit(0);
+		}
+	}
 	else
 	{
 		waitpid(cmd->pid, &mini->exit_status, 0);
@@ -82,7 +89,8 @@ void	exec_simple_cmd(t_mini *mini, t_cmd *cmd)
 
 void	exec_built_child(t_mini *mini, t_cmd *cmd)
 {
-	char **env;
+	char	**env;
+
 	if (!apply_redirections(cmd))
 		exit(1);
 	if (is_builtin(cmd->args[0]))
