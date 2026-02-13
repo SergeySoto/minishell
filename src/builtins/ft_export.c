@@ -29,17 +29,39 @@ int	is_valid(char *str)
 
 char	*key(char *str)
 {
-	int	i;
+	int		i;
+	char	*k_word;
+	int		len;
+	int		len_aux;
 
 	i = 0;
+	len_aux = 0;
+	len = ft_strlen(str);
+	printf("Len de mi str: %d\n", len);
 	while (str[i] && is_valid(str) == 0)
 	{
-		write(1, &str[i], 1);
+		char	*aux;
 		if (str[i] == '=')
+		{
+			aux = ft_strchr(str, '=');
+			len_aux = ft_strlen(aux);
+			printf("Len de mi aux: %d\n", len_aux);
+			len = (len - len_aux) + 2;
+			printf("Len que quiero para mi k_word: %d\n", len);
 			break ;
+		}
 		i++;
 	}
-	return (str);
+	//k_word = (char *)ft_calloc(len + 1, sizeof(char));
+	k_word = (char *)malloc((len + 1) * sizeof(char));
+	i = 0;
+	if (str[i] && is_valid(str) == 0)
+		ft_strlcpy(k_word, str, len);
+	else
+		return (NULL);
+	k_word[len] = '\0';
+	printf("Esta es la KEY: %s\n", k_word);
+	return (k_word);
 }
 
 char	*value(char *str)
@@ -91,11 +113,11 @@ int	main(int ac, char **av)
 {
 	(void)ac;
 	int i = 1;
-/* 	while (av[i])
+	while (av[i])
 	{
 		key(av[i]);
 		i++;
-	} */
-	value(av[i]);
+	}
+	//value(av[i]);
 	return (0);
 }
