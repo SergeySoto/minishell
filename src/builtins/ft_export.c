@@ -37,7 +37,6 @@ char	*key(char *str)
 	i = 0;
 	len_aux = 0;
 	len = ft_strlen(str);
-	printf("Len de mi str: %d\n", len);
 	while (str[i] && is_valid(str) == 0)
 	{
 		char	*aux;
@@ -45,27 +44,17 @@ char	*key(char *str)
 		{
 			aux = ft_strchr(str, '=');
 			len_aux = ft_strlen(aux);
-			printf("Len de mi aux: %d\n", len_aux);
 			len = (len - len_aux) + 1;
-			printf("Len que quiero para mi k_word: %d\n", len);
 			break ;
 		}
 		i++;
 	}
-	k_word = (char *)ft_calloc(len, sizeof(char));
-	printf("Len de mi str DESPUES de la reserva de memoria: %d\n", len);
-	//k_word = (char *)malloc((len + 1) * sizeof(char));
+	k_word = (char *)ft_calloc(len + 1, sizeof(char));
 	i = 0;
 	if (str[i] && is_valid(str) == 0)
 		ft_strlcpy(k_word, str, len + 1);
 	else
 		return (NULL);
-	//k_word[len] = '\0';
-	while (i < len)
-	{
-		printf("Esta es la KEY: %c\n", k_word[i]);
-		i++;
-	}
 	return (k_word);
 }
 
