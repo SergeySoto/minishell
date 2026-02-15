@@ -37,8 +37,8 @@ SRC = \
 	$(SRC_DIR)/parser/envp_utils.c\
 	$(SRC_DIR)/executor/path.c\
 	$(SRC_DIR)/executor/executor.c\
-	$(SRC_DIR)/executor/redirections.c\
-	$(SRC_DIR)/executor/redirect_utils.c\
+	$(SRC_DIR)/executor/executor_utils.c\
+	$(SRC_DIR)/executor/process.c\
 				
 
 TOTAL_FILES := $(words $(SRC))
