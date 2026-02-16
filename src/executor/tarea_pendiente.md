@@ -1,7 +1,7 @@
-Paso 3: El Pipeline (exec_pipeline) — LA JOYA DE LA CORONA
+#### Paso 3: El Pipeline (exec_pipeline) — LA JOYA DE LA CORONA
 Esta es la parte más compleja. Necesitas crear una función nueva.
 
-Prototipo:
+#### Prototipo:
 
 Antes de escribir código, responde estas preguntas:
 
