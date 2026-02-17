@@ -93,9 +93,13 @@ int	ft_export(t_mini *mini, int ac, char **av)
 	char	*k;
 	char	*v;
 	t_env	*current;
+	t_env	*last_node;
 	int		i;
 
-	i = 1;
+	if (!av || !*av)
+		return (1);
+	(void)ac;
+	i = 0;
 	k = key(av[i]);
 	v = value(av[i]);
 	current = mini->env;
@@ -106,19 +110,32 @@ int	ft_export(t_mini *mini, int ac, char **av)
 			free(current->value);
 			current->value = v;
 		}
+		if (current->next == NULL)
+		{
+			last_node = current;
+			printf("Ultimo nodo: %s\n", last_node->key);
+		}
 		current = current->next;
 	}
+	return (0);
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	int i = 1;
 	char	*k;
 	char	*v;
+	t_mini	mini;
+	ft_bzero(&mini, sizeof(t_mini));
+	mini.env = init_env(env);
+/* 	printf("mini.env apunta a: %p\n", (void *)mini.env);
+	printf("mini.env->key: %s\n", mini.env->key);
+	printf("mini.env->value: %s\n", mini.env->value);
+	printf("av[1]: %s\n", av[i]); */
+	ft_export(&mini, ac, &av[i]);
 	while (av[i])
 	{
-		//key(av[i]);
 		k = key(av[i]);
 		v = value(av[i]);
 		printf("Esta es la KEY: %s\n", k);
@@ -127,5 +144,6 @@ int	main(int ac, char **av)
 	}
 	free(k);
 	free(v);
+	free_env(&mini.env);
 	return (0);
 }

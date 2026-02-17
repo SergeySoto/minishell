@@ -14,7 +14,7 @@ static t_env	*create_env_node(char *key, char *value)
 	return (env);
 }
 
-static void	add_env_back(t_env **env, char *key, char *value)
+void	add_env_back(t_env **env, char *key, char *value)
 {
 	t_env	*temp;
 	t_env	*new_env;
