@@ -87,23 +87,45 @@ char	*value(char *str)
 	return (content);
 }
 
-/*
-int	ft_export(char **env, char **av)
-{
 
-} */
+int	ft_export(t_mini *mini, int ac, char **av)
+{
+	char	*k;
+	char	*v;
+	t_env	*current;
+	int		i;
+
+	i = 1;
+	k = key(av[i]);
+	v = value(av[i]);
+	current = mini->env;
+	while (current)
+	{
+		if (strncmp(k, current->key, ft_strlen(k)) == 0)
+		{
+			free(current->value);
+			current->value = v;
+		}
+		current = current->next;
+	}
+}
 
 int	main(int ac, char **av)
 {
 	(void)ac;
 	int i = 1;
+	char	*k;
+	char	*v;
 	while (av[i])
 	{
 		//key(av[i]);
-		printf("Esta es la KEY: %s\n", key(av[i]));
-		printf("Este es el VALUE: %s\n" ,value(av[i]));
+		k = key(av[i]);
+		v = value(av[i]);
+		printf("Esta es la KEY: %s\n", k);
+		printf("Este es el VALUE: %s\n", v);
 		i++;
 	}
-	free(av[i]);
+	free(k);
+	free(v);
 	return (0);
 }
