@@ -44,7 +44,7 @@ char	*key(char *str)
 		{
 			aux = ft_strchr(str, '=');
 			len_aux = ft_strlen(aux);
-			len = (len - len_aux) + 1;
+			len = (len - len_aux);
 			break ;
 		}
 		i++;
@@ -100,22 +100,31 @@ int	ft_export(t_mini *mini, int ac, char **av)
 		return (1);
 	(void)ac;
 	i = 0;
-	k = key(av[i]);
-	v = value(av[i]);
-	current = mini->env;
-	while (current)
+	while (av[i])
 	{
-		if (strncmp(k, current->key, ft_strlen(k)) == 0)
+		k = key(av[i]);
+		v = value(av[i]);
+		current = mini->env;
+		while (current)
 		{
-			free(current->value);
-			current->value = v;
+			if (strcmp(k, current->key) == 0)
+			{
+				free(current->value);
+				current->value = v;
+				printf("Nuevo VALUE actualizado: %s\n",current->value);
+				break ;
+			}
+			else if (current->next == NULL)
+			{
+				last_node = current;
+				last_node->key = k;
+				last_node->value = v;
+				add_env_back(&last_node, last_node->key, last_node->value);
+				break ;
+			}
+			current = current->next;
 		}
-		if (current->next == NULL)
-		{
-			last_node = current;
-			printf("Ultimo nodo: %s\n", last_node->key);
-		}
-		current = current->next;
+		i++;
 	}
 	return (0);
 }
@@ -129,10 +138,6 @@ int	main(int ac, char **av, char **env)
 	t_mini	mini;
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.env = init_env(env);
-/* 	printf("mini.env apunta a: %p\n", (void *)mini.env);
-	printf("mini.env->key: %s\n", mini.env->key);
-	printf("mini.env->value: %s\n", mini.env->value);
-	printf("av[1]: %s\n", av[i]); */
 	ft_export(&mini, ac, &av[i]);
 	while (av[i])
 	{
@@ -141,6 +146,12 @@ int	main(int ac, char **av, char **env)
 		printf("Esta es la KEY: %s\n", k);
 		printf("Este es el VALUE: %s\n", v);
 		i++;
+	}
+	while (mini.env)
+	{
+		printf("%s=", mini.env->key);
+		printf("%s\n", mini.env->value);
+		mini.env = mini.env->next;
 	}
 	free(k);
 	free(v);
