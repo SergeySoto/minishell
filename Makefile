@@ -39,6 +39,8 @@ SRC = \
 	$(SRC_DIR)/executor/executor.c\
 	$(SRC_DIR)/executor/executor_utils.c\
 	$(SRC_DIR)/executor/process.c\
+	$(SRC_DIR)/executor/smp_cmd.c\
+	$(SRC_DIR)/executor/mlt_cmd.c\
 				
 
 TOTAL_FILES := $(words $(SRC))
