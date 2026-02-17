@@ -61,40 +61,30 @@ char	*key(char *str)
 char	*value(char *str)
 {
 	int		i;
-	int		j;
-	char	*name;
+	int		len_content;
+	char	*content;
 	
-	name = key(str);
 	i = 0;
-	j = 0;
-	while(name[i] && name[i] != '=')
+	content = NULL;
+	while(str[i] && str[i] != '=')
 		i++;
-	if (!name[i])
+	if (!str[i])
+		return (NULL);
+	if (str[i] && str[i] == '=' && str[i + 1] == '\0')
 	{
-		str[j] = name[i];
-		return (str);
-	}
-	if (name[i] && name[i] == '=' && name[i + 1] == '\0')
-	{
+		char	*empty;
 		i++;
-		while (name[i])
-		{
-			str[j] = name[i];
-			return (str);
-		}
+		empty = ft_calloc(1 ,sizeof(char));
+		return (empty);
 	}
-	if (name[i] && name[i] == '=' && name[i + 1] != '\0')
+	if (str[i] && str[i] == '=' && str[i + 1] != '\0')
 	{
 		i++;
-		while (name[i])
-		{
-			str[j] = name[i];
-			write(1, &str[j], 1);
-			j++;
-			i++;
-		}
+		len_content = ft_strlen(&str[i]);
+		content = ft_calloc(len_content + 1, sizeof(char));
+		ft_strlcpy(content, &str[i], len_content + 1);
 	}
-	return (str);
+	return (content);
 }
 
 /*
@@ -109,10 +99,11 @@ int	main(int ac, char **av)
 	int i = 1;
 	while (av[i])
 	{
-		key(av[i]);
+		//key(av[i]);
+		printf("Esta es la KEY: %s\n", key(av[i]));
+		printf("Este es el VALUE: %s\n" ,value(av[i]));
 		i++;
 	}
 	free(av[i]);
-	//value(av[i]);
 	return (0);
 }
