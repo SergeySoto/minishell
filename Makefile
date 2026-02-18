@@ -36,11 +36,12 @@ SRC = \
 	$(SRC_DIR)/parser/envp.c\
 	$(SRC_DIR)/parser/envp_utils.c\
 	$(SRC_DIR)/executor/path.c\
-	$(SRC_DIR)/executor/executor.c\
-	$(SRC_DIR)/executor/executor_utils.c\
-	$(SRC_DIR)/executor/process.c\
-	$(SRC_DIR)/executor/smp_cmd.c\
-	$(SRC_DIR)/executor/mlt_cmd.c\
+	$(SRC_DIR)/executor/executor_main.c\
+	$(SRC_DIR)/executor/handle_execution.c\
+	$(SRC_DIR)/executor/handle_redirections.c\
+	$(SRC_DIR)/executor/handle_single.c\
+	$(SRC_DIR)/executor/handle_pipeline.c\
+	$(SRC_DIR)/executor/executor_builtins.c\
 				
 
 TOTAL_FILES := $(words $(SRC))

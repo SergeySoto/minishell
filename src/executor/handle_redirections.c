@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-int	save_std_fds(t_mini *mini)
+int	backup_std_fds(t_mini *mini)
 {
 	mini->stdin_backup = dup(STDIN_FILENO);
 	if (mini->stdin_backup < 0)
@@ -30,7 +30,7 @@ int	restore_std_fds(t_mini *mini)
 	return (0);
 }
 
-int	apply_redirections(t_cmd *cmd)
+int	setup_redirections(t_cmd *cmd)
 {
 	if (cmd->infile)
 	{
