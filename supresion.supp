@@ -1,13 +1,14 @@
 {
-   Supresion readline
+   ignore_readline_leaks
    Memcheck:Leak
-   match-leak-kinds: reachable
+   match-leak-kinds: all
    ...
    fun:readline
 }
 {
-   ignore_add_history_leaks
+   ignore_readline_history
    Memcheck:Leak
+   match-leak-kinds: all
    ...
    fun:add_history
 }

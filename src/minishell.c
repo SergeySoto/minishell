@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/03 17:49:54 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/18 18:41:56 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ char	*shell_loop(t_mini *mini)
 		{
 			input_to_token(input, &tokens, mini);
 		}
-		if (mini->tokens)
-			free_struct_token(&mini->tokens);
+		if (mini)
+			free_struct_mini(mini);
 		free(input);
 	}
 	rl_clear_history();
