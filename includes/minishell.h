@@ -21,7 +21,7 @@ int		check_flag(char *str);
 int		whitout_n(char **av);
 int		whit_n(char **av);
 int		ft_echo(char **av);
-int		is_valid(char *str);
+int		is_valid(char c);
 char	*key(char *str);
 
 
