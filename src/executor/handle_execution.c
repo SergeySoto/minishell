@@ -1,8 +1,6 @@
 
 #include "../../includes/minishell.h"
 
-
-
 int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 {
 	(void)mini;

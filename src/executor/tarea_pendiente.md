@@ -1,83 +1,128 @@
-#### Paso 3: El Pipeline (exec_pipeline) — LA JOYA DE LA CORONA
-Esta es la parte más compleja. Necesitas crear una función nueva.
+🎯 ¿Qué hace unset?
+unset elimina una o más variables del entorno. Es lo opuesto a export.
 
-#### Prototipo:
+export NOMBRE=Juan    # Crea la variable
+echo $NOMBRE          # Imprime: Juan
+unset NOMBRE          # La elimina
+echo $NOMBRE          # Imprime: (nada)
 
-Antes de escribir código, responde estas preguntas:
+📋 Comportamiento esperado
+Entrada	                                 Resultado
+unset VAR	                             Elimina VAR del entorno
+unset VAR1 VAR2 VAR3	                 Elimina múltiples variables
+unset VAR_QUE_NO_EXISTE	                 No hace nada, no es error
+unset (sin argumentos)	                 No hace nada, retorna 0
+unset PATH	                             Elimina PATH (válido, aunque peligroso)
 
-Si tienes ls | grep .c | wc -l (3 comandos), ¿cuántos pipes necesitas crear? ¿Cuántos fork() necesitas?
+Código de retorno: Siempre 0 (en la versión básica de minishell).
 
-En el pseudocódigo de tu guía, aparece una variable prev_pipe_read. ¿Para qué sirve? Imagina que estás procesando grep .c (el segundo comando). ¿De dónde lee su entrada? ¿Del teclado o del pipe que creó ls?
+🧩 Tareas para implementar unset
+Tarea 1: Entender tu lista enlazada
+Tu entorno es una lista enlazada (t_env). Para eliminar un nodo de una lista enlazada necesitas:
 
-¿Por qué el padre debe cerrar pipe_fd[1] (el extremo de escritura) inmediatamente después de hacer fork? Pista: Si el padre deja abierto el extremo de escritura, el hijo que lee de ese pipe nunca recibirá EOF y se quedará colgado esperando.
+1. Encontrar el nodo con la key que coincide
+2. "Saltar" ese nodo conectando el anterior con el siguiente
+3. Liberar la memoria del nodo eliminado
 
-¿Por qué hay que esperar a TODOS los hijos al final y no uno por uno dentro del bucle?
+Pregunta para ti: ¿Qué pasa si el nodo a eliminar es el primero de la lista? ¿Y si es el último?
 
-Pseudocódigo detallado:
+Tarea 2: Iterar sobre los argumentos
+unset puede recibir múltiples argumentos: unset VAR1 VAR2 VAR3
 
-FUNCIÓN exec_pipeline(mini):
-    cmd_actual = mini->cmds
-    prev_pipe_read = -1
+Recuerda que cmd->args es un array:
+
+args[0] = "unset"
+args[1] = "VAR1"
+args[2] = "VAR2"
+...
+Pregunta para ti: ¿Desde qué índice deberías empezar a procesar? ¿Cuándo paras?
+
+Tarea 3: Buscar la variable en la lista
+Para cada argumento, debes recorrer tu lista mini->env buscando un nodo donde node->key sea igual al argumento.
+
+Pregunta para ti: ¿Qué función de tu libft puedes usar para comparar strings?
+
+Tarea 4: Eliminar el nodo
+Eliminar un nodo de una lista enlazada tiene 3 casos:
+
+Caso	Situación	               Acción
+1	    El nodo es el primero	   El inicio de la lista (mini->env) debe apuntar al siguiente
+2	    El nodo está en el medio   El nodo anterior debe apuntar al siguiente del actual
+3	    El nodo es el último	   El nodo anterior debe apuntar a NULL
+
+Pregunta para ti: ¿Por qué necesitas guardar una referencia al nodo anterior mientras recorres la lista?
+
+Tarea 5: Actualizar env_array
+Tu estructura t_mini tiene env_array (un char** que usas para execve). Si eliminas una variable de la lista enlazada, también debes actualizar este array.
+
+Opciones:
+
+· Regenerar env_array completo después de cada unset
+· O actualizar el array directamente (más complejo)
+
+Pregunta para ti: ¿Tienes ya una función que convierta tu lista t_env a char**? Si es así, ¿podrías reutilizarla?
+
+📝Pseudocodigo
+FUNCIÓN builtin_unset(mini, cmd):
     
-    MIENTRAS cmd_actual no sea NULL:
+    índice = 1  // Empezamos desde args[1], args[0] es "unset"
+    
+    MIENTRAS cmd->args[índice] NO sea NULL:
         
-        // 1. ¿Necesito un pipe nuevo?
-        SI cmd_actual->next existe:
-            crear pipe(pipe_fd)
-            SI pipe falla:
-                imprimir error, RETORNAR
+        nombre_variable = cmd->args[índice]
         
-        // 2. Crear hijo
-        pid = fork()
-        SI pid falla:
-            imprimir error, limpiar pipes, RETORNAR
+        // Buscar y eliminar de la lista enlazada
+        eliminar_variable_de_lista(mini->env, nombre_variable)
         
-        SI pid == 0:  // HIJO
-            // a) ¿Tengo entrada de un pipe anterior?
-            SI prev_pipe_read != -1:
-                dup2(prev_pipe_read, STDIN)
-                close(prev_pipe_read)
+        índice = índice + 1
+    
+    // Actualizar el array para execve
+    regenerar_env_array(mini)
+    
+    RETORNAR 0
+
+
+FUNCIÓN eliminar_variable_de_lista(env, nombre):
+    
+    actual = env
+    anterior = NULL
+    
+    MIENTRAS actual NO sea NULL:
+        
+        SI actual->key ES IGUAL A nombre:
             
-            // b) ¿Tengo salida hacia un pipe siguiente?
-            SI cmd_actual->next existe:
-                close(pipe_fd[0])    // No leo de mi propio pipe
-                dup2(pipe_fd[1], STDOUT)
-                close(pipe_fd[1])
-            
-            // c) Aplicar redirecciones (tienen PRIORIDAD sobre pipes)
-            apply_redirections(cmd_actual)
-            
-            // d) Ejecutar
-            SI es_builtin(cmd_actual->args[0]):
-                run_builtin(mini, cmd_actual)
-                exit(exit_status)
+            SI anterior ES NULL:
+                // Es el primer nodo
+                env = actual->next
             SINO:
-                env = env_to_array(mini->env)
-                execve(cmd_actual->cmd_path, cmd_actual->args, env)
-                // Si llega aquí, execve falló
-                imprimir error
-                exit(código_error)
+                // Está en medio o al final
+                anterior->next = actual->next
+            
+            liberar(actual->key)
+            liberar(actual->value)
+            liberar(actual)
+            RETORNAR
         
-        // PADRE:
-        // e) Cerrar el pipe anterior (ya no lo necesito)
-        SI prev_pipe_read != -1:
-            close(prev_pipe_read)
-        
-        // f) Preparar para el siguiente comando
-        SI cmd_actual->next existe:
-            close(pipe_fd[1])             // No escribo
-            prev_pipe_read = pipe_fd[0]   // Guardo lectura para el siguiente
-        
-        // g) Guardar el pid del hijo
-        cmd_actual->pid = pid
-        cmd_actual = cmd_actual->next
-    
-    // 3. Esperar a TODOS los hijos
-    cmd_actual = mini->cmds
-    MIENTRAS cmd_actual:
-        waitpid(cmd_actual->pid, &status, 0)
-        cmd_actual = cmd_actual->next
-    
-    // 4. Exit status = el del ÚLTIMO comando
-    mini->exit_status = WEXITSTATUS(status)
+        anterior = actual
+        actual = actual->next
 
+❓ Preguntas de autoevaluación
+1. Memoria: Cuando eliminas un nodo, ¿qué sucede si solo liberas el nodo pero no key y value? (Pista: memory leak)
+
+2. Punteros: Si el nodo a eliminar es el primero, necesitas modificar mini->env directamente. ¿Cómo pasarías env a la función para poder modificar el puntero original? (Pista: doble puntero **)
+
+3. Edge case: ¿Qué pasa si args[1] es NULL? (El usuario solo escribió unset)
+
+4. Validación opcional: En bash real, unset 123VAR da error porque los nombres de variables no pueden empezar con número. ¿Tu minishell debe validar esto?
+
+⚠️ Aclaraciones importantes
+· No es error si la variable no existe: unset VARIABLE_INEXISTENTE simplemente no hace nada.
+· Orden de liberación: Siempre libera key y value antes de liberar el nodo.
+· Variables especiales: En tu minishell básico, no necesitas proteger variables especiales. unset PATH es válido aunque rompa la ejecución de comandos externos.
+
+🔍 Siguiente paso sugerido
+Empieza por dibujar en papel cómo se ve tu lista enlazada con 3-4 nodos y simula manualmente qué punteros cambian cuando eliminas:
+
+1. El primer nodo
+2. Un nodo del medio
+3. El último nodo
