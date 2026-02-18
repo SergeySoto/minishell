@@ -145,8 +145,9 @@ void	order_env(t_mini *mini)
 
 	aux = mini->env;
 	i = 0;
+	printf("llego\n");
 	len = ft_lstsize(aux);
-	printf("%d", len);
+	printf("%d\n", len);
 	while (i < len)
 	{
 		while (aux)
