@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/07 20:03:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/02/12 18:55:15 by ssoto-su         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -26,5 +14,16 @@
 # include "parser.h"
 # include "utils.h"
 # include "executor.h"
+
+// FUNCIONES BUILTINS AQUI POR AHORA
+int		ft_pwd(void);
+int		ft_env(t_mini *mini, char **av);
+int		check_flag(char *str);
+int		whitout_n(char **av);
+int		whit_n(char **av);
+int		ft_echo(char **av);
+int		is_valid(char c);
+char	*key(char *str);
+
 
 #endif

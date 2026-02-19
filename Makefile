@@ -31,6 +31,10 @@ SRC = \
 	$(SRC_DIR)/lexer/expander_utils.c \
 	$(SRC_DIR)/parser/parser.c \
 	$(SRC_DIR)/parser/parser_utils.c \
+	$(SRC_DIR)/builtins/ft_pwd.c \
+	$(SRC_DIR)/builtins/ft_env.c \
+	$(SRC_DIR)/builtins/ft_echo.c \
+	$(SRC_DIR)/builtins/ft_export.c \
 	$(SRC_DIR)/parser/pre_pars.c \
 	$(SRC_DIR)/parser/pre_pars_utils.c\
 	$(SRC_DIR)/parser/envp.c\
@@ -43,6 +47,7 @@ SRC = \
 	$(SRC_DIR)/executor/handle_pipeline.c\
 	$(SRC_DIR)/executor/executor_builtins.c\
 				
+
 
 TOTAL_FILES := $(words $(SRC))
 CURRENT_INDEX = 0
