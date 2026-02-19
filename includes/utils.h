@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:06:54 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/02 21:11:35 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:58:29 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	ft_lstiter(t_token *lst, void (*f)(t_token *));
 char	**dup_arr(char **envp);
 void	free_env(t_env **envp);
 void	free_cmd(t_cmd **cmd);
+void	free_iteration_data(t_mini *mini);
 
 #endif

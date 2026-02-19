@@ -100,7 +100,7 @@ run_test "ECHO Simple" "$echo_path hola mundo"
 run_test "ECHO Espacios" "$echo_path 'hola      mundo'"
 
 # Test 5: cat de archivo existente
-run_test "CAT Archivo" "$cat_path Makefile"
+run_test "CAT Archivo" "$cat_path src/executor_builtins.c"
 
 echo -e "\n${YELLOW}[ BLOQUE 2: Nuevas Pruebas (PWD y CD) ]${RESET}"
 
