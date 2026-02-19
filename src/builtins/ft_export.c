@@ -45,6 +45,21 @@ char	*value(char *str)
 		return (ft_strdup(&str[++i]));
 }
 
+/* 
+	Si yo intento crear una nueva variable a partir de una ya existente,
+	pero NO le paso un "=VALUE", la variable NO SE DEBE DE CREAR.
+	Debe prevalecer la variable existente con el value que ya tenia
+	!EJEMPLO:
+	?export USER
+	?NO DEBE DE CAMBIAR LA VARIABLE DE USER=carmegon
+	?en cambio, export USER=
+	!SI DEBE DE CAMBIAR EL VALUE DE ESA KEY Y VOLVERSE USER=""
+	*OTRA COSA
+	!Cuando se le pase export unset debe de quedar UNA sola variable de entorno
+	!aunque unset lo borre todo. Debe de quedar la ultima variable: _=/usr/bin/env
+	Posiblemente haya que hardcodear esto :)
+*/
+
 void	create_new_env(t_mini *mini, char *k, char *v)
 {
 	t_env	*current;
