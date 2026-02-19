@@ -171,34 +171,36 @@ void	order_env(t_mini *mini)
 		aux = aux->next;
 	}
 }
-
+/*
 int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-/* 	char	*k;
-	char	*v; */
+	char	*k;
+	char	*v; 
 	t_mini	mini;
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.env = init_env(env);
 	//ft_export(&mini, &av[i]);
 	order_env(&mini);
-/* 	while (av[i])
+	while (av[i])
 	{
 		k = key(av[i]);
 		v = value(av[i]);
 		printf("Esta es la KEY: %s\n", k);
 		printf("Este es el VALUE: %s\n", v);
 		i++;
-	} */
-/* 	while (mini.env)
+	}
+	while (mini.env)
 	{
 		printf("%s=", mini.env->key);
 		printf("%s\n", mini.env->value);
 		mini.env = mini.env->next;
-	} */
-/* 	free(k);
-	free(v); */
+	}
+	free(k);
+	free(v);
 	free_env(&mini.env);
 	return (0);
 }
+*/
+
