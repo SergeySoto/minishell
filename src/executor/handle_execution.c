@@ -5,7 +5,7 @@ int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 {
 	(void)mini;
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "echo") == 0)
-		return (0); //(ft_echo(cmd))
+		return (ft_echo(cmd->args));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "cmd") == 0)
 		return (0); //ft_cd(mini, cmd)
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "pwd") == 0)
@@ -15,7 +15,7 @@ int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "unset") == 0)
 		return (0); //ft_unset()
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "env") == 0)
-		return (0); //ft_env()
+		return (ft_env(mini, mini->env_array));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "exit") == 0)
 		return (0); //ft_exit()
 	return (0);
