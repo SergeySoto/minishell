@@ -3,22 +3,40 @@
 
 int	ft_unset(t_mini *mini, t_cmd *cmd)
 {
-	t_env	*prev;
-	t_env	*env;
+	t_env	*tmp;
+	t_env	*current;
 	int		i;
 
 	i = 1;
-	env = mini->env;
 	while (cmd->args[i])
 	{
-		while (env)
+		if (mini->env && ft_strncmp(mini->env->key, cmd->args[i], ft_strlen(cmd->args[i]) + 1) == 0)
 		{
-			prev = env;
-			if (ft_strncmp(env->key, cmd->args[i], ft_strlen(cmd->args[i])))
+			tmp = mini->env;
+			mini->env = mini->env->next;
+			free(tmp->key);
+			free(tmp->value);
+			free(tmp);
+		}
+		else
+		{
+			current = mini->env;
+			while (current && current->next)
 			{
-				
-				env = env->next;
+				if (ft_strncmp(current->next->key, cmd->args[i], ft_strlen(cmd->args[i]) + 1) == 0)
+				{
+					tmp = current->next;
+					current->next = tmp->next;
+					free(tmp->key);
+					free(tmp->value);
+					free(tmp);
+					break ;
+				}
+				else
+					current = current->next;
 			}
 		}
+		i++;
 	}
+	return (0);
 }

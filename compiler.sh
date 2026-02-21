@@ -19,45 +19,45 @@ RESET='\033[0m'
 print_header() {
     clear
     echo -e "${MAGENTA}"
-    echo "╔══════════════════════════════════════════════════════════════════════╗"
-    echo "║                                                                      ║"
-    echo "║   ███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     ║"
-    echo "║   ████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     ║"
-    echo "║   ██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     ║"
-    echo "║   ██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     ║"
-    echo "║   ██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████║║"
-    echo "║   ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝║"
-    echo "║                                                                      ║"
-    echo "╚══════════════════════════════════════════════════════════════════════╝"
+    echo "╔══════════════════════════════════════════════════════════════════════════╗"
+    echo "║                                                                          ║"
+    echo "║   ███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗         ║"
+    echo "║   ████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║         ║"
+    echo "║   ██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║         ║"
+    echo "║   ██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║         ║"
+    echo "║   ██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████║    ║"
+    echo "║   ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝    ║"
+    echo "║                                                                          ║"
+    echo "╚══════════════════════════════════════════════════════════════════════════╝"
     echo -e "${RESET}"
 }
 
 print_menu() {
-    echo -e "${CYAN}══════════════════ MENÚ DE COMPILACIÓN ══════════════════════${RESET}"
+    echo -e "${CYAN}══════════════════════ MENÚ DE COMPILACIÓN ══════════════════════${RESET}"
     echo ""
     echo -e "  ${GREEN}[1]${RESET} make          ${WHITE}→${RESET} Compilar y ejecutar"
     echo -e "  ${GREEN}[2]${RESET} make re       ${WHITE}→${RESET} Recompilar y ejecutar"
     echo -e "  ${GREEN}[3]${RESET} make clean    ${WHITE}→${RESET} Limpiar objetos"
     echo -e "  ${GREEN}[4]${RESET} make fclean   ${WHITE}→${RESET} Limpiar todo"
     echo ""
-    echo -e "${CYAN}═══════════════════ CON VALGRIND ════════════════════════════${RESET}"
+    echo -e "${CYAN}═══════════════════════ CON VALGRIND ════════════════════════════${RESET}"
     echo ""
     echo -e "  ${YELLOW}[5]${RESET} make          ${WHITE}→${RESET} Compilar + Valgrind"
     echo -e "  ${YELLOW}[6]${RESET} make re       ${WHITE}→${RESET} Recompilar + Valgrind"
     echo -e "  ${YELLOW}[7]${RESET} make          ${WHITE}→${RESET} Compilar + Valgrind (sin supresiones)"
     echo ""
-    echo -e "${CYAN}═══════════════════════ OTROS ═══════════════════════════════${RESET}"
+    echo -e "${CYAN}═══════════════════════════ OTROS ═══════════════════════════════${RESET}"
     echo ""
     echo -e "  ${BLUE}[8]${RESET} norminette    ${WHITE}→${RESET} Verificar norma"
     echo -e "  ${BLUE}[9]${RESET} tester        ${WHITE}→${RESET} Ejecutar tester.sh"
     echo ""
     echo -e "  ${RED}[0]${RESET} Salir"
     echo ""
-    echo -e "${CYAN}═════════════════════════════════════════════════════════════${RESET}"
+    echo -e "${CYAN}═════════════════════════════════════════════════════════════════${RESET}"
 }
 
 print_separator() {
-    echo -e "${BLUE}─────────────────────────────────────────────────────────────${RESET}"
+    echo -e "${BLUE}────────────────────────────────────────────────────────────────${RESET}"
 }
 
 run_command() {
