@@ -100,7 +100,7 @@ compile_valgrind() {
         echo ""
         echo -e "${YELLOW}▶ Ejecutando con Valgrind (con supresiones)...${RESET}"
         print_separator
-        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=supresion.supp ./minishell
+        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --suppressions=supresion.supp ./minishell
     fi
 }
 
@@ -110,7 +110,7 @@ recompile_valgrind() {
         echo ""
         echo -e "${YELLOW}▶ Ejecutando con Valgrind (con supresiones)...${RESET}"
         print_separator
-        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=supresion.supp ./minishell
+        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --suppressions=supresion.supp ./minishell
     fi
 }
 
@@ -120,7 +120,7 @@ compile_valgrind_raw() {
         echo ""
         echo -e "${YELLOW}▶ Ejecutando con Valgrind (SIN supresiones)...${RESET}"
         print_separator
-        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell
+        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./minishell
     fi
 }
 
