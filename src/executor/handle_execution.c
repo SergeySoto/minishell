@@ -15,7 +15,7 @@ int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "unset") == 0)
 		return (ft_unset(mini, cmd));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "env") == 0)
-		return (ft_env(mini, mini->env_array));
+		return (ft_env(mini, cmd->args));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "exit") == 0)
 		return (0); //ft_exit()
 	return (0);
