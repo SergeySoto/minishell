@@ -16,7 +16,6 @@ static char	*join_env_node(t_env *envp)
 	return (str);
 }
 
-//Usar antes de execve
 char	**env_to_array(t_env *envp)
 {
 	char	**env_array;

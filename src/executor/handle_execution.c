@@ -55,9 +55,6 @@ void	execute_command_node(t_mini *mini, t_cmd *cmd)
 		exit_code = execute_builtin_func(mini, cmd);
 		free_struct_mini(mini);
 		exit(exit_code);
-		//-----------------
-		//execute_builtin_func(mini, cmd);
-		//exit(mini->exit_status);
 	}
 	execute_system_binary(mini, cmd);
 }
