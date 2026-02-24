@@ -11,7 +11,7 @@ int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "pwd") == 0)
 		return (ft_pwd());
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "export") == 0)
-		return (0); //ft_export()
+		return (ft_export(mini, mini->cmds->args));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "unset") == 0)
 		return (ft_unset(mini, cmd));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "env") == 0)

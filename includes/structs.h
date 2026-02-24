@@ -44,6 +44,7 @@ typedef struct s_cmd
 
 typedef struct s_mini
 {
+	char	**arg_vector;
 	// ---MEMORY AND ENVIROMENT---
 	t_env	*env;
 	char	**env_array;
