@@ -15,6 +15,8 @@
 # include "utils.h"
 # include "executor.h"
 
+extern int	g_signal;
+
 // FUNCIONES BUILTINS AQUI POR AHORA
 int		ft_pwd(void);
 int		ft_env(t_mini *mini, char **av);
