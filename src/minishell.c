@@ -16,6 +16,7 @@ char	*shell_loop(t_mini *mini)
 			printf("exit\n");
 			break ;
 		}
+
 		if (input[0] != '\0')
 		{
 			input_to_token(input, &tokens, mini);

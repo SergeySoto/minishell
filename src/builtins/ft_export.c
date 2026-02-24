@@ -45,21 +45,6 @@ char	*value(char *str)
 		return (ft_strdup(&str[++i]));
 }
 
-/* 
-	Si yo intento crear una nueva variable a partir de una ya existente,
-	pero NO le paso un "=VALUE", la variable NO SE DEBE DE CREAR.
-	Debe prevalecer la variable existente con el value que ya tenia
-	!EJEMPLO:
-	?export USER
-	?NO DEBE DE CAMBIAR LA VARIABLE DE USER=carmegon
-	?en cambio, export USER=
-	!SI DEBE DE CAMBIAR EL VALUE DE ESA KEY Y VOLVERSE USER=""
-	*OTRA COSA
-	!Cuando se le pase export unset debe de quedar UNA sola variable de entorno
-	!aunque unset lo borre todo. Debe de quedar la ultima variable: _=/usr/bin/env
-	Posiblemente haya que hardcodear esto :)
-*/
-
 void	create_new_env(t_mini *mini, char *k, char *v)
 {
 	t_env	*current;
@@ -69,18 +54,19 @@ void	create_new_env(t_mini *mini, char *k, char *v)
 	{
 		if (ft_strcmp(k, current->key) == 0)
 		{
+			if (v == NULL)
+			{
+				free(k);
+				return ;
+			}
 			free(current->value);
 			current->value = v;
 			break ;
 		}
 		else if (current->next == NULL)
 		{
-			printf("Este es mi ultimo nodo %s\n", current->key);
-			printf("Esta es el value de mi ultimo nodo %s\n", current->value);
 			add_env_back(&(mini->env), k, v);
 			current = current->next;
-			printf("Este es mi ultimo nuevo nodo %s\n", current->key);
-			printf("Esta es el value de mi nuevo ultimo nodo %s\n", current->value);
 			break ;
 		}
 		current = current->next;
@@ -181,29 +167,11 @@ int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-/* 	char	*k;
-	char	*v; */
+
 	t_mini	mini;
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.env = init_env(env);
 	ft_export(&mini, ac, &av[1]);
-	//print_env(mini.env);
-/* 	while (av[i])
-	{
-		k = key(av[i]);
-		v = value(av[i]);
-		printf("Esta es la KEY: %s\n", k);
-		printf("Este es el VALUE: %s\n", v);
-		i++;
-	} */
-/* 	while (mini.env)
-	{
-		printf("%s=", mini.env->key);
-		printf("%s\n", mini.env->value);
-		mini.env = mini.env->next;
-	} */
-/* 	free(k);
-	free(v); */
 	free_env(&mini.env);
 	return (0);
 }

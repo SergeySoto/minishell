@@ -23,6 +23,13 @@ int		whit_n(char **av);
 int		ft_echo(char **av);
 int		is_valid(char c);
 char	*key(char *str);
+char	*value(char *str);
+void	create_new_env(t_mini *mini, char *k, char *v);
+int		update_or_add_env(t_mini *mini, char **av);
+void	swap_nodes(t_mini *mini);
+void	print_order_env(t_mini *mini);
+int		order_env(t_mini *mini);
+int		ft_export(t_mini *mini, int ac, char **av);
 
 
 #endif
