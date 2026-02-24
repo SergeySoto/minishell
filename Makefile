@@ -35,11 +35,18 @@ SRC = \
 	$(SRC_DIR)/builtins/ft_env.c \
 	$(SRC_DIR)/builtins/ft_echo.c \
 	$(SRC_DIR)/builtins/ft_export.c \
+	$(SRC_DIR)/builtins/ft_unset.c \
 	$(SRC_DIR)/parser/pre_pars.c \
 	$(SRC_DIR)/parser/pre_pars_utils.c\
 	$(SRC_DIR)/parser/envp.c\
 	$(SRC_DIR)/parser/envp_utils.c\
 	$(SRC_DIR)/executor/path.c\
+	$(SRC_DIR)/executor/executor_main.c\
+	$(SRC_DIR)/executor/handle_execution.c\
+	$(SRC_DIR)/executor/handle_redirections.c\
+	$(SRC_DIR)/executor/handle_single.c\
+	$(SRC_DIR)/executor/handle_pipeline.c\
+	$(SRC_DIR)/executor/executor_builtins.c\
 				
 
 

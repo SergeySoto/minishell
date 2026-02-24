@@ -3,125 +3,142 @@
 # --- CONFIGURACIÓN ---
 MINISHELL="./minishell"
 VALGRIND_LOG="valgrind_out.log"
-USE_VALGRIND=0 # Cambia a 1 para activar chequeo de memoria lento pero seguro
-
-# --- OTRA FORMA DE TESTEAR ---
-# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=supresion.supp ./minishell
+OUTPUT_MINI="out_mini.txt"
+OUTPUT_BASH="out_bash.txt"
+DIFF_FILE="diff.txt"
 
 # --- COLORES ---
 GREEN="\033[32m"
 RED="\033[31m"
 YELLOW="\033[33m"
+BLUE="\033[34m"
 RESET="\033[0m"
+BOLD="\033[1m"
 
 # --- LIMPIEZA INICIAL ---
-rm -f $VALGRIND_LOG
+rm -f $VALGRIND_LOG $OUTPUT_MINI $OUTPUT_BASH $DIFF_FILE
 
-# --- FUNCIÓN DE PRUEBA ---
+# --- FUNCIÓN DE EJECUCIÓN ---
 run_test() {
-    TEST_NAME="$1"
-    INPUT="$2"
+    TEST_DESC="$1"
+    CMD="$2"
 
-    echo -ne "Prueba: ${YELLOW}$TEST_NAME${RESET} -> Input: [$INPUT] ... "
+    echo -ne "Test: ${BLUE}$TEST_DESC${RESET} -> [ ${BOLD}$CMD${RESET} ] ... "
 
-    if [ $USE_VALGRIND -eq 1 ]; then
-        echo "$INPUT" | valgrind --leak-check=full --show-leak-kinds=all --log-file=$VALGRIND_LOG $MINISHELL > /dev/null 2>&1
-        RET=$?
-        # Buscar errores en el log de valgrind
-        LEAKS=$(grep "definitely lost:" $VALGRIND_LOG | grep -v "0 bytes in 0 blocks")
-        ERRORS=$(grep "ERROR SUMMARY:" $VALGRIND_LOG | grep -v "0 errors")
-        
-        if [ $RET -eq 139 ]; then
-            echo -e "${RED}[SEGFAULT]${RESET}"
-        elif [ ! -z "$LEAKS" ] || [ ! -z "$ERRORS" ]; then
-            echo -e "${RED}[LEAKS/ERRORS]${RESET}"
-            grep "ERROR SUMMARY" $VALGRIND_LOG
-        else
-            echo -e "${GREEN}[OK]${RESET}"
-        fi
+    # 1. Ejecutar en BASH (Referencia)
+    # Usamos bash -c para replicar comportamiento de shell
+    echo "$CMD" | bash > $OUTPUT_BASH 2>&1
+    EXIT_BASH=$?
+
+    # 2. Ejecutar en MINISHELL
+    # Valgrind opcional (puedes activarlo descomentando o pasando flag)
+    # echo "$CMD" | valgrind --leak-check=full --quiet --log-file=$VALGRIND_LOG $MINISHELL > $OUTPUT_MINI 2>&1
+    
+    # Ejecución normal para comparar output
+    # OJO: Minishell imprime el prompt en stdout, hay que filtrarlo
+    echo "$CMD" | $MINISHELL > $OUTPUT_MINI 2>&1
+    EXIT_MINI=$?
+
+    # Filtrar el prompt "Minishell$>" del output de minishell
+    # Esto es necesario porque tu shell imprime el prompt
+    grep -v "Minishell\$> " $OUTPUT_MINI > "${OUTPUT_MINI}.tmp" && mv "${OUTPUT_MINI}.tmp" $OUTPUT_MINI
+    grep -v "exit" $OUTPUT_MINI > "${OUTPUT_MINI}.tmp" && mv "${OUTPUT_MINI}.tmp" $OUTPUT_MINI
+    
+    # Eliminar líneas vacías al inicio/final si es necesario (ajustar según tu minishell)
+    sed -i '/^$/d' $OUTPUT_MINI 
+    sed -i '/^$/d' $OUTPUT_BASH
+
+    # 3. Comparar Salidas
+    diff -w -B $OUTPUT_BASH $OUTPUT_MINI > $DIFF_FILE
+    DIFF_RET=$?
+
+    # 4. Mostrar Resultados
+    if [ $DIFF_RET -eq 0 ]; then
+        echo -e "${GREEN}[OK]${RESET}"
     else
-        # Ejecución normal (más rápida)
-        echo "$INPUT" | $MINISHELL > /dev/null 2>&1
-        RET=$?
-        
-        if [ $RET -eq 139 ]; then
-            echo -e "${RED}[SEGFAULT]${RESET}"
-        elif [ $RET -ne 0 ]; then
-            echo -e "${RED}[CRASH/EXIT $RET]${RESET}"
-        else
-            echo -e "${GREEN}[OK]${RESET}"
-        fi
+        echo -e "${RED}[KO]${RESET}"
+        echo -e "${YELLOW}--- Diferencias encontradas ---${RESET}"
+        #cat $DIFF_FILE
+        #echo -e "${YELLOW}--------------------------------${RESET}"
+        echo -e "Esperado (Bash):\n----------"
+        cat $OUTPUT_BASH
+        echo -e "----------\nObtenido (Minishell):\n----------"
+        cat $OUTPUT_MINI
+        echo "----------"
     fi
 }
 
-# ==========================================
-#              CASOS DE PRUEBA
-# ==========================================
+echo -e "${BOLD}--- INICIANDO TESTER MEJORADO MINISHELL ---${RESET}"
+echo "-------------------------------------------"
 
-echo -e "${YELLOW}--- INICIANDO TESTER BASICO MINISHELL ---${RESET}"
-echo "-----------------------------------------"
+# Obtener rutas absolutas de binarios comunes
+ls_path=$(which ls)
+echo_path=$(which echo)
+cat_path=$(which cat)
+grep_path=$(which grep)
+wc_path=$(which wc)
+pwd_path=$(which pwd)
+cd_path=$(which cd)
 
-# 1. BASICO
-run_test "Palabra simple" "ls"
-run_test "Espacios" "   ls    -la   "
-run_test "Tabulaciones" "	ls		-la	"
-run_test "Comando vacío" ""
+if [ -z "$ls_path" ] || [ -z "$echo_path" ]; then
+    echo -e "${RED}Error: no se encontraron binarios básicos (ls, echo).${RESET}"
+    exit 1
+fi
 
-# 2. PIPES Y REDIRECCIONES (Tokenizer check)
-run_test "Pipe simple" "ls | cat"
-run_test "Pipe múltiple" "ls | grep a | wc -l"
-run_test "Redirección in" "< archivo cat"
-run_test "Redirección out" "ls > file"
-run_test "Append" "ls >> file"
-run_test "Heredoc" "cat << LIMIT"
+echo -e "${YELLOW}[ BLOQUE 1: Rutas Absolutas (Sin Builtins) ]${RESET}"
 
-# 3. COMILLAS (Quotes check)
-run_test "Comillas dobles" "echo \"hola mundo\""
-run_test "Comillas simples" "echo 'hola mundo'"
-run_test "Comillas mixtas 1" "echo \"'hola'\""
-run_test "Comillas mixtas 2" "echo '\"hola\"'"
-run_test "Comillas sin cerrar (Debe fallar o manejarlo)" "echo \"hola"
+# Test 1: ls simple
+run_test "LS Simple" "$ls_path"
 
-# 4. EXPANSIONES (Expander check - LO NUEVO)
-run_test "Variable simple" "echo $USER"
-run_test "Variable con texto pegado" "echo valor=$USER"
-run_test "Variable en comillas dobles" "echo \"Mi usuario es $USER\""
-run_test "Variable en comillas simples (NO expandir)" "echo 'No expando $USER'"
-run_test "Variable inexistente" "echo $VARIABLE_FALSA"
-run_test "Signo dolar solo" "echo cuesta 5$"
-run_test "Exit status" "echo $?"
-run_test "Expansión complicada" "echo \"'$USER'\""
+# Test 2: ls con flags
+run_test "LS Long Format" "$ls_path -l"
 
-# 5. LISTA DE ENTORNO (Env check)
-# Esto prueba si tu init_env revienta con muchas variables
-run_test "Env" "env"
+# Test 3: echo simple (usando binary)
+run_test "ECHO Simple" "$echo_path hola mundo"
 
-# 6. PARSER - Lógica de Argumentos (Mix)
-# Prueba si tu parser sabe saltar la redirección y seguir cogiendo argumentos
-run_test "Redirección entre argumentos" "ls -l > salida.txt -a" 
-run_test "Redirección al inicio" "> salida.txt echo Funciona"
-run_test "Redirección al final" "echo Funciona > salida.txt"
+# Test 4: argumentos con espacios
+run_test "ECHO Espacios" "$echo_path 'hola      mundo'"
 
-# 7. PARSER - Redirecciones Múltiples (Stress Test)
-# Verifica si cierras/abres correctamente los fds sin perder memoria
-run_test "Multiples Redirecciones Out" "echo A > file1 > file2 > file3"
-run_test "Append vs Truncate" "echo A >> file1 > file2"
+# Test 5: cat de archivo existente
+run_test "CAT Archivo" "$cat_path src/executor_builtins.c"
 
-# 8. PARSER - Pipes (Creación de Lista)
-# Verifica si creas nodos t_cmd enlazados correctamente
-run_test "Pipe simple" "ls | wc"
-run_test "Pipe múltiple" "ls -la | grep a | wc -l"
-run_test "Mezcla Pipes y Redirecciones" "cat < Makefile | grep a > resultado.txt"
+echo -e "\n${YELLOW}[ BLOQUE 2: Nuevas Pruebas (PWD y CD) ]${RESET}"
 
-# 9. INTEGRIDAD (Check de seguridad)
-# Estos casos suelen romper parsers mal hechos (segfaults por NULL pointers)
-run_test "Pipe al final (Error sintaxis)" "ls |"
-run_test "Redirección sin archivo (Error sintaxis)" "ls >" 
-# Nota: Si tu pre-parser funciona, estos deberían dar error controlado, no Segfault.
+# Test PWD
+if [ -n "$pwd_path" ]; then
+    run_test "PWD Absoluto" "$pwd_path"
+    run_test "PWD en Pipe" "$pwd_path | $grep_path Documents"
+else
+    echo -e "${RED}No se encontró binario para 'pwd'. Saltando test.${RESET}"
+fi
 
-# --- LIMPIEZA ---
-# Borramos los archivos basura que crean los tests
-rm -f salida.txt file1 file2 file3 resultado.txt
 
-echo "-----------------------------------------"
+# Test CD: CD NO TIENE BINARIO ABSOLUTO.
+# Como no tienes builtins, 'cd' fallará (command not found) en tu minishell.
+# Bash sí lo ejecutará. Por tanto, este test dará KO si la salida de error difiere.
+echo -e "${BLUE}Nota sobre CD: Como 'cd' es un builtin, necesitas implementarlo primero. Aquí probamos si se detecta (fallará si no existe).${RESET}"
+run_test "CD intento (relativo)" "$cd_path /src"
+
+
+echo -e "\n${YELLOW}[ BLOQUE 3: Pipes con Rutas Absolutas ]${RESET}"
+
+# Test 6: pipe simple
+run_test "Pipe Simple (ls | wc)" "$ls_path | $wc_path -l"
+
+# Test 7: pipe doble
+run_test "Pipe Doble (ls | grep | wc)" "$ls_path | $grep_path a | $wc_path -l"
+
+# Test 8: pipe cat | grep
+run_test "Cat | Grep" "$cat_path Makefile | $grep_path minishell"
+
+
+echo -e "\n${YELLOW}[ BLOQUE 4: Errores y Casos Borde ]${RESET}"
+
+# Test 9: comando no encontrado
+run_test "Comando Inexistente" "/bin/cmd_fake"
+
+# --- LIMPIEZA FINAL ---
+rm -f $OUTPUT_MINI $OUTPUT_BASH $DIFF_FILE $VALGRIND_LOG
+
+echo "-------------------------------------------"
 echo -e "${GREEN}Test finalizado.${RESET}"

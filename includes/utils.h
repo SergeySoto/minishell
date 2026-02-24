@@ -26,5 +26,6 @@ void	ft_lstiter(t_token *lst, void (*f)(t_token *));
 char	**dup_arr(char **envp);
 void	free_env(t_env **envp);
 void	free_cmd(t_cmd **cmd);
+void	free_iteration_data(t_mini *mini);
 
 #endif

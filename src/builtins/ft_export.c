@@ -33,7 +33,7 @@ char	*key(char *str)
 char	*value(char *str)
 {
 	int		i;
-	
+
 	i = 0;
 	while(str[i] && str[i] != '=')
 		i++;
@@ -54,11 +54,9 @@ void	create_new_env(t_mini *mini, char *k, char *v)
 	{
 		if (ft_strcmp(k, current->key) == 0)
 		{
+			free(k);
 			if (v == NULL)
-			{
-				free(k);
 				return ;
-			}
 			free(current->value);
 			current->value = v;
 			break ;
@@ -66,7 +64,6 @@ void	create_new_env(t_mini *mini, char *k, char *v)
 		else if (current->next == NULL)
 		{
 			add_env_back(&(mini->env), k, v);
-			current = current->next;
 			break ;
 		}
 		current = current->next;
@@ -150,19 +147,18 @@ int	order_env(t_mini *mini)
 	return (0);
 }
 
-int	ft_export(t_mini *mini, int ac, char **av)
+int	ft_export(t_mini *mini, char **av)
 {
-	int	i;
 	if (!av || !*av)
 		return (0);
-	i = 0;
-	if (ac == 2)
+	if (av[0] && !av[1])
 		order_env(mini);
 	else
 		update_or_add_env(mini, av);
 	return (0);
 }
 
+/*
 int	main(int ac, char **av, char **env)
 {
 	(void)ac;
@@ -175,3 +171,4 @@ int	main(int ac, char **av, char **env)
 	free_env(&mini.env);
 	return (0);
 }
+*/

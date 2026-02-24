@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/07 20:23:17 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:56:58 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	free_iteration_data(t_mini *mini)
+{
+	if (!mini)
+		return ;
+	if (mini->tokens)
+		free_struct_token(&mini->tokens);
+	if (mini->cmds)
+		free_cmd(&mini->cmds);
+}
 
 char	**dup_arr(char **envp)
 {

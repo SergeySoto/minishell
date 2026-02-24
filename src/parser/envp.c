@@ -13,7 +13,7 @@ static t_env	*create_env_node(char *key, char *value)
 	env->next = NULL;
 	return (env);
 }
-// !He quitado la static de add_env_back para poder utilizarla en ft_export
+
 void	add_env_back(t_env **env, char *key, char *value)
 {
 	t_env	*temp;

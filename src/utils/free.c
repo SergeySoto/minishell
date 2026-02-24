@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/02/05 16:58:38 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:59:41 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,9 @@ void	free_struct_mini(t_mini *mini)
 	if (!mini)
 		return ;
 
-	if (mini->tokens)
-		free_struct_token(&mini->tokens);
+	free_iteration_data(mini);
 	if (mini->env)
 		free_env(&mini->env);
-	if (mini->cmds)
-		free_cmd(&mini->cmds);
 	if (mini->input || mini->env_array)
 	{
 		free_token(mini->input, mini->env_array);

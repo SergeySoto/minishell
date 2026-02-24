@@ -34,13 +34,8 @@ static int	ft_word_counter(char const *str, char c)
 	i = 0;
 	flag = 1;
 	words = 0;
-	//quotes=0;
 	while (str[i])
 	{
-		//if (str[i] = '\'' || str[i] = '\"')
-			//quote = str[i];
-			//str = ft_strchr(str[i] + 1, quote);
-			//i = 0;
 		if (str[i] == c)
 			flag = 1;
 		if (str[i] != c && flag)
@@ -94,16 +89,3 @@ char	**ft_split(char const *s, char c)
 	list = ft_fill_array(list, s, w_count, c);
 	return (list);
 }
-
-/* int	main(void)
-{
-	char	s1[] = "Hola buenos dias";
-	char	**list = ft_split(s1, 32);
-	int	i = 0;
-	while (*list[i])
-	{
-		printf("%s\n", &*list[i]);
-		i++;
-	}
-	return (0);
-} */
