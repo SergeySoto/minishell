@@ -158,17 +158,3 @@ int	ft_export(t_mini *mini, char **av)
 	return (0);
 }
 
-/*
-int	main(int ac, char **av, char **env)
-{
-	(void)ac;
-	(void)av;
-
-	t_mini	mini;
-	ft_bzero(&mini, sizeof(t_mini));
-	mini.env = init_env(env);
-	ft_export(&mini, ac, &av[1]);
-	free_env(&mini.env);
-	return (0);
-}
-*/
