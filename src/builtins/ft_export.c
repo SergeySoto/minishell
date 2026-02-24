@@ -110,7 +110,8 @@ int	update_or_add_env(t_mini *mini, char **av)
 
 void	swap_nodes(t_mini *mini)
 {
-	char	*swap;
+	char	*swap_key;
+	char	*swap_value;
 	t_env	*aux;
 
 	aux = mini->env;
@@ -118,9 +119,12 @@ void	swap_nodes(t_mini *mini)
 	{
 		if (aux->next != NULL && (ft_strcmp(aux->key, aux->next->key) > 0))
 		{
-			swap = aux->key;
+			swap_key = aux->key;
 			aux->key = aux->next->key;
-			aux->next->key = swap;
+			aux->next->key = swap_key;
+			swap_value = aux->value;
+			aux->value = aux->next->value;
+			aux->next->value = swap_value;
 		}
 		aux = aux->next;
 	}
@@ -160,20 +164,16 @@ int	order_env(t_mini *mini)
 	return (0);
 }
 
-int	ft_export(t_mini *mini, char **av)
+int	ft_export(t_mini *mini, int ac, char **av)
 {
 	int	i;
 	if (!av || !*av)
 		return (0);
 	i = 0;
-	if (av[0] && !av[i + 1])
-	{
+	if (ac == 2)
 		order_env(mini);
-	}
 	else
-	{
 		update_or_add_env(mini, av);
-	}
 	return (0);
 }
 
@@ -186,9 +186,7 @@ int	main(int ac, char **av, char **env)
 	t_mini	mini;
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.env = init_env(env);
-	//int i = 1;
-	//printf("%s\n", av[1]);
-	ft_export(&mini, &av[1]);
+	ft_export(&mini, ac, &av[1]);
 	//print_env(mini.env);
 /* 	while (av[i])
 	{
