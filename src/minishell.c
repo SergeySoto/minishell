@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/24 17:54:53 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/25 17:36:53 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*shell_loop(t_mini *mini)
 {
-	char	*input;
 	t_token	*tokens;
 /*
 	Gestionar mas adelante el Enter sin salto de linea
@@ -22,19 +21,15 @@ char	*shell_loop(t_mini *mini)
 	while (1)
 	{
 		tokens = NULL;
-		input = readline("Minishell$> ");
-		if (!input)
+		mini->input = readline("Minishell$> ");
+		if (!mini->input)
 		{
 			printf("exit\n");
 			break ;
 		}
-
-		if (input[0] != '\0')
-		{
-			input_to_token(input, &tokens, mini);
-		}
-			free_iteration_data(mini);
-		free(input);
+		if (mini->input[0] != '\0')
+			input_to_token(mini->input, &tokens, mini);
+		free_iteration_data(mini);
 	}
 	free_struct_mini(mini);
 	rl_clear_history();
@@ -49,6 +44,7 @@ int	main(int ac, char **av, char **envp)
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.arg_vector = av;
 	mini.env = init_env(envp);
+	mini.is_interactive = isatty(STDIN_FILENO);
 	shell_loop(&mini);
 	free_struct_mini(&mini);
 	return (0);

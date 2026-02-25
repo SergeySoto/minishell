@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/19 16:56:58 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/25 17:34:04 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	free_iteration_data(t_mini *mini)
 		free_struct_token(&mini->tokens);
 	if (mini->cmds)
 		free_cmd(&mini->cmds);
+	if (mini->input)
+	{
+		free(mini->input);
+		mini->input = NULL;
+	}
 }
 
 char	**dup_arr(char **envp)
