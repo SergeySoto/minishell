@@ -36,6 +36,7 @@ SRC = \
 	$(SRC_DIR)/builtins/ft_echo.c \
 	$(SRC_DIR)/builtins/ft_export.c \
 	$(SRC_DIR)/builtins/ft_unset.c \
+	$(SRC_DIR)/builtins/ft_cd.c \
 	$(SRC_DIR)/parser/pre_pars.c \
 	$(SRC_DIR)/parser/pre_pars_utils.c\
 	$(SRC_DIR)/parser/envp.c\

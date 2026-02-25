@@ -1,6 +1,5 @@
-//#include "../../includes/minishell.h"
-#include <stdio.h>
-#include <unistd.h>
+#include "../../includes/minishell.h"
+
 
 //! -- ESTAS 3 PRIMERAS FUNCIONES VAN FUERA DESPUES AL INCLUIRLAS EN EL PROGRAMA --//
 void	ft_putchar_fd(char c, int fd)

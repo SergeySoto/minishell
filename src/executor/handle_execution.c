@@ -6,8 +6,8 @@ int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 	(void)mini;
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "echo") == 0)
 		return (ft_echo(cmd->args));
-	if (cmd->args[0] && ft_strcmp(cmd->args[0], "cmd") == 0)
-		return (0); //ft_cd(mini, cmd)
+	if (cmd->args[0] && ft_strcmp(cmd->args[0], "cd") == 0)
+		return (ft_cd(mini, cmd->args)); //ft_cd(mini, cmd)
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "pwd") == 0)
 		return (ft_pwd());
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "export") == 0)
