@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/25 17:36:53 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/26 19:29:14 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	*shell_loop(t_mini *mini)
 	while (1)
 	{
 		tokens = NULL;
+		set_signals_interactive();
 		mini->input = readline("Minishell$> ");
 		if (!mini->input)
 		{

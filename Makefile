@@ -47,6 +47,7 @@ SRC = \
 	$(SRC_DIR)/executor/handle_single.c\
 	$(SRC_DIR)/executor/handle_pipeline.c\
 	$(SRC_DIR)/executor/executor_builtins.c\
+	$(SRC_DIR)/signal/signal.c\
 				
 
 

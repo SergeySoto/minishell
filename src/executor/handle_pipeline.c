@@ -20,6 +20,7 @@ int	init_pipe(t_mini *mini, t_cmd *cmd, int prev_pipe, int *pipe_fd)
 int	spawn_process(t_cmd *cmd, int prev_pipe, int *pipe_fd)
 {
 	cmd->pid = fork();
+	set_signals_default();
 	if (cmd->pid < 0)
 	{
 		perror("fork");
