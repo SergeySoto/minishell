@@ -61,6 +61,5 @@ void	handle_pipeline_loop(t_mini *mini)
 			current_cmd = current_cmd->next;
 		}
 	}
-	set_signals_child();
 	wait_all_children(mini);
 }

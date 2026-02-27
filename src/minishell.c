@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/26 19:29:14 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/27 18:21:46 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 char	*shell_loop(t_mini *mini)
 {
 	t_token	*tokens;
-/*
-	Gestionar mas adelante el Enter sin salto de linea
-*/
+
 	while (1)
 	{
 		tokens = NULL;
 		set_signals_interactive();
-		mini->input = readline("Minishell$> ");
+		if (mini->is_interactive)
+			mini->input = readline("Minishell$> ");
+		else
+			mini->input = get_next_line(STDIN_FILENO);
 		if (!mini->input)
 		{
-			printf("exit\n");
+			if (mini->is_interactive)
+				printf("exit\n");
 			break ;
 		}
 		if (mini->input[0] != '\0')

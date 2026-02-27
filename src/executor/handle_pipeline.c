@@ -20,7 +20,6 @@ int	init_pipe(t_mini *mini, t_cmd *cmd, int prev_pipe, int *pipe_fd)
 int	spawn_process(t_cmd *cmd, int prev_pipe, int *pipe_fd)
 {
 	cmd->pid = fork();
-	set_signals_default();
 	if (cmd->pid < 0)
 	{
 		perror("fork");
@@ -67,6 +66,7 @@ void	wait_all_children(t_mini *mini)
 {
 	t_cmd *current_cmd;
 
+	set_signals_ignore();
 	current_cmd = mini->cmds;
 	while (current_cmd)
 	{
@@ -77,4 +77,5 @@ void	wait_all_children(t_mini *mini)
 		mini->exit_status = WEXITSTATUS(mini->exit_status);
 	else if (WIFSIGNALED(mini->exit_status))
 		mini->exit_status = 128 + WTERMSIG(mini->exit_status);
+	set_signals_interactive();
 }

@@ -1,7 +1,6 @@
 
 #include "../../includes/minishell.h"
 
-
 void	handler_sigint_interactive(int signum)
 {
 	g_signal = signum;
