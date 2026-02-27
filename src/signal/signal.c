@@ -13,8 +13,7 @@ void	handler_sigint_interactive(int signum)
 void	handler_signals_child(int signum)
 {
 	g_signal = signum;
-	write(1, "\n", 1); //se puede comentar y descomentar la linea de abajo
-	//set_signals_default();
+	write(1, "\n", 1);
 }
 
 void	set_signals_interactive(void)
