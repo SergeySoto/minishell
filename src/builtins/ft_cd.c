@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int	more_than_2_av(char **av)
+int	count_av(char **av)
 {
 	int	i;
 	if (!av || !*av)
@@ -97,9 +97,9 @@ int	ft_cd(t_mini *mini, char **av)
 	return (0);
 
 	old_pwd(mini);
-	if (more_than_2_av(av) == 1)
+	if (count_av(av) == 1)
 		go_home(mini);
-	else if (more_than_2_av(av) == 2)
+	else if (count_av(av) == 2)
 		change_directory(mini, &av[1]);
 	else
 	{
