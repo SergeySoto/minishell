@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_pars_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:28:18 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/04 19:46:27 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/02 17:15:18 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	check_pipe(char *str)
 		i++;
 	if (ft_strncmp(&str[i], "||", 2) == 0)
 	{
-		printf("Error: Syntax error near unexpected token '||'\n");
+		printf("Error: syntax error near unexpected token '||'\n");
 		return (0);
 	}
 	else if (str[i] == '|')
 	{
-		printf("Error: Syntax error near unexpected token '|'\n");
+		printf("Error: syntax error near unexpected token '|'\n");
 		return (0);
 	}
 	return (1);
@@ -43,14 +43,16 @@ int	check_pending_pipe(char *str)
 	i = ft_strlen(str);
 	while (i > 0 && is_space(str[i - 1]))
 		i--;
+	if (i == 0)
+		return (1);
 	if (str[i - 1] == '|')
 	{
 		if (str[i - 2] == '|')
 		{
-			printf("Error: Syntax error near unexpected token '||'\n");
+			printf("Error: syntax error near unexpected token '||'\n");
 			return (0);
 		}
-		printf("Error: Syntax error near unexpected token '|'\n");
+		printf("Error: syntax error near unexpected token '|'\n");
 		return (0);
 	}
 	return (1);
@@ -63,7 +65,6 @@ int	check_quotes(char *str)
 
 	quotes = 0;
 	i = 0;
-
 	while (str[i])
 	{
 		if ((str[i] == '"' || str[i] == '\'') && quotes == 0)

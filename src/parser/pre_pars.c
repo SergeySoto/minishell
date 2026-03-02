@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_pars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/02/04 19:46:32 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/02 17:13:54 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	check_redirect(char *str)
 				j++;
 			if (invalid_neighbor(str[j]))
 			{
-				printf("Error: Syntax error near unexpected token\n");
+				printf("Error: syntax error near unexpected token\n");
 				return (0);
 			}
 		}
@@ -70,12 +70,12 @@ static int	check_invalid_double(char *str)
 		{
 			if (str[i] == '|' && str[i + 1] == '|')
 			{
-				printf("Error: Syntax error near unexpected token `||'\n");
+				printf("Error: syntax error near unexpected token `||'\n");
 				return (0);
 			}
 			if (str[i] == '&' && str[i + 1] == '&')
 			{
-				printf("Error: Syntax error near unexpected token `&&'\n");
+				printf("Error: syntax error near unexpected token `&&'\n");
 				return (0);
 			}
 		}
