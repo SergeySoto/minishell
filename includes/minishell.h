@@ -19,7 +19,7 @@
 # include "executor.h"
 # include "signals.h"
 
-static int	g_signal;
+extern int	g_signal;
 
 // FUNCIONES BUILTINS AQUI POR AHORA
 int		ft_pwd(void);

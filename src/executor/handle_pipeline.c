@@ -37,6 +37,7 @@ int	spawn_process(t_cmd *cmd, int prev_pipe, int *pipe_fd)
 
 void	pipe_child_process(t_mini *mini, t_cmd *cmd, int prev_pipe, int *pipe_fd)
 {
+	set_signals_default();
 	if (prev_pipe != -1)
 	{
 		dup2(prev_pipe, STDIN_FILENO);
@@ -64,7 +65,7 @@ void	pipe_parent_process(t_cmd *cmd, int *prev_pipe, int *pipe_fd)
 
 void	wait_all_children(t_mini *mini)
 {
-	t_cmd *current_cmd;
+	t_cmd	*current_cmd;
 
 	set_signals_ignore();
 	current_cmd = mini->cmds;
@@ -76,6 +77,11 @@ void	wait_all_children(t_mini *mini)
 	if (WIFEXITED(mini->exit_status))
 		mini->exit_status = WEXITSTATUS(mini->exit_status);
 	else if (WIFSIGNALED(mini->exit_status))
-		mini->exit_status = 128 + WTERMSIG(mini->exit_status);
+	{
+		g_signal = 128 + WTERMSIG(mini->exit_status);
+		if (WTERMSIG(mini->exit_status) == SIGINT)
+			write(1, "\n", 1);
+		mini->exit_status = g_signal;
+	}
 	set_signals_interactive();
 }

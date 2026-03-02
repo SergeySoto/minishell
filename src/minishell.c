@@ -6,11 +6,13 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/02 15:09:45 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/02 19:01:22 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include ".././includes/minishell.h"
+
+int g_signal;
 
 char	*shell_loop(t_mini *mini)
 {
