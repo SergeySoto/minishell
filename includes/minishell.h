@@ -1,10 +1,13 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define _XOPEN_SOURCE 700
+# define _POSIX_C_SOURCE 200809L
 # include <stdio.h>
 # include <errno.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -14,8 +17,9 @@
 # include "parser.h"
 # include "utils.h"
 # include "executor.h"
+# include "signals.h"
 
-extern int	g_signal;
+static int	g_signal;
 
 // FUNCIONES BUILTINS AQUI POR AHORA
 int		ft_pwd(void);

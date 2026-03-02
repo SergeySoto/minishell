@@ -53,6 +53,7 @@ typedef struct s_mini
 	t_token	*tokens;
 	t_cmd	*cmds;
 	// ---STATUS---
+	int		is_interactive;
 	int		exit_status; // Símbolo especial $?
 	// ---CONTROL---
 	int		stdin_backup;
