@@ -17,6 +17,7 @@ void	single_cmd_child_process(t_mini *mini, t_cmd *cmd)
 {
 	if (cmd->pid == 0)
 	{
+		set_signals_default();
 		if (cmd->args[0])
 			execute_command_node(mini, cmd);
 		else
@@ -30,6 +31,7 @@ void	single_cmd_child_process(t_mini *mini, t_cmd *cmd)
 
 void	single_cmd_parent_wait(t_mini *mini, t_cmd *cmd)
 {
+	set_signals_child();
 	waitpid(cmd->pid, &mini->exit_status, 0);
 	if (WIFEXITED(mini->exit_status))
 		mini->exit_status = WEXITSTATUS(mini->exit_status);
