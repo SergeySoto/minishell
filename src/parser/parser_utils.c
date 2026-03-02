@@ -1,120 +1,30 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 20:28:18 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/23 16:50:19 by carmegon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "../../includes/minishell.h"
 
-#include "../.././includes/minishell.h"
-
-int	is_space(char c)
+void	set_redirects(t_token **token, t_cmd *cmd)
 {
-	return (c == ' ' || (c >= 9 && c <= 13));
-}
-
-int	check_pipe(char *str)
-{
-	int	i;
-	i = 0;
-	while (str[i] && is_space(str[i]))
-		i++;
-	if (ft_strncmp(&str[i], "||", 2) == 0)
+	if ((*token)->type == REDIR_IN)
 	{
-		printf("Error: Syntax error near unexpected token '||'\n");
-		return (0);
+		if (cmd->infile)
+			free(cmd->infile);
+		cmd->infile = ft_strdup((*token)->next->content);
 	}
-	else if (str[i] == '|')
+	else if ((*token)->type == REDIR_OUT)
 	{
-		printf("Error: Syntax error near unexpected token '|'\n");
-		return (0);
+		if (cmd->outfile)
+			free(cmd->outfile);
+		cmd->outfile = ft_strdup((*token)->next->content);
+		cmd->append = 0;
 	}
-	return (1);
-}
-
-int	check_pending_pipe(char *str)
-{
-	int	i;
-
-	i = ft_strlen(str);
-	while (i > 0 && is_space(str[i - 1]))
-		i--;
-	if (str[i - 1] == '|')
+	else if ((*token)->type == APPEND)
 	{
-		if (str[i - 2] == '|')
-		{
-			printf("Error: Syntax error near unexpected token '||'\n");
-			return (0);
-		}
-		printf("Error: Syntax error near unexpected token '|'\n");
-		return (0);
+		if (cmd->outfile)
+			free(cmd->outfile);
+		cmd->outfile = ft_strdup((*token)->next->content);
+		cmd->append = 1;
 	}
-	return (1);
-}
-
-int	check_quotes(char *str)
-{
-	int		i;
-	char	quotes;
-
-	quotes = 0;
-	i = 0;
-
-	while (str[i])
+	else if ((*token)->type == HEREDOC)
 	{
-		if ((str[i] == '"' || str[i] == '\'') && quotes == 0)
-			quotes = str[i];
-		else if (str[i] == quotes)
-			quotes = 0;
-		i++;
+		//cmd->fd_in = ; //Aqui va la logica del heredoc
 	}
-	if (quotes != 0)
-	{
-		printf("Error: Unclosed quotes\n");
-		return (0);
-	}
-	return (1);
-}
-/* 
-	Creo una funcion que devuelva el caracter " o ' en caso de que check_quote haya encontrado una de estas comillas cerradas!
-*/
-
-char	get_quote(char *input)
-{
-	char	quote;
-
-	quote = '\0';
-	if (check_quotes(input) == 1)
-		quote = *input;
-	return (quote);
-}
-
-int	check_forbidden(char *str)
-{
-	int	i;
-	int	quotes;
-
-	i = 0;
-	quotes = 0;
-	while (str[i])
-	{
-		if ((str[i] == '"' || str[i] == '\'') && quotes == 0)
-			quotes = str[i];
-		else if (str[i] == quotes)
-			quotes = 0;
-		if (quotes == 0)
-		{
-			if (str[i] == '\\' || str[i] == ';')
-			{
-				printf("Error: Forbidden character found\n");
-				return (0);
-			}
-		}
-		i++;
-	}
-	return (1);
+	(*token) = (*token)->next->next;
 }

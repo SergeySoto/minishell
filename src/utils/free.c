@@ -6,11 +6,11 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/28 19:06:09 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:59:41 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../.././includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	*free_token(char *str, char **env)
 {
@@ -19,7 +19,7 @@ void	*free_token(char *str, char **env)
 	if (env)
 	{
 		i = 0;
-		while (env[i])
+		while (env && env[i])
 		{
 			free(env[i]);
 			i++;
@@ -66,13 +66,35 @@ void	free_env(t_env **envp)
 	*envp = NULL;
 }
 
+void	free_cmd(t_cmd **cmd)
+{
+	t_cmd	*tmp;
+
+	if (!cmd || !*cmd)
+		return ;
+	while ((*cmd) != NULL)
+	{
+		free_token((*cmd)->cmd_path, (*cmd)->args);
+		if ((*cmd)->fd_in > 2)
+			close((*cmd)->fd_in);
+		if ((*cmd)->fd_out > 2)
+			close((*cmd)->fd_out);
+		if ((*cmd)->infile)
+			free((*cmd)->infile);
+		if ((*cmd)->outfile)
+			free((*cmd)->outfile);
+		tmp = (*cmd)->next;
+		free((*cmd));
+		(*cmd) = tmp;
+	}
+}
+
 void	free_struct_mini(t_mini *mini)
 {
 	if (!mini)
 		return ;
 
-	if (mini->tokens)
-		free_struct_token(&mini->tokens);
+	free_iteration_data(mini);
 	if (mini->env)
 		free_env(&mini->env);
 	if (mini->input || mini->env_array)
@@ -81,5 +103,4 @@ void	free_struct_mini(t_mini *mini)
 		mini->input = NULL;
 		mini->env = NULL;
 	}
-	// FALTA LIBERAR LOS CMDS, PERO AUN NO LOS TENEMOS
 }

@@ -6,11 +6,11 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/01/28 20:18:27 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/27 19:26:48 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../.././includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	get_type(char *line)
 {
@@ -61,12 +61,10 @@ void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 {
 	char	**temp_split;
 	int		i;
-	/* creo que debemos crear la estructura t_mini aqui y asignar la estructura
-	t_token al puntero de la estrutura t_mini. */
+
 	add_history(input);
-	if (!parser(input))
+	if (pre_pars(input) == 0)
 		return ;
-	printf("Input Valido: %s\n", input);
 	temp_split = smart_split(input);
 	i = 0;
 	while (temp_split && temp_split[i])
@@ -80,6 +78,9 @@ void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 	mini->tokens = (*tokens);
 	expander(mini);
 	ft_lstiter(*tokens, trim_quotes);
-	print_tokens(mini->tokens);
-	print_env(mini->env);
+	init_cmd(&mini);
+	find_full_path(mini);
+	//print_cmds(mini->cmds);
+	executor_dispatch(mini);
+	//print_env(mini->env);
 }

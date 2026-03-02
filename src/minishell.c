@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/28 18:24:47 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/27 18:21:46 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 char	*shell_loop(t_mini *mini)
 {
-	char	*input;
 	t_token	*tokens;
-/*
-	Gestionar mas adelante el Enter sin salto de linea
-*/
+
 	while (1)
 	{
 		tokens = NULL;
-		input = readline("Minishell$> ");
-		if (!input)
+		set_signals_interactive();
+		if (mini->is_interactive)
+			mini->input = readline("Minishell$> ");
+		else
+			mini->input = get_next_line(STDIN_FILENO);
+		if (!mini->input)
 		{
-			printf("exit\n");
+			if (mini->is_interactive)
+				printf("exit\n");
 			break ;
 		}
-		if (input[0] != '\0')
-		{
-			input_to_token(input, &tokens, mini);
-		}
-		if (mini->tokens)
-			free_struct_token(&mini->tokens);
-		free(input);
+		if (mini->input[0] != '\0')
+			input_to_token(mini->input, &tokens, mini);
+		free_iteration_data(mini);
 	}
+	free_struct_mini(mini);
 	rl_clear_history();
 	return (NULL);
 }
@@ -43,11 +42,12 @@ char	*shell_loop(t_mini *mini)
 int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
-	(void)av;
 	t_mini	mini;
 
 	ft_bzero(&mini, sizeof(t_mini));
+	mini.arg_vector = av;
 	mini.env = init_env(envp);
+	mini.is_interactive = isatty(STDIN_FILENO);
 	shell_loop(&mini);
 	free_struct_mini(&mini);
 	return (0);

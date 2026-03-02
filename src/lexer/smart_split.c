@@ -6,11 +6,11 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:44 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/20 20:12:47 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:46:45 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../.././includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	word_count(char *str)
 {
@@ -18,7 +18,7 @@ static int	word_count(char *str)
 	char	in_quotes;
 	char	in_word;
 	int		count;
-	
+
 	count = 0;
 	in_word = 0;
 	in_quotes = 0;
