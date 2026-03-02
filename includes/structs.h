@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/20 17:52:52 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/03 19:51:46 by ssoto-su         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
@@ -55,6 +44,7 @@ typedef struct s_cmd
 
 typedef struct s_mini
 {
+	char	**arg_vector;
 	// ---MEMORY AND ENVIROMENT---
 	t_env	*env;
 	char	**env_array;
@@ -63,6 +53,7 @@ typedef struct s_mini
 	t_token	*tokens;
 	t_cmd	*cmds;
 	// ---STATUS---
+	int		is_interactive;
 	int		exit_status; // Símbolo especial $?
 	// ---CONTROL---
 	int		stdin_backup;
