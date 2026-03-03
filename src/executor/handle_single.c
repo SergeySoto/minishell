@@ -22,7 +22,7 @@ void	single_cmd_child_process(t_mini *mini, t_cmd *cmd)
 			execute_command_node(mini, cmd);
 		else
 		{
-			if(!setup_redirections(cmd))
+			if (!setup_redirections(cmd))
 				exit(1);
 			exit(0);
 		}

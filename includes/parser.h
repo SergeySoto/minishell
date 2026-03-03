@@ -13,7 +13,7 @@ t_env	*init_env(char **envp);
 char	**env_to_array(t_env *envp);
 int		count_args(t_token *token);
 void	init_cmd(t_mini **mini);
-void	set_redirects(t_token **token, t_cmd *cmd);
+void	set_redirects(t_mini *mini, t_token **token, t_cmd *cmd);
 
 
 #endif

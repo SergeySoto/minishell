@@ -48,7 +48,6 @@ void	handle_pipeline_loop(t_mini *mini)
 	current_cmd = mini->cmds;
 	while (current_cmd != NULL)
 	{
-
 		if (init_pipe(mini, current_cmd, prev_pipe, pipe_fd) == -1)
 			return ;
 		if (spawn_process(current_cmd, prev_pipe, pipe_fd) == -1)

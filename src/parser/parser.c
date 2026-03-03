@@ -61,11 +61,11 @@ int	count_args(t_token *token)
 	return (count);
 }
 
-static void	handler_redirects(t_token **token, t_cmd *cmd, int *i)
+static void	handler_redirects(t_mini *mini, t_token **token, t_cmd *cmd, int *i)
 {
 	if ((*token)->type > 1 && (*token)->type < 6)
 	{
-		set_redirects(token, cmd);
+		set_redirects(mini, token, cmd);
 	}
 	else if ((*token)->type == WORD || (*token)->type == ENV_VAR
 		|| (*token)->type == EXIT_STATUS)
@@ -91,7 +91,7 @@ void	init_cmd(t_mini **mini)
 		cmd->args = malloc(sizeof(char *) * (count_args(c_token) + 1));
 		i = 0;
 		while (c_token && c_token->type != PIPE)
-			handler_redirects(&c_token, cmd, &i);
+			handler_redirects(mini, &c_token, cmd, &i);
 		cmd->args[i] = NULL;
 		add_cmd_back(&(*mini)->cmds, cmd);
 		if (c_token)

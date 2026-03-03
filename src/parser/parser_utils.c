@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	set_redirects(t_token **token, t_cmd *cmd)
+void	set_redirects(t_mini *mini, t_token **token, t_cmd *cmd)
 {
 	if ((*token)->type == REDIR_IN)
 	{

@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 19:20:37 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/18 16:50:54 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/03 18:34:47 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	execute_builtin_in_parent(t_mini *mini, t_cmd *cmd);
 void	execute_command_node(t_mini *mini, t_cmd *cmd);
 void	single_cmd_child_process(t_mini *mini, t_cmd *cmd);
 void	single_cmd_parent_wait(t_mini *mini, t_cmd *cmd);
-void	pipe_child_process(t_mini *mini, t_cmd *cmd, int prev_pipe, int *pipe_fd);
+void	pipe_child_process(t_mini *mini, t_cmd *cmd, int prev_pipe,
+			int *pipe_fd);
 void	pipe_parent_process(t_cmd *cmd, int *prev_pipe, int *pipe_fd);
 void	wait_all_children(t_mini *mini);
 int		init_pipe(t_mini *mini, t_cmd *cmd, int prev_pipe, int *pipe_fd);
