@@ -36,7 +36,10 @@ void	single_cmd_parent_wait(t_mini *mini, t_cmd *cmd)
 	if (WIFEXITED(mini->exit_status))
 		mini->exit_status = WEXITSTATUS(mini->exit_status);
 	else if (WIFSIGNALED(mini->exit_status))
-		mini->exit_status = 128 + WTERMSIG(mini->exit_status);
-	//close(cmd->fd_in);
-	//close(cmd->fd_out);
+	{
+		g_signal = 128 + WTERMSIG(mini->exit_status);
+		if (WTERMSIG(mini->exit_status) == SIGQUIT)
+			write(2, "Quit (core dumped)\n", 19);
+		mini->exit_status = g_signal;
+	}
 }

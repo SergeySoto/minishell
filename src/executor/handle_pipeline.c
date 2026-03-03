@@ -81,6 +81,8 @@ void	wait_all_children(t_mini *mini)
 		g_signal = 128 + WTERMSIG(mini->exit_status);
 		if (WTERMSIG(mini->exit_status) == SIGINT)
 			write(1, "\n", 1);
+		else if (WTERMSIG(mini->exit_status) == SIGQUIT)
+			write(2, "Quit (core dumped)\n", 19);
 		mini->exit_status = g_signal;
 	}
 	set_signals_interactive();
