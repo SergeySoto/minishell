@@ -40,6 +40,7 @@ SRC = \
 	$(SRC_DIR)/parser/pre_pars_utils.c\
 	$(SRC_DIR)/parser/envp.c\
 	$(SRC_DIR)/parser/envp_utils.c\
+	$(SRC_DIR)/parser/heredoc.c\
 	$(SRC_DIR)/executor/path.c\
 	$(SRC_DIR)/executor/executor_main.c\
 	$(SRC_DIR)/executor/handle_execution.c\

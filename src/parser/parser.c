@@ -91,7 +91,7 @@ void	init_cmd(t_mini **mini)
 		cmd->args = malloc(sizeof(char *) * (count_args(c_token) + 1));
 		i = 0;
 		while (c_token && c_token->type != PIPE)
-			handler_redirects(mini, &c_token, cmd, &i);
+			handler_redirects(*mini, &c_token, cmd, &i);
 		cmd->args[i] = NULL;
 		add_cmd_back(&(*mini)->cmds, cmd);
 		if (c_token)
