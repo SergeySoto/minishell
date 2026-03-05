@@ -20,6 +20,10 @@ char	*shell_loop(t_mini *mini)
 		}
 		if (mini->input[0] != '\0')
 			input_to_token(mini->input, &tokens, mini);
+		if (is_numeric_av(mini->input))
+			ft_putstr_fd("Av valido\n", 1);
+		else
+			ft_putstr_fd("Av invalido\n", 1);
 		free_iteration_data(mini);
 	}
 	free_struct_mini(mini);
@@ -30,6 +34,7 @@ char	*shell_loop(t_mini *mini)
 int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
+	(void)envp;
 	t_mini	mini;
 
 	ft_bzero(&mini, sizeof(t_mini));

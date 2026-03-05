@@ -1,38 +1,63 @@
 #include "../../includes/minishell.h"
 
-//! EN pre_pars_utils tengo ya is_space!
 
 int	is_numeric_av(char *str)
 {
 	int	i;
+	int	found_digit;
 
 	i = 0;
-	if (!str || !*str)
-		return (0);
-	while (str[i] && is_space(str[i]))
+	found_digit = 0;
+	while (is_space(str[i]))
 		i++;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!str[i] || !ft_isdigit(str[i]))
+		return (0);
 	while (str[i])
 	{
-		if (is_space(str[i]) && ft_isdigit(str[i + 1]))
+		if (ft_isdigit(str[i]) && found_digit == 1)
 			return (0);
-		else if ((str[i] == '-' || str[i] == '+') && !ft_isdigit(str[i + 1]))
+		else if (!ft_isdigit(str[i]) && !is_space(str[i]))
 			return (0);
-		else if (!ft_isdigit(str[i]))
-			return (0);
-		else if (ft_isdigit(str[i]) && ((str[i + 1] == '-' || str[i + 1] == '+')))
-			return (0);
-		else if (str[i] && is_space(str[i]))
-		{
-			i++;
-			continue ;
-		}
+		else if (is_space(str[i]) && i > 0 && ft_isdigit(str[i - 1]))
+			found_digit = 1;
 		i++;
 	}
 	return (1);
 }
 
+long long	ft_atoll(char *str)
+{
+	int		i;
+	int		sign;
+	long	n;
+
+	i = 0;
+	while (str[i] < 33)
+		i++;
+	sign = 1;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	n = 0;
+	while (str[i])
+	{
+		if (n > INT_MAX || n < INT_MIN)
+			return (LONG_MAX);
+		else if (str[i] < '0' || str[i] > '9')
+			return (n * sign);
+		n = (n * 10) + (str[i] - '0');
+		i++;
+	}
+	return (n * sign);
+}
+
 void	ft_exit(t_cmd *cmd)
 {
 	if (!cmd->args || !*cmd->args)
-		return (0);
+		return ;
 }
