@@ -23,7 +23,13 @@ void	single_cmd_child_process(t_mini *mini, t_cmd *cmd)
 		else
 		{
 			if (!setup_redirections(cmd))
+			{
+				free_struct_mini(mini);
+				rl_clear_history();
 				exit(1);
+			}
+			free_struct_mini(mini);
+			rl_clear_history();
 			exit(0);
 		}
 	}

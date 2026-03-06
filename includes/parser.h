@@ -14,6 +14,7 @@ char	**env_to_array(t_env *envp);
 int		count_args(t_token *token);
 void	init_cmd(t_mini **mini);
 void	set_redirects(t_mini *mini, t_token **token, t_cmd *cmd);
+int		handle_heredoc(char *demiliter, t_mini *mini);
 
 
 #endif

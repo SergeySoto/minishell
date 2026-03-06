@@ -495,3 +495,49 @@ Paso 6 → Múltiples heredocs
 Paso 7 → Heredoc con pipes
          Probar con: cat << EOF | grep hola
 ```
+--------------------------------------------------------------
+
+Basándome en la guía y el estado actual de tu código:
+
+Lista de tareas para implementar el heredoc
+Fase 1 — Preparar la base
+Crear el archivo src/parser/heredoc.c — aquí irá toda la lógica del heredoc
+Actualizar el Makefile — añadir src/parser/heredoc.c a las fuentes compiladas
+Cambiar la firma de set_redirects() — actualmente recibe (t_token **token, t_cmd *cmd), necesita recibir también t_mini *mini
+Cambiar la firma de handler_redirects() en parser.c — para que propague mini hasta set_redirects()
+Actualizar parser.h — actualizar el prototipo de set_redirects() con el nuevo parámetro
+Fase 2 — Heredoc básico (sin señales, sin expansión)
+Escribir handle_heredoc(char *delimiter, t_mini *mini) — versión básica: abrir archivo temporal, bucle con readline("> "), comparar con delimitador, escribir líneas, cerrar, reabrir en lectura, unlink, retornar fd
+Completar la rama HEREDOC en set_redirects() — llamar a handle_heredoc() y guardar el fd en cmd->fd_in
+Modificar setup_redirections() en handle_redirections.c — añadir lógica para fd_in > 0 (heredoc) antes de la lógica de infile
+Declarar handle_heredoc() en parser.h
+Compilar y probar con cat << EOF
+Fase 3 — Señales del heredoc
+Escribir handler_sigint_heredoc(int signum) en signal.c — guardar en g_signal, escribir \n, poner rl_done = 1
+Escribir set_signals_heredoc(void) en signal.c — SIGINT con el handler nuevo, SIGQUIT con SIG_IGN
+Declarar ambas funciones en signals.h
+Integrar señales en handle_heredoc() — llamar set_signals_heredoc() antes del bucle, comprobar g_signal != 0 tras cada readline, restaurar con set_signals_interactive() al salir
+Compilar y probar con cat << EOF + Ctrl+C (debe volver al prompt con $? = 130)
+Fase 4 — Ctrl+D (EOF sin delimitador)
+Manejar readline retornando NULL — imprimir el warning "minishell: warning: here-document delimited by end-of-file (wanted 'DELIMITADOR')" y romper el bucle (no es error, el heredoc se usa con lo que haya)
+Compilar y probar con cat << EOF + Ctrl+D sin escribir EOF
+Fase 5 — Propagación del error de heredoc
+Manejar fd_in == -1 en init_cmd() — si handle_heredoc devolvió -1 (Ctrl+C), abortar el parseo del comando actual y no ejecutar nada
+Compilar y probar que tras Ctrl+C no se ejecuta el comando
+Fase 6 — Expansión de variables
+Escribir expand_heredoc_line(char *line, t_mini *mini) en heredoc.c — expandir $VAR y $? dentro de cada línea leída
+Integrar en el bucle de handle_heredoc() — llamar a expand_heredoc_line antes de escribir cada línea en el archivo temporal
+Compilar y probar con cat << EOF → escribir $HOME → debe mostrar /home/usuario
+Fase 7 — Comillas en delimitador
+Escribir check_delimiter_quoted(char *delimiter) en heredoc.c — comprobar si el delimitador tiene comillas (simples o dobles)
+Escribir lógica para quitar comillas del delimitador — "EOF" → EOF para la comparación
+Condicionar la expansión — si el delimitador tenía comillas, NO expandir variables
+Compilar y probar con cat << "EOF" → escribir $HOME → debe mostrar $HOME literal
+Fase 8 — Casos especiales
+Múltiples heredocs — en set_redirects(), si cmd->fd_in > 2, cerrar el fd anterior antes de sobrescribirlo con el nuevo heredoc
+Probar con cat << A << B
+Probar heredoc con pipes — cat << EOF | grep hola
+Probar heredoc con otras redirecciones — cat << EOF > salida.txt
+Fase 9 — Limpieza
+Verificar leaks con valgrind — comprobar que readline, líneas temporales y fds se liberan/cierran correctamente
+Comprobar que $? se actualiza correctamente en todos los casos (0 éxito, 130 Ctrl+C)

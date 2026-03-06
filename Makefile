@@ -50,6 +50,7 @@ SRC = \
 	$(SRC_DIR)/executor/executor_builtins.c\
 	$(SRC_DIR)/signal/signal.c\
 	$(SRC_DIR)/signal/signal_utils.c\
+	$(SRC_DIR)/signal/signal_heredoc.c\
 				
 
 

@@ -32,6 +32,12 @@ int	restore_std_fds(t_mini *mini)
 
 int	setup_redirections(t_cmd *cmd)
 {
+	if (cmd->fd_in > 0)
+	{
+		if (dup2(cmd->fd_in, STDIN_FILENO) == -1)
+			return (close(cmd->fd_in), 0);
+		close(cmd->fd_in);
+	}
 	if (cmd->infile)
 	{
 		cmd->fd_in = open(cmd->infile, O_RDONLY);

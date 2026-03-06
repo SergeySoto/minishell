@@ -2,7 +2,8 @@
 
 void	set_redirects(t_mini *mini, t_token **token, t_cmd *cmd)
 {
-	(void)mini;
+	int	fd;
+
 	if ((*token)->type == REDIR_IN)
 	{
 		if (cmd->infile)
@@ -25,7 +26,11 @@ void	set_redirects(t_mini *mini, t_token **token, t_cmd *cmd)
 	}
 	else if ((*token)->type == HEREDOC)
 	{
-		cmd->fd_in = handle_heredoc((*token)->next->content, mini);
+		fd = handle_heredoc((*token)->next->content, mini);
+		if (fd == -1)
+			cmd->fd_in = -1;
+		else
+			cmd->fd_in = fd;
 	}
 	(*token) = (*token)->next->next;
 }

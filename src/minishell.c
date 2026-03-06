@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/02 19:01:22 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/06 17:30:15 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ int	main(int ac, char **av, char **envp)
 	mini.env = init_env(envp);
 	mini.is_interactive = isatty(STDIN_FILENO);
 	shell_loop(&mini);
-	free_struct_mini(&mini);
 	return (0);
 }

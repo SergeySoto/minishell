@@ -1,35 +1,52 @@
 
 #include "../../includes/minishell.h"
 
-
 int	handle_heredoc(char *demiliter, t_mini *mini)
 {
-	int		*fd;
+	int		fd;
 	char	*line;
+	(void)mini;
 
 	fd = open("/tmp/minishell_heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
-		return (perror(fd), 0);
+		return (perror("heredoc"), -1);
+	mini->stdin_backup = dup(STDIN_FILENO);
+	g_signal = 0;
+	set_signals_heredoc();
 	while (1)
 	{
 		line = readline("> ");
+		if (g_signal != 0)
+		{
+			free(line);
+			close(fd);
+			unlink("/tmp/minishell_heredoc");
+			dup2(mini->stdin_backup, STDIN_FILENO);
+			close(mini->stdin_backup);
+			set_signals_interactive();
+			return (-1);
+		}
 		if (!line)
 		{
-			perror("warning: here-document delimited by end-of-file");
+			ft_putstr_fd(
+				"minishell: warning: here-document delimited by end-of-file\n",
+					 2);
 			break ;
 		}
-		if (strcmp(line, demiliter) == 0)
+		if (ft_strcmp(line, demiliter) == 0)
 		{
 			free(line);
 			break ;
 		}
-		write(fd[1], line, ft_strlen(line));
-		write(fd[1], "\n", 1);
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
 		free(line);
 	}
-	close(fd[1]);
-	fd[0] = open("/tmp/minishell_heredoc", O_RDONLY);
+	close(mini->stdin_backup);
+	close(fd);
+	fd = open("/tmp/minishell_heredoc", O_RDONLY);
 	unlink("/tmp/minishell_heredoc");
-	return (fd[0]);
+	set_signals_interactive();
+	return (fd);
 }
 
