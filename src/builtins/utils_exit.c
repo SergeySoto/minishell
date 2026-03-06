@@ -1,6 +1,5 @@
 #include "../../includes/minishell.h"
 
-
 int	is_numeric_av(char *str)
 {
 	int	i;
@@ -34,7 +33,7 @@ long long	ft_atoll(char *str)
 	long	n;
 
 	i = 0;
-	while (str[i] < 33)
+	while (str[i] && is_space(str[i]))
 		i++;
 	sign = 1;
 	if (str[i] == '+' || str[i] == '-')
@@ -46,14 +45,22 @@ long long	ft_atoll(char *str)
 	n = 0;
 	while (str[i])
 	{
-		if (n > INT_MAX || n < INT_MIN)
-			return (LONG_MAX);
-		else if (str[i] < '0' || str[i] > '9')
-			return (n * sign);
+		if (n > LLONG_MAX || n < LLONG_MIN)
+			return (LLONG_MAX);
+/* 		else if (str[i] < '0' || str[i] > '9')
+			return (n * sign); */
 		n = (n * 10) + (str[i] - '0');
 		i++;
 	}
 	return (n * sign);
+}
+
+int	is_valid_av(char **av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
 }
 
 void	ft_exit(t_cmd *cmd)
