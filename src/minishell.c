@@ -20,7 +20,7 @@ char	*shell_loop(t_mini *mini)
 		}
 		if (mini->input[0] != '\0')
 			input_to_token(mini->input, &tokens, mini);
-		if (is_numeric_av(mini->input))
+		if (!is_overflow_av(mini->input))
 			ft_putstr_fd("Av valido\n", 1);
 		else
 			ft_putstr_fd("Av invalido\n", 1);
