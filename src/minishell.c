@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/06 17:30:15 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/09 16:55:21 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,37 @@
 
 int g_signal;
 
-char	*shell_loop(t_mini *mini)
+static int	minishell_iteration(t_mini *mini)
 {
 	t_token	*tokens;
 
-	while (1)
+	tokens = NULL;
+	set_signals_interactive();
+	if (mini->is_interactive)
+		mini->input = readline("Minishell$> ");
+	else
+		mini->input = get_next_line(STDIN_FILENO);
+	if (!mini->input)
 	{
-		tokens = NULL;
-		set_signals_interactive();
 		if (mini->is_interactive)
-			mini->input = readline("Minishell$> ");
-		else
-			mini->input = get_next_line(STDIN_FILENO);
-		if (!mini->input)
-		{
-			if (mini->is_interactive)
-				printf("exit\n");
-			break ;
-		}
-		if (mini->input[0] != '\0')
-			input_to_token(mini->input, &tokens, mini);
-		free_iteration_data(mini);
+			printf("exit\n");
+		return (0);
 	}
+	if (mini->input[0] != '\0')
+	{
+		input_to_token(mini->input, &tokens, mini);
+		if (mini->tokens)
+			process_and_execute(mini);
+	}
+	free_iteration_data(mini);
+	return (1);
+}
+
+char	*shell_loop(t_mini *mini)
+{
+
+	while (minishell_iteration(mini))
+		continue ;
 	free_struct_mini(mini);
 	rl_clear_history();
 	return (NULL);
