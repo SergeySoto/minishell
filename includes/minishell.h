@@ -38,6 +38,7 @@ void		swap_nodes(t_mini *mini);
 void		print_order_env(t_mini *mini);
 int			order_env(t_mini *mini);
 int			ft_export(t_mini *mini, char **av);
+int         count_av(char **av);
 int			ft_cd(t_mini *mini, char **av);
 int			is_numeric_av(char *str);
 long long	ft_atoll(char *str);
