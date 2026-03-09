@@ -50,6 +50,11 @@ void	execute_command_node(t_mini *mini, t_cmd *cmd)
 		free_struct_mini(mini);
 		exit(1);
 	}
+	if (!cmd->args || !cmd->args[0])
+	{
+		free_struct_mini(mini);
+		exit(0);
+	}
 	if (is_builtin(cmd->args[0]))
 	{
 		exit_code = execute_builtin_func(mini, cmd);

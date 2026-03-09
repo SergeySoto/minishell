@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/03/06 17:27:13 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/09 19:33:23 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	free_cmd(t_cmd **cmd)
 		free((*cmd));
 		(*cmd) = tmp;
 	}
+	*cmd = NULL;
 }
 
 void	free_struct_mini(t_mini *mini)

@@ -61,26 +61,33 @@ int	count_args(t_token *token)
 	return (count);
 }
 
-static void	handler_redirects(t_mini *mini, t_token **token, t_cmd *cmd, int *i)
+int	process_cmd_tokens(t_mini **mini, t_token **c_token, t_cmd *cmd)
 {
-	if ((*token)->type > 1 && (*token)->type < 6)
+	int	i;
+
+	i = 0;
+	cmd->args = malloc(sizeof(char *) * (count_args(*c_token) + 1));
+	if (!cmd->args)
+		return (-1);
+	while (*c_token && (*c_token)->type != PIPE)
 	{
-		set_redirects(mini, token, cmd);
+		handler_redirects(*mini, c_token, cmd, &i);
+		if (cmd->fd_in == -1)
+		{
+			cmd->args[i] = NULL;
+			free_cmd(&cmd);
+			free_cmd(&(*mini)->cmds);
+			return (-1);
+		}
 	}
-	else if ((*token)->type == WORD || (*token)->type == ENV_VAR
-		|| (*token)->type == EXIT_STATUS)
-	{
-		cmd->args[*i] = ft_strdup((*token)->content);
-		(*i)++;
-		(*token) = (*token)->next;
-	}
+	cmd->args[i] = NULL;
+	return (0);
 }
 
 void	init_cmd(t_mini **mini)
 {
 	t_token	*c_token;
 	t_cmd	*cmd;
-	int		i;
 
 	c_token = (*mini)->tokens;
 	while (c_token)
@@ -88,11 +95,8 @@ void	init_cmd(t_mini **mini)
 		cmd = create_cmd_node();
 		if (!cmd)
 			return ;
-		cmd->args = malloc(sizeof(char *) * (count_args(c_token) + 1));
-		i = 0;
-		while (c_token && c_token->type != PIPE)
-			handler_redirects(*mini, &c_token, cmd, &i);
-		cmd->args[i] = NULL;
+		if (process_cmd_tokens(mini, &c_token, cmd) == -1)
+			return ;
 		add_cmd_back(&(*mini)->cmds, cmd);
 		if (c_token)
 			c_token = c_token->next;

@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-int	handle_heredoc(char *demiliter, t_mini *mini)
+int	handle_heredoc(char *delimiter, t_mini *mini)
 {
 	int		fd;
 	char	*line;
@@ -28,12 +28,12 @@ int	handle_heredoc(char *demiliter, t_mini *mini)
 		}
 		if (!line)
 		{
-			ft_putstr_fd(
-				"minishell: warning: here-document delimited by end-of-file\n",
-					 2);
+			ft_putstr_fd(ERROR_HD, 2);
+			ft_putstr_fd(delimiter, 2);
+			ft_putstr_fd("\n", 2);
 			break ;
 		}
-		if (ft_strcmp(line, demiliter) == 0)
+		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;

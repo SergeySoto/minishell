@@ -1,6 +1,9 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+# define ERROR_HD "minishell: warning: here-document\
+delimited by end-of-file (wanted) "
+
 int		is_space(char c);
 int		check_pipe(char *str);
 int		check_pending_pipe(char *str);
@@ -15,6 +18,7 @@ int		count_args(t_token *token);
 void	init_cmd(t_mini **mini);
 void	set_redirects(t_mini *mini, t_token **token, t_cmd *cmd);
 int		handle_heredoc(char *demiliter, t_mini *mini);
-
+int		process_cmd_tokens(t_mini **mini, t_token **c_token, t_cmd *cmd);
+void	handler_redirects(t_mini *mini, t_token **token, t_cmd *cmd, int *i);
 
 #endif
