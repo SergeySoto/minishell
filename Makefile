@@ -27,6 +27,7 @@ SRC = \
 	$(SRC_DIR)/utils/token_utils.c \
 	$(SRC_DIR)/lexer/tokenizer.c \
 	$(SRC_DIR)/lexer/smart_split.c \
+	$(SRC_DIR)/lexer/split_utils.c \
 	$(SRC_DIR)/lexer/expander.c \
 	$(SRC_DIR)/lexer/expander_utils.c \
 	$(SRC_DIR)/parser/parser.c \

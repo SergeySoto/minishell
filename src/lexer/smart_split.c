@@ -6,37 +6,11 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:44 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/17 19:46:45 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:12:16 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	word_count(char *str)
-{
-	int		i;
-	char	in_quotes;
-	char	in_word;
-	int		count;
-
-	count = 0;
-	in_word = 0;
-	in_quotes = 0;
-	i = 0;
-	while (str[i])
-	{
-		update_quote_status(str[i], &in_quotes);
-		if (is_space(str[i]) && in_quotes == 0)
-			in_word = 0;
-		else if (in_word == 0)
-		{
-			count++;
-			in_word = 1;
-		}
-		i++;
-	}
-	return (count);
-}
 
 static char	**c_mem(int n_words)
 {
@@ -49,35 +23,6 @@ static char	**c_mem(int n_words)
 		return (NULL);
 	}
 	return (words);
-}
-
-static void	fill_mem(char **str, char *input)
-{
-	int		i;
-	char	quote;
-	int		word;
-	int		start;
-
-	start = 0;
-	word = 0;
-	quote = 0;
-	i = 0;
-	while (input[i])
-	{
-		if (is_space(input[i]))
-			i++;
-		else
-		{
-			start = i;
-			while (input[i] && (!is_space(input[i]) || quote != 0))
-			{
-				update_quote_status(input[i], &quote);
-				i++;
-			}
-			str[word++] = ft_substr(input, start, i - start);
-		}
-	}
-	str[word] = NULL;
 }
 
 char	**smart_split(char *input)
