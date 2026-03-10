@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:04:03 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/10 19:04:56 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/10 20:01:01 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	process_and_execute(t_mini *mini);
 int		word_count(char *str);
 void	fill_mem(char **str, char *input);
 char	**smart_split(char *input);
+int		is_op(char c);
 void	expand_checker(t_token *lst);
 int		get_after_dollar(char *str);
 void	heredoc_bf_dollar(t_token *lst);
