@@ -80,7 +80,7 @@ int	ft_not_exit(t_mini *mini,t_cmd *cmd)
 	}
 	return (0);
 }
-
+// !CONTEMPLAR exit | exit
 int	ft_exit(t_mini *mini, t_cmd *cmd)
 {
 	int	av;
