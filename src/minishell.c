@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/09 16:55:21 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:39:56 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int	minishell_iteration(t_mini *mini)
 
 char	*shell_loop(t_mini *mini)
 {
-
 	while (minishell_iteration(mini))
 		continue ;
 	free_struct_mini(mini);

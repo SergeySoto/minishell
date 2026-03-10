@@ -7,7 +7,7 @@ int	handle_heredoc(char *delimiter, t_mini *mini)
 	char	*line;
 	(void)mini;
 
-	fd = open("/tmp/minishell_heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	fd = open(".minishell_heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
 		return (perror("heredoc"), -1);
 	mini->stdin_backup = dup(STDIN_FILENO);
@@ -20,7 +20,7 @@ int	handle_heredoc(char *delimiter, t_mini *mini)
 		{
 			free(line);
 			close(fd);
-			unlink("/tmp/minishell_heredoc");
+			unlink(".minishell_heredoc");
 			dup2(mini->stdin_backup, STDIN_FILENO);
 			close(mini->stdin_backup);
 			set_signals_interactive();
@@ -44,8 +44,8 @@ int	handle_heredoc(char *delimiter, t_mini *mini)
 	}
 	close(mini->stdin_backup);
 	close(fd);
-	fd = open("/tmp/minishell_heredoc", O_RDONLY);
-	unlink("/tmp/minishell_heredoc");
+	fd = open(".minishell_heredoc", O_RDONLY);
+	unlink(".minishell_heredoc");
 	set_signals_interactive();
 	return (fd);
 }
