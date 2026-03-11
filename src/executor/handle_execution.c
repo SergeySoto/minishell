@@ -7,7 +7,7 @@ int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "echo") == 0)
 		return (ft_echo(cmd->args));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "cd") == 0)
-		return (ft_cd(mini, cmd->args)); //ft_cd(mini, cmd)
+		return (ft_cd(mini, cmd->args));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "pwd") == 0)
 		return (ft_pwd());
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "export") == 0)
@@ -17,7 +17,7 @@ int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "env") == 0)
 		return (ft_env(mini, cmd->args));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "exit") == 0)
-		return (ft_exit(mini, cmd)); //ft_exit()
+		return (ft_exit(mini, cmd));
 	return (0);
 }
 
