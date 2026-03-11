@@ -2,6 +2,24 @@
 
 static void	handle_output_redirect(t_token **token, t_cmd *cmd, int is_append)
 {
+	int	fd;
+	int	flags;
+
+	fd = 0;
+	if (is_append)
+		flags = O_WRONLY | O_CREAT | O_APPEND;
+	else
+		flags = O_WRONLY | O_CREAT | O_TRUNC;
+	fd = open((*token)->next->content, flags, 0644);
+	if (fd == -1)
+	{
+		perror((*token)->next->content);
+		cmd->fd_out = -1;
+		return ;
+	}
+	if (cmd->fd_out > 1)
+		close(cmd->fd_out);
+	cmd->fd_out = fd;
 	if (cmd->outfile)
 		free(cmd->outfile);
 	cmd->outfile = ft_strdup((*token)->next->content);

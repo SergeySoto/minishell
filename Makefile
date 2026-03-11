@@ -46,6 +46,7 @@ SRC = \
 	$(SRC_DIR)/executor/executor_main.c\
 	$(SRC_DIR)/executor/handle_execution.c\
 	$(SRC_DIR)/executor/handle_redirections.c\
+	$(SRC_DIR)/executor/handle_redirections_utils.c\
 	$(SRC_DIR)/executor/handle_single.c\
 	$(SRC_DIR)/executor/handle_pipeline.c\
 	$(SRC_DIR)/executor/executor_builtins.c\

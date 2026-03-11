@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/03/02 17:13:54 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/11 16:56:57 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	check_redirect(char *str)
 				j++;
 			if (invalid_neighbor(str[j]))
 			{
-				printf("Error: syntax error near unexpected token\n");
+				printf("Error: syntax error near unexpected token `%c'\n", str[j]);
 				return (0);
 			}
 		}
@@ -96,9 +96,9 @@ int	pre_pars(char *input)
 		return (0);
 	if (!check_redirect(input))
 		return (0);
-	if (!check_invalid_double(input))
-		return (0);
 	if (!check_forbidden(input))
+		return (0);
+	if (!check_invalid_double(input))
 		return (0);
 	return (1);
 }
