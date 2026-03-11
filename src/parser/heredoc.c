@@ -46,8 +46,6 @@ static int	hd_read_loop(int fd,char *delimiter, t_mini *mini)
 int	handle_heredoc(char *delimiter, t_mini *mini)
 {
 	int		fd;
-	char	*line;
-	(void)mini;
 
 	fd = open(".minishell_heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
