@@ -18,6 +18,7 @@
 # include "utils.h"
 # include "executor.h"
 # include "signals.h"
+# include "error.h"
 
 extern int	g_signal;
 
@@ -38,6 +39,13 @@ void	swap_nodes(t_mini *mini);
 void	print_order_env(t_mini *mini);
 int		order_env(t_mini *mini);
 int		ft_export(t_mini *mini, char **av);
+int		count_av(char **av);
+int		ft_cd(t_mini *mini, char **av);
+int		is_numeric_av(char *str);
+int		is_overflow(char *str);
+int		ft_error_exit(t_mini *mini, t_cmd *cmd);
+int		ft_not_exit(t_mini *mini, t_cmd *cmd);
+int		ft_exit(t_mini *mini, t_cmd *cmd);
 
 
 #endif
