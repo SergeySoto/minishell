@@ -1,31 +1,5 @@
 #include "../../includes/minishell.h"
 
-
-//! -- ESTAS 3 PRIMERAS FUNCIONES VAN FUERA DESPUES AL INCLUIRLAS EN EL PROGRAMA --//
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	len_s;
-
-	len_s = ft_strlen(s);
-	write(fd, s, len_s);
-}
-
-// Funcion para checkear el comando -n valido
 int	check_flag(char *str)
 {
 	int	i;
@@ -48,8 +22,6 @@ int	check_flag(char *str)
 	return (1);
 }
 
-// Funcion que me imprime sin el salto de linea.
-// Cambiar el parametro por la struct t_cmd **argv
 int	whitout_n(char **av)
 {
 	int	i;
@@ -73,7 +45,6 @@ int	whitout_n(char **av)
 	return (1);
 }
 
-// Cambiar el parametro por la struct t_cmd **argv
 int	whit_n(char **av)
 {
 	int	i;
@@ -99,8 +70,6 @@ int	whit_n(char **av)
 	return (1);
 }
 
-// Cambiar el parametro por la struct t_cmd **argv
-//! CUIDADO: Tengo la i = 2 para eliminar la impresion del programa y del comando 'echo'
 int	ft_echo(char **av)
 {
 	if (!av || !*av)
@@ -109,14 +78,5 @@ int	ft_echo(char **av)
 		whitout_n(&av[1]);
 	else
 		whit_n(av);
-	return (1);
-}
-
-/* int main(int ac, char **av)
-{
-	(void)ac;
-
-	//whitout_n(&*av);
-	ft_echo(&av[1]);
 	return (0);
-} */
+}

@@ -51,7 +51,10 @@ SRC = \
 	src/ft_printf.c \
 	src/ft_printf_complements.c \
 	src/ft_strcmp.c \
-	src/ft_lstsize.c
+	src/ft_lstsize.c \
+	src/ft_fprintf.c \
+	src/ft_fprintf_complements.c
+
 
 
 # Source bonus files

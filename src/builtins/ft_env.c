@@ -9,7 +9,7 @@ int	ft_env(t_mini *mini, char **av)
 		return (1);
 	if (av[1] != NULL)
 	{
-		printf("env: '%s': No such file or directory\n", av[1]);
+		ft_fprintf(2, ERR_NOT_FIL_OR_DIR, av[1]);
 		return (127);
 	}
 	i = 0;
