@@ -27,9 +27,7 @@ static void	execute_system_binary(t_mini *mini, t_cmd *cmd)
 
 	if (!cmd->cmd_path)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd->args[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		ft_fprintf(2, ERR_CMD_NOT_FOUND, cmd->args[0]);
 		free_struct_mini(mini);
 		exit(127);
 	}

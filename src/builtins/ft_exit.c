@@ -54,12 +54,12 @@ int	ft_error_exit(t_mini *mini, t_cmd *cmd)
 	av = count_av(cmd->args);
 	if (av == 2 && !is_numeric_av(cmd->args[1]))
 	{
-		ft_putstr_fd(ERR_EXIT_NUMERIC, 2);
+		ft_fprintf(2, ERR_EXIT_NUMERIC, cmd->args[1]);
 		free_struct_mini(mini);
 	}
 	else if (av > 2 && !is_numeric_av(cmd->args[1]))
 	{
-		ft_putstr_fd(ERR_EXIT_NUMERIC, 2);
+		ft_fprintf(2, ERR_EXIT_NUMERIC, cmd->args[1]);
 		free_struct_mini(mini);
 	}
 	else

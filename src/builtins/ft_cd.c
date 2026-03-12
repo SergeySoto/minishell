@@ -43,7 +43,11 @@ char	*update_home_directory(t_mini *mini)
 	
 	home = get_env_val(strdup("HOME"), mini);
 	if (chdir(home) == -1)
+	{
+		ft_fprintf(2, ERR_CD_NO_HOME);
+		mini->exit_status = 1;
 		return (NULL);
+	}
 	else
 	{
 		if (home)
@@ -73,10 +77,12 @@ int	go_home(t_mini *mini)
 	return (0);
 }
 
-int	old_pwd(t_mini *mini)
+int	old_pwd(t_mini *mini, char **av)
 {
 	char	*old_pwd;
+	//t_env	*aux;
 
+	//aux = mini->env;
 	old_pwd = getcwd(NULL, 0);
 	if (old_pwd)
 	{
@@ -96,7 +102,7 @@ int	ft_cd(t_mini *mini, char **av)
 	if (!av || !*av)
 	return (0);
 
-	old_pwd(mini);
+	old_pwd(mini, av);
 	if (count_av(av) == 1)
 		go_home(mini);
 	else if (count_av(av) == 2)

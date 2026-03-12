@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/21 16:57:08 by carmegon          #+#    #+#             */
-/*   Updated: 2025/12/01 21:44:50 by carmegon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <unistd.h>
@@ -84,5 +72,15 @@ int		ft_print_hex_bottom(unsigned long long num);
 int		ft_print_ptr(void *ptr);
 int		ft_print_uns(unsigned int num);
 int		ft_lstsize(t_env *lst);
+int		ft_fprint_char(int fd, int c);
+int		ft_fprint_hex_bottom(int fd, unsigned long long num);
+int		ft_fprint_hex_top(int fd, unsigned int num);
+int		ft_fprint_specifier(int fd, char specifier, va_list input);
+int		ft_fprintf(int fd, char const *chain, ...);
+int		ft_fprint_nbr(int fd, int num);
+int		ft_fprint_ptr(int fd, void *ptr);
+int		ft_fprint_str(int fd, char *str);
+int		ft_fprint_uns(int fd, unsigned int num);
+
 
 #endif

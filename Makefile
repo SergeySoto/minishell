@@ -36,6 +36,9 @@ SRC = \
 	$(SRC_DIR)/builtins/ft_env.c \
 	$(SRC_DIR)/builtins/ft_echo.c \
 	$(SRC_DIR)/builtins/ft_export.c \
+	$(SRC_DIR)/builtins/utils_export/new_or_update_nodes.c \
+	$(SRC_DIR)/builtins/utils_export/utils_export.c \
+	$(SRC_DIR)/builtins/utils_export/order_nodes.c \
 	$(SRC_DIR)/builtins/ft_unset.c \
 	$(SRC_DIR)/builtins/ft_cd.c \
 	$(SRC_DIR)/builtins/ft_exit.c \
@@ -56,6 +59,7 @@ SRC = \
 	$(SRC_DIR)/signal/signal_utils.c\
 	$(SRC_DIR)/signal/signal_heredoc.c\
 				
+	$(SRC_DIR)/error/ft_error.c\
 
 
 TOTAL_FILES := $(words $(SRC))
