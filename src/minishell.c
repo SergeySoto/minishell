@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/11 19:56:13 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/12 14:59:18 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	minishell_iteration(t_mini *mini)
 		mini->input = readline("Minishell$> ");
 	else
 		mini->input = get_next_line(STDIN_FILENO);
+	g_signal = 0;
 	if (!mini->input)
 	{
 		if (mini->is_interactive)

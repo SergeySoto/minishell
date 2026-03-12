@@ -3,13 +3,17 @@
 
 void	execute_builtin_in_parent(t_mini *mini, t_cmd *cmd)
 {
+	int	exit_code;
+
 	backup_std_fds(mini);
 	if (!setup_redirections(cmd))
 	{
-		restore_std_fds(mini);
+		exit_code = restore_std_fds(mini);
+		mini->exit_status = exit_code;
 		return ;
 	}
-	execute_builtin_func(mini, cmd);
+	exit_code = execute_builtin_func(mini, cmd);
+	mini->exit_status = exit_code;
 	restore_std_fds(mini);
 }
 
