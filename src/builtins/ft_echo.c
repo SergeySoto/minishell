@@ -73,7 +73,7 @@ int	whit_n(char **av)
 int	ft_echo(char **av)
 {
 	if (!av || !*av)
-		return (0);
+		return (1);
 	if (check_flag(av[1]) == 1)
 		whitout_n(&av[1]);
 	else

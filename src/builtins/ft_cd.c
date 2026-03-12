@@ -79,6 +79,7 @@ int	go_home(t_mini *mini)
 
 int	old_pwd(t_mini *mini, char **av)
 {
+	(void)av;
 	char	*old_pwd;
 	//t_env	*aux;
 

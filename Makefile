@@ -58,8 +58,7 @@ SRC = \
 	$(SRC_DIR)/signal/signal.c\
 	$(SRC_DIR)/signal/signal_utils.c\
 	$(SRC_DIR)/signal/signal_heredoc.c\
-				
-	$(SRC_DIR)/error/ft_error.c\
+
 
 
 TOTAL_FILES := $(words $(SRC))
