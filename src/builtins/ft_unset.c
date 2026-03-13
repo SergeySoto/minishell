@@ -31,6 +31,11 @@ int	ft_unset(t_mini *mini, t_cmd *cmd)
 	i = 1;
 	while (cmd->args[i])
 	{
+		if (ft_strcmp(cmd->args[i], "_") == 0)
+		{
+			i++;
+			continue;
+		}
 		if (mini->env && ft_strcmp(mini->env->key, cmd->args[i]) == 0)
 		{
 			tmp = mini->env;
