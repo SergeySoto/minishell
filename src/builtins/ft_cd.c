@@ -11,18 +11,32 @@ int	count_av(char **av)
 	return (i);
 }
 
+int	try_getcwd(t_mini *mini, char *path)
+{
+	if (path)
+		create_new_env(mini, ft_strdup("PWD"), ft_strdup(path));
+	else
+	{
+		ft_fprintf(2, "Error de change_dir\n");
+		return (1);
+	}
+	free(path);
+	return (0);
+}
+
 int	change_directory(t_mini *mini, char **av)
 {
 	char	*new_pwd;
 
 	if (chdir(av[0]) == -1)
 	{
-		perror("cd");
+		ft_fprintf(2, "primer chdir de change_directory\n");
 		return (1);
 	}
 	else
 	{
 		new_pwd = getcwd(NULL, 0);
+		//poner aqui try_getcwd
 		if (new_pwd)
 		{
 			create_new_env(mini, ft_strdup("PWD"), ft_strdup(new_pwd));
@@ -30,13 +44,13 @@ int	change_directory(t_mini *mini, char **av)
 		}
 		else
 		{
-			perror("cd");
+			ft_fprintf(2, "Error de change_dir\n");
 			return (1);
 		}
 	}
 	return (0);
 }
-
+// Esta funcion posiblemente vaya a fuera
 char	*update_home_directory(t_mini *mini)
 {
 	char	*home;
@@ -54,7 +68,7 @@ char	*update_home_directory(t_mini *mini)
 			create_new_env(mini, ft_strdup("HOME"), ft_strdup(home));
 		else
 		{
-			perror("cd");
+			ft_fprintf(2, "Error de update_home\n");
 			return (NULL);
 		}
 	}
@@ -66,9 +80,16 @@ int	go_home(t_mini *mini)
 {
 	char	*home;
 
-	home = update_home_directory(mini);
+	home = get_env_val("HOME", mini);
 	if (!home)
 		return (1);
+	if (chdir(home) == -1)
+	{
+		ft_fprintf(2, ERR_CD_NO_HOME);
+		mini->exit_status = 1;
+		return (mini->exit_status);
+	}
+	// Aqui iria la llamada a la nueva funcion try_getcwd
 	else
 	{
 		create_new_env(mini, ft_strdup("PWD"), ft_strdup(home));
@@ -77,22 +98,13 @@ int	go_home(t_mini *mini)
 	return (0);
 }
 
-int	old_pwd(t_mini *mini, char **av)
+int	old_pwd(t_mini *mini, char *str)
 {
-	(void)av;
-	char	*old_pwd;
-	//t_env	*aux;
-
-	//aux = mini->env;
-	old_pwd = getcwd(NULL, 0);
-	if (old_pwd)
-	{
-		create_new_env(mini, ft_strdup("OLDPWD"), ft_strdup(old_pwd));
-		free(old_pwd);
-	}
+	if (str)
+		create_new_env(mini, ft_strdup("OLDPWD"), ft_strdup(str));
 	else
 	{
-		perror("cd");
+		ft_fprintf(2, "Saliendo de old_pwd\n");
 		return (1);
 	}
 	return (0);
@@ -100,18 +112,26 @@ int	old_pwd(t_mini *mini, char **av)
 
 int	ft_cd(t_mini *mini, char **av)
 {
-	if (!av || !*av)
-	return (0);
+	char	*temp;
+	int		status;
 
-	old_pwd(mini, av);
+	if (!av || !*av)
+		return (0);
+
+	status = 1;
+	temp = getcwd(NULL, 0);
 	if (count_av(av) == 1)
-		go_home(mini);
+		status = go_home(mini);
 	else if (count_av(av) == 2)
-		change_directory(mini, &av[1]);
+		status = change_directory(mini, &av[1]);
 	else
 	{
 		perror("cd");
+		free(temp);
 		return (1);
 	}
+	if (status == 0 && temp)
+		old_pwd(mini, temp);
+	free(temp);
 	return (0);
 }
