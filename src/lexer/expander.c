@@ -6,45 +6,12 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/01/28 18:16:21 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:23:53 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*get_var_name(char *str)
-{
-	int		i;
-
-	if (str[0] == '?')
-		return (ft_strdup("?"));
-	else
-	{
-		i = 0;
-		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
-			i++;
-		return (ft_substr(str, 0, i));
-	}
-}
-
-static char	*get_env_content(char *var_name, t_mini *mini)
-{
-	int		len_name;
-	t_env	*temp;
-
-	temp = mini->env;
-	if (ft_strncmp(var_name, "?", 2) == 0)
-		return (ft_itoa(mini->exit_status));
-	len_name = ft_strlen(var_name);
-	while (temp)
-	{
-		if ((ft_strncmp(temp->key, var_name, len_name) == 0)
-			&& (len_name == (int)ft_strlen(temp->key)))
-			return (ft_strdup(temp->value));
-		temp = temp->next;
-	}
-	return (ft_strdup(""));
-}
 
 static char	*replace_string(char *str, char *replace, int start, int len_remove)
 {
@@ -87,24 +54,52 @@ static void	perform_expansion(t_token *token, int dollar_pos, t_mini *mini)
 	free(env_value);
 }
 
+static void	expand_one_token(t_token *tmp, t_mini *mini)
+{
+	int	dollar_pos;
+
+	dollar_pos = get_after_dollar(tmp->content);
+	while (dollar_pos != 0)
+	{
+		perform_expansion(tmp, dollar_pos, mini);
+		tmp->expand = 0;
+		dollar_pos = get_after_dollar(tmp->content);
+	}
+}
+
+static t_token *remove_empty_token(t_mini *mini, t_token *prev, t_token *curr)
+{
+	t_token	*next;
+
+	next = curr->next;
+	if (prev)
+		prev->next = next;
+	else
+		mini->tokens = next;
+	free(curr->content);
+	free(curr);
+	return (next);
+}
+
 void	expander(t_mini *mini)
 {
-	int		dollar_pos;
 	t_token	*tmp;
+	t_token	*prev;
 
 	tmp = mini->tokens;
+	prev = NULL;
 	while (tmp)
 	{
 		if (tmp->expand == 1)
 		{
-			dollar_pos = get_after_dollar(tmp->content);
-			while (dollar_pos != 0)
+			expand_one_token(tmp, mini);
+			if (tmp->content[0] == '\0')
 			{
-				perform_expansion(tmp, dollar_pos, mini);
-				tmp->expand = 0;
-				dollar_pos = get_after_dollar(tmp->content);
+				tmp = remove_empty_token(mini, prev, tmp);
+				continue;
 			}
 		}
+		prev = tmp;
 		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:04:03 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/10 20:01:01 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:15:53 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	expand_checker(t_token *lst);
 int		get_after_dollar(char *str);
 void	heredoc_bf_dollar(t_token *lst);
 void	expander(t_mini *mini);
+char	*get_var_name(char *str);
+char	*get_env_content(char *var_name, t_mini *mini);
 
 
 
