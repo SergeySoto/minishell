@@ -41,7 +41,7 @@ char	*update_home_directory(t_mini *mini)
 {
 	char	*home;
 	
-	home = get_env_val(strdup("HOME"), mini);
+	home = get_env_val("HOME", mini);
 	if (chdir(home) == -1)
 	{
 		ft_fprintf(2, ERR_CD_NO_HOME);
@@ -58,8 +58,8 @@ char	*update_home_directory(t_mini *mini)
 			return (NULL);
 		}
 	}
-	home = get_env_val(strdup("HOME"), mini);
-	return (home);
+	home = get_env_val("HOME", mini);
+	return (ft_strdup(home));
 }
 
 int	go_home(t_mini *mini)
