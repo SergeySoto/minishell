@@ -23,7 +23,6 @@ void	chdir_fail(char **av);
 int		try_getcwd(t_mini *mini, char *path);
 int		change_directory(t_mini *mini, char **av);
 int		go_home(t_mini *mini);
-int		old_pwd(t_mini *mini, char *str);
 int		ft_cd(t_mini *mini, char **av);
 int		is_numeric_av(char *str);
 int		is_overflow(char *str);
