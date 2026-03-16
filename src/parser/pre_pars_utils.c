@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_pars_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:28:18 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/02 17:15:18 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:29:01 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	check_pipe(char *str)
 		i++;
 	if (ft_strncmp(&str[i], "||", 2) == 0)
 	{
-		printf("Error: syntax error near unexpected token '||'\n");
+		ft_fprint(2, ERR_SYNTERR_TWO_PIPE);
 		return (0);
 	}
 	else if (str[i] == '|')
 	{
-		printf("Error: syntax error near unexpected token '|'\n");
+		ft_fprintf(2, ERR_SYNTERR_ONE_PIPE);
 		return (0);
 	}
 	return (1);
@@ -49,10 +49,10 @@ int	check_pending_pipe(char *str)
 	{
 		if (str[i - 2] == '|')
 		{
-			printf("Error: syntax error near unexpected token '||'\n");
+			ft_fprint_char(2, ERR_SYNTERR_TWO_PIPE);
 			return (0);
 		}
-		printf("Error: syntax error near unexpected token '|'\n");
+		ft_fprintf(2, ERR_SYNTERR_ONE_PIPE);
 		return (0);
 	}
 	return (1);
@@ -75,7 +75,7 @@ int	check_quotes(char *str)
 	}
 	if (quotes != 0)
 	{
-		printf("Error: Unclosed quotes\n");
+		ft_fprintf(2, ERR_UNCL_QUOTE);
 		return (0);
 	}
 	return (1);
@@ -98,7 +98,7 @@ int	check_forbidden(char *str)
 		{
 			if (str[i] == '\\' || str[i] == ';')
 			{
-				printf("Error: Forbidden character found\n");
+				ft_fprint(2, ERR_FORBIDDEN_CHAR);
 				return (0);
 			}
 		}
