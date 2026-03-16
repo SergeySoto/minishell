@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_pars_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:28:18 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/16 15:29:01 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:51:57 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_pipe(char *str)
 		i++;
 	if (ft_strncmp(&str[i], "||", 2) == 0)
 	{
-		ft_fprint(2, ERR_SYNTERR_TWO_PIPE);
+		ft_fprintf(2, ERR_SYNTERR_TWO_PIPE);
 		return (0);
 	}
 	else if (str[i] == '|')
@@ -49,7 +49,7 @@ int	check_pending_pipe(char *str)
 	{
 		if (str[i - 2] == '|')
 		{
-			ft_fprint_char(2, ERR_SYNTERR_TWO_PIPE);
+			ft_fprintf(2, ERR_SYNTERR_TWO_PIPE);
 			return (0);
 		}
 		ft_fprintf(2, ERR_SYNTERR_ONE_PIPE);
@@ -98,7 +98,7 @@ int	check_forbidden(char *str)
 		{
 			if (str[i] == '\\' || str[i] == ';')
 			{
-				ft_fprint(2, ERR_FORBIDDEN_CHAR);
+				ft_fprintf(2, ERR_FORBIDDEN_CHAR);
 				return (0);
 			}
 		}

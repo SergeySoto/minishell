@@ -5,6 +5,8 @@ void	create_new_env(t_mini *mini, char *k, char *v)
 	t_env	*current;
 
 	current = mini->env;
+	if (!current || !k)
+		return ;
 	while (current)
 	{
 		if (ft_strcmp(k, current->key) == 0)
@@ -31,12 +33,12 @@ int	update_or_add_env(t_mini *mini, char **av)
 	char	*v;
 	int		i;
 
-	if (!av || !*av)
+	if (!mini || !av)
 		return (1);
 	i = 1;
 	while (av[i])
 	{
-		if (is_valid(av[i][0]))
+		if (is_valid(av[i]) == 1)
 			return (1);
 		k = key(av[i]);
 		v = value(av[i]);
@@ -53,8 +55,8 @@ char	*return_av_failed(char **av)
 	i = 0;
 	while (av[i])
 	{
-		if (is_valid(av[i][0]))
-			return (*&av[i]) ;
+		if (is_valid(av[i]) == 1)
+			return (av[i]);
 		i++;
 	}
 	return (NULL);

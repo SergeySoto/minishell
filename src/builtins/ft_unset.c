@@ -1,6 +1,12 @@
 
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Searches and removes an environment variable from the linked list (non-head nodes)
+ * @param mini The minishell instance
+ * @param cmd The command structure containing the variable name at args[i]
+ * @param i Index of the variable name in cmd->args
+ */
 static void	find_var(t_mini *mini, t_cmd *cmd, int i)
 {
 	t_env	*current;

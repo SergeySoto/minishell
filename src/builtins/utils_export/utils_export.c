@@ -1,9 +1,20 @@
 #include "../../../includes/minishell.h"
 
-int	is_valid(char c)
+int	is_valid(char *av)
 {
-	if (!(ft_isalpha(c))&& c != '_')
+	int	i;
+
+	if (!av || av[0] == '\0')
 		return (1);
+	if (!(ft_isalpha(av[0])) && av[0] != '_')
+		return (1);
+	i = 1;
+	while (av[i] && av[i] != '=')
+	{
+		if (!(ft_isalnum(av[i])) && av[i] != '_')
+			return (1);
+		i++;
+	}
 	return (0);
 }
 

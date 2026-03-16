@@ -15,7 +15,7 @@ int	ft_export(t_mini *mini, char **av)
 	}
 	if (av[0] && !av[1])
 		order_env(mini);
-	else
-		update_or_add_env(mini, av);
+	//else
+	//	update_or_add_env(mini, av);
 	return (0);
 }

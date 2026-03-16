@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/03/13 15:21:44 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/16 18:21:23 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	free_env(t_env **envp)
 	
 	if (!envp || !*envp)
 		return ;
-	
 	while ((*envp) != NULL)
 	{
 		temp = (*envp)->next;

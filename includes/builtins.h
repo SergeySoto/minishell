@@ -18,14 +18,7 @@ int		ft_pwd(void);
 int		ft_env(t_mini *mini, char **av);
 
 // ========== UNSET =========== //
-/**
- * @brief Searches and removes an environment variable from the linked list (non-head nodes)
- * @param mini The minishell instance
- * @param cmd The command structure containing the variable name at args[i]
- * @param i Index of the variable name in cmd->args
- */
 
-static void	find_var(t_mini *mini, t_cmd *cmd, int i);
 /**
  * @brief Built-in unset command: removes one or more environment variables
  * @param mini The minishell instance
@@ -73,7 +66,7 @@ int		ft_echo(char **av);
  * @param c The character to validate
  * @return 1 if invalid (not alpha and not '_'), 0 if valid
  */
-int		is_valid(char c);
+int		is_valid(char *av);
 
 /**
  * @brief Extracts the key part from a "KEY=value" or "KEY" string

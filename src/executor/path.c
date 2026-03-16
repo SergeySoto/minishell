@@ -90,7 +90,7 @@ void	assign_full_path(char **path_env, t_cmd **cmd)
 	current = (*cmd);
 	while (current)
 	{
-		get_cmd_path(path_env, current); 
+		get_cmd_path(path_env, current);
 		current = current->next;
 	}
 }
