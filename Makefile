@@ -39,6 +39,7 @@ SRC = \
 	$(SRC_DIR)/builtins/utils_export/new_or_update_nodes.c \
 	$(SRC_DIR)/builtins/utils_export/utils_export.c \
 	$(SRC_DIR)/builtins/utils_export/order_nodes.c \
+	$(SRC_DIR)/builtins/utils_cd/utils_cd.c \
 	$(SRC_DIR)/builtins/ft_unset.c \
 	$(SRC_DIR)/builtins/ft_cd.c \
 	$(SRC_DIR)/builtins/ft_exit.c \

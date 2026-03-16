@@ -8,4 +8,14 @@
 # define ERR_EXPORT_NOT_VALID "minishell: export: %s: not a valid identifier\n"
 # define ERR_CD_NO_FIL_OR_DIR "minishell: cd: %s: No such file or directory\n"
 # define ERR_CD_NO_HOME "minishell: cd: HOME not set\n"
+# define ERR_CD_RETDIR "minishell: cd: error retrieving current directory\n"
+# define ERR_CD_NOT_DIR "minishell: cd: Not a directory: %s\n"
+# define ERR_CD_PERMISSION "minishell: cd: permission denied: %s\n"
+# define ERR_SYNTERR_ONE_PIPE "Error: syntax error near" \
+" unexpected token '||'\n"
+# define ERR_SYNTERR_TWO_PIPE "Error: syntax error near unexpected token '|'\n"
+# define ERR_UNCL_QUOTE "Error: Unclosed quotes\n"
+# define ERR_FORBIDDEN_CHAR "Error: Forbidden character found\n"
+
+
 # endif
