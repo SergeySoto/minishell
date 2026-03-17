@@ -6,7 +6,7 @@
 /*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/03/17 17:57:21 by carmegon         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:58:30 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	pre_pars(char *input)
 	if (!input)
 		return (0);
 	if (!check_quotes(input))
-		return (0z);
+		return (0);
 	if (!check_pipe(input))
 		return (0);
 	if (!check_pending_pipe(input))
