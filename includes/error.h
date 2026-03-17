@@ -10,6 +10,7 @@
 # define ERR_CD_NO_HOME "minishell: cd: HOME not set\n"
 # define ERR_CD_RETDIR "minishell: cd: error retrieving current directory\n"
 # define ERR_CD_NOT_DIR "minishell: cd: Not a directory: %s\n"
+# define ERR_CD_TOO_MANY "minishell: cd: too many arguments\n"
 # define ERR_CD_PERMISSION "minishell: cd: permission denied: %s\n"
 # define ERR_SYNTERR_ONE_PIPE "Error: syntax error near" \
 " unexpected token '||'\n"

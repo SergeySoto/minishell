@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/12 14:59:18 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/17 16:53:32 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ static int	minishell_iteration(t_mini *mini)
 			process_and_execute(mini);
 	}
 	free_iteration_data(mini);
+	printf("minishell_iteration %d\n", mini->exit_status);
 	return (1);
 }
 
 char	*shell_loop(t_mini *mini)
 {
 	while (minishell_iteration(mini))
-		continue ;
+		continue ;	
 	free_struct_mini(mini);
 	rl_clear_history();
 	return (NULL);
