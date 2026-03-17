@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_pars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:08:15 by carmegon          #+#    #+#             */
-/*   Updated: 2026/03/11 16:56:57 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:57:21 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	pre_pars(char *input)
 	if (!input)
 		return (0);
 	if (!check_quotes(input))
-		return (0);
+		return (0z);
 	if (!check_pipe(input))
 		return (0);
 	if (!check_pending_pipe(input))

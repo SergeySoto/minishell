@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_pars_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:28:18 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/16 15:51:57 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:57:07 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

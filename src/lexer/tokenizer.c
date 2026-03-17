@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/03/09 16:56:09 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:49:11 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,20 @@ void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 {
 	char	**temp_split;
 	int		i;
+	//int		pars_status;
 
 	add_history(input);
-	if (pre_pars(input) == 0)
+/* 	pars_status = pre_pars(input);
+
+	if (pars_status == 0)
+		return ;
+	else if (pars_status == 2)
+	{
+		mini->exit_status = 2;
+		return ;
+	} */
+	mini->exit_status = pre_pars(input);
+	if (mini->exit_status == 0 || mini->exit_status == 2)
 		return ;
 	temp_split = smart_split(input);
 	i = 0;
