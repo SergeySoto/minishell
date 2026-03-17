@@ -49,20 +49,8 @@ void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 {
 	char	**temp_split;
 	int		i;
-	//int		pars_status;
 
 	add_history(input);
-/* 	pars_status = pre_pars(input);
-
-	if (pars_status == 0)
-		return ;
-	else if (pars_status == 2)
-	{
-		mini->exit_status = 2;
-		return ;
-	} */
-	mini->exit_status = pre_pars(input);
-	if (mini->exit_status == 0 || mini->exit_status == 2)
 	if (pre_pars(input) == 0)
 	{
 		mini->exit_status = 2;
