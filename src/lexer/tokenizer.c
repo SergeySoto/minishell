@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:55:36 by carmegon          #+#    #+#             */
-/*   Updated: 2026/03/09 16:56:09 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/17 16:04:08 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	input_to_token(char *input, t_token **tokens, t_mini *mini)
 
 	add_history(input);
 	if (pre_pars(input) == 0)
+	{
+		mini->exit_status = 2;
 		return ;
+	}
 	temp_split = smart_split(input);
 	i = 0;
 	while (temp_split && temp_split[i])

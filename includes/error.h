@@ -16,6 +16,6 @@
 # define ERR_SYNTERR_TWO_PIPE "Error: syntax error near unexpected token '|'\n"
 # define ERR_UNCL_QUOTE "Error: Unclosed quotes\n"
 # define ERR_FORBIDDEN_CHAR "Error: Forbidden character found\n"
-
+# define ERR_SYNTERR_REDIR "Error: syntax error near unexpected token `%s'\n"
 
 # endif
