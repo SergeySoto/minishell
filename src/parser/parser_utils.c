@@ -13,7 +13,7 @@ static void	handle_output_redirect(t_token **token, t_cmd *cmd, int is_append)
 	fd = open((*token)->next->content, flags, 0644);
 	if (fd == -1)
 	{
-		perror((*token)->next->content);
+		ft_fprintf(2, ERR_ENV_NOT_FILORDIR, (*token)->next->content);
 		cmd->fd_out = -1;
 		return ;
 	}

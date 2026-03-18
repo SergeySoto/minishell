@@ -13,7 +13,7 @@ static int	setup_input(t_cmd *cmd)
 	{
 		cmd->fd_in = open(cmd->infile, O_RDONLY);
 		if (cmd->fd_in == -1)
-			return (perror(cmd->infile), 0);
+			return(ft_fprintf(2, ERR_ENV_NOT_FILORDIR, cmd->infile), 0);
 		if (dup2(cmd->fd_in, STDIN_FILENO) == -1)
 			return (close(cmd->fd_in), 0);
 		close(cmd->fd_in);
@@ -28,7 +28,7 @@ static int	open_outfile(t_cmd *cmd)
 	else
 		cmd->fd_out = open(cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cmd->fd_out == -1)
-		return (perror(cmd->outfile), 0);
+		return(ft_fprintf(2, ERR_ENV_NOT_FILORDIR, cmd->outfile), 0);
 	return (1);
 }
 
