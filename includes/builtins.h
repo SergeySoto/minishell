@@ -222,6 +222,13 @@ int		ft_error_exit(t_mini *mini, t_cmd *cmd);
 int		ft_not_exit(t_mini *mini, t_cmd *cmd);
 
 /**
+ * @brief Checks if the user input contains a pipe character.
+ * @param mini Pointer to the main shell structure, uses mini->input.
+ * @return 1 if a pipe '|' is found, 0 otherwise.
+ */
+int	ft_exit_pipe(t_mini *mini);
+
+/**
  * @brief Built-in exit command: exits the shell with an optional 
  * numeric status code
  * @param mini The minishell instance
