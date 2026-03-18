@@ -11,7 +11,7 @@ MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 RESET='\033[0m'
-
+SUPP_FILE="$(cd "$(dirname "$0")" && pwd)/supresion.supp"
 # **************************************************************************** #
 #                              FUNCIONES                                       #
 # **************************************************************************** #
@@ -100,7 +100,7 @@ compile_valgrind() {
         echo ""
         echo -e "${YELLOW}▶ Ejecutando con Valgrind (con supresiones)...${RESET}"
         print_separator
-        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --suppressions=supresion.supp ./minishell
+        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --suppressions="$SUPP_FILE" ./minishell
     fi
 }
 
@@ -110,7 +110,7 @@ recompile_valgrind() {
         echo ""
         echo -e "${YELLOW}▶ Ejecutando con Valgrind (con supresiones)...${RESET}"
         print_separator
-        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --suppressions=supresion.supp ./minishell
+        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --suppressions="$SUPP_FILE" ./minishell
     fi
 }
 
