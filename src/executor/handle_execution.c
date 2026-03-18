@@ -9,7 +9,7 @@ int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "cd") == 0)
 		return (ft_cd(mini, cmd->args));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "pwd") == 0)
-		return (ft_pwd());
+		return (ft_pwd(mini));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "export") == 0)
 		return (ft_export(mini, cmd->args));
 	if (cmd->args[0] && ft_strcmp(cmd->args[0], "unset") == 0)
@@ -30,7 +30,7 @@ static void	execute_system_binary(t_mini *mini, t_cmd *cmd)
 	{
 		path_value = get_env_val("PATH", mini);
 		if (!path_value)
-			ft_fprintf(2, ERR_NOT_FIL_OR_DIR, cmd->args[0]);
+			ft_fprintf(2, ERR_NOT_FILEORDIR, cmd->args[0]);
 		else
 			ft_fprintf(2, ERR_CMD_NOT_FOUND, cmd->args[0]);
 		free_struct_mini(mini);
