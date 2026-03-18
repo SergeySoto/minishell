@@ -6,7 +6,7 @@
  * @brief Built-in pwd command: prints the current working directory to stdout
  * @return 0 on success, 1 if getcwd fails
  */
-int		ft_pwd(void);
+int		ft_pwd(t_mini *mini);
 
 // ========== ENV =========== //
 /**
