@@ -63,7 +63,7 @@ static int	check_invalid_double(char *str)
 			}
 			if (str[i] == '&' && str[i + 1] == '&')
 			{
-				printf("Error: syntax error near unexpected token `&&'\n");
+				ft_fprintf(2, ERR_SYNTERR_REDIR, "&&");
 				return (0);
 			}
 		}

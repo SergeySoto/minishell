@@ -82,5 +82,4 @@ int		ft_fprint_ptr(int fd, void *ptr);
 int		ft_fprint_str(int fd, char *str);
 int		ft_fprint_uns(int fd, unsigned int num);
 
-
 #endif

@@ -11,14 +11,6 @@ static int	hd_signal_cleanup(int fd, t_mini *mini)
 	return (-1);
 }
 
-static int	hd_eof_warning(char *delimiter)
-{
-	ft_putstr_fd(ERROR_HD, 2);
-	ft_putstr_fd(delimiter, 2);
-	ft_putstr_fd("\n", 2);
-	return (1);
-}
-
 static int	hd_read_loop(int fd,char *delimiter, t_mini *mini)
 {
 	char *line;
@@ -31,7 +23,7 @@ static int	hd_read_loop(int fd,char *delimiter, t_mini *mini)
 			return (hd_signal_cleanup(fd, mini));
 		}
 		if (!line)
-			return (hd_eof_warning(delimiter));
+			return (ft_fprintf(2, ERROR_HD, delimiter), 1);
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
@@ -49,7 +41,7 @@ int	handle_heredoc(char *delimiter, t_mini *mini)
 
 	fd = open(".minishell_heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
-		return (perror("heredoc"), -1);
+		return (ft_fprintf(2, ERR_HD_PERMISSION), -1);
 	mini->stdin_backup = dup(STDIN_FILENO);
 	g_signal = 0;
 	set_signals_heredoc();

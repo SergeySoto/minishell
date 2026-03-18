@@ -13,7 +13,8 @@ int		ft_pwd(t_mini *mini);
  * @brief Built-in env command: prints all environment variables to stdout
  * @param mini The minishell instance
  * @param av Array of arguments (av[1] must be NULL, no arguments accepted)
- * @return 0 on success, 1 if env_array is NULL, 127 if extra arguments are passed
+ * @return 0 on success, 1 if env_array is NULL, 127 if extra arguments are
+ * 	passed
  */
 int		ft_env(t_mini *mini, char **av);
 

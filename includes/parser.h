@@ -1,9 +1,6 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# define ERROR_HD "minishell: warning: here-document\
-delimited by end-of-file (wanted) "
-
 int		is_space(char c);
 int		check_pipe(char *str);
 int		check_pending_pipe(char *str);
