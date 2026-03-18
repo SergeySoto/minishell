@@ -30,7 +30,7 @@ static void	execute_system_binary(t_mini *mini, t_cmd *cmd)
 	{
 		path_value = get_env_val("PATH", mini);
 		if (!path_value)
-			ft_fprintf(2, ERR_NOT_FILEORDIR, cmd->args[0]);
+			ft_fprintf(2, ERR_ENV_NOT_FILORDIR, cmd->args[0]);
 		else
 			ft_fprintf(2, ERR_CMD_NOT_FOUND, cmd->args[0]);
 		free_struct_mini(mini);
