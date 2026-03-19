@@ -35,7 +35,6 @@ static int	check_redirect(char *str)
 				j++;
 			if (invalid_neighbor(str[j]))
 			{
-				ft_printf("%c\n", str[i]);
 				ft_fprintf(2, ERR_SYNTERR_1D, str[i]);
 				return (0);
 			}
