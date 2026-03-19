@@ -12,6 +12,8 @@ int		pre_pars(char	*input);
 void	add_env_back(t_env **env, char *key, char *value);
 t_env	*init_env(char **envp);
 char	**env_to_array(t_env *envp);
+t_env	*create_basic_env(char **envp);
+void	in_or_de_shlvl(t_mini *mini);
 int		count_args(t_token *token);
 void	init_cmd(t_mini **mini);
 void	set_redirects(t_mini *mini, t_token **token, t_cmd *cmd);

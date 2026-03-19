@@ -53,6 +53,8 @@ int	whit_n(char **av)
 		return (0);
 	
 	i = 1;
+	if (!av[i])
+		write(1, "\n", 1);
 	while (av[i])
 	{
 		if (av[i + 1] == NULL)

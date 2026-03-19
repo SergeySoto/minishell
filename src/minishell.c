@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: carmegon <carmegon@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/19 17:31:19 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/20 00:22:32 by carmegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	main(int ac, char **av, char **envp)
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.arg_vector = av;
 	mini.env = init_env(envp);
+	in_or_de_shlvl(&mini);
 	mini.is_interactive = isatty(STDIN_FILENO);
 	shell_loop(&mini);
 	return (0);
