@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/19 17:02:34 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/19 17:31:19 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*shell_loop(t_mini *mini)
 
 int	main(int ac, char **av, char **envp)
 {
+	(void)ac;
 	t_mini	mini;
 
 	ft_bzero(&mini, sizeof(t_mini));

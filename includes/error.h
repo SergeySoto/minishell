@@ -20,6 +20,7 @@
 # define ERR_UNCL_QUOTE "Error: Unclosed quotes\n"
 # define ERR_FORBIDDEN_CHAR "Error: Forbidden character found\n"
 # define ERR_SYNTERR_REDIR "Error: syntax error near unexpected token `%s'\n"
+# define ERR_SYNTERR_1D "Error: syntax error near unexpected token `%c'\n"
 # define ERROR_HD "minishell: warning: here-document\
  delimited by end-of-file (wanted `%s')\n"
 
