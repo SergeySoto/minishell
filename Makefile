@@ -25,11 +25,13 @@ SRC = \
 	$(SRC_DIR)/minishell.c \
 	$(SRC_DIR)/utils/free.c \
 	$(SRC_DIR)/utils/token_utils.c \
+	$(SRC_DIR)/utils/trim_quotes.c \
 	$(SRC_DIR)/lexer/tokenizer.c \
 	$(SRC_DIR)/lexer/smart_split.c \
 	$(SRC_DIR)/lexer/split_utils_wc.c \
 	$(SRC_DIR)/lexer/expander.c \
 	$(SRC_DIR)/lexer/expander_utils.c \
+	$(SRC_DIR)/lexer/expander_checker.c \
 	$(SRC_DIR)/parser/parser.c \
 	$(SRC_DIR)/parser/parser_utils.c \
 	$(SRC_DIR)/builtins/ft_pwd.c \

@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:13:06 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/02/25 17:34:04 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/19 16:05:16 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,103 +95,4 @@ void	print_env(t_env *envp)
 	}
 	envp = NULL;
 	printf("-------------------------\n\n");
-}
-
-void	print_cmds(t_cmd *cmds)
-{
-    t_cmd	*current;
-    int		i;
-    int		count;
-
-    current = cmds;
-    count = 1;
-    printf("\n--- VISTA DE COMANDOS (PARSER/EXECUTOR) ---\n");
-    if (!current)
-        printf("Lista de comandos vacía.\n");
-    while (current)
-    {
-        printf("CMD #%d:\n", count);
-        
-        // 1. Imprimir Argumentos
-        printf("  Args    : [");
-        if (current->args)
-        {
-            i = 0;
-            while (current->args[i])
-            {
-                printf("\"%s\"", current->args[i]);
-                if (current->args[i + 1])
-                    printf(", ");
-                i++;
-            }
-        }
-        else
-            printf("(null)");
-        printf("]\n");
-
-        // 2. Imprimir Path encontrado
-        if (current->cmd_path)
-            printf("  Path    : %s\n", current->cmd_path);
-        else
-            printf("  Path    : (null)\n");
-
-        // 3. Imprimir Info de Entrada (FD e Infile)
-        printf("  Input   : FD [%d]", current->fd_in);
-        if (current->infile)
-            printf(" | Infile [%s]\n", current->infile);
-        else
-            printf(" | Infile [(null)]\n");
-
-        // 4. Imprimir Info de Salida (FD, Outfile y Append)
-        printf("  Output  : FD [%d]", current->fd_out);
-        if (current->outfile)
-            printf(" | Outfile [%s] | Append Mode [%d]\n", current->outfile, current->append);
-        else
-            printf(" | Outfile [(null)]\n");
-
-        printf("----------------------------------\n");
-        current = current->next;
-        count++;
-    }
-    printf("\n");
-}
-
-static void	trim_loop(t_token *lst, char *result)
-{
-	int		i;
-	int		j;
-	char	quote;
-
-	i = 0;
-	j = 0;
-	quote = 0;
-	while (lst->content[i])
-	{
-		update_quote_status(lst->content[i], &quote);
-		if (quote == 0 && (lst->content[i] == '"' || lst->content[i] == '\''))
-			i++;
-		else if (lst->content[i] == quote && quote != 0)
-			i++;
-		else
-		{
-			result[j] = lst->content[i];
-			j++;
-			i++;
-		}
-	}
-	result[j] = '\0';
-	free(lst->content);
-	lst->content = result;
-}
-
-void	trim_quotes(t_token *lst)
-{
-	char	*result;
-
-	if (!lst || !lst->content)
-		return ;
-	result = malloc(ft_strlen(lst->content) + 1);
-	if (!result)
-		return ;
-	trim_loop(lst, result);
 }
