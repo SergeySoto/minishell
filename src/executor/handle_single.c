@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 void	execute_builtin_in_parent(t_mini *mini, t_cmd *cmd)

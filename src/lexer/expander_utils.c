@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 void	heredoc_bf_dollar(t_token *lst)

@@ -6,13 +6,13 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/17 18:13:13 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/19 17:02:34 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include ".././includes/minishell.h"
 
-int g_signal;
+int	g_signal;
 
 static int	minishell_iteration(t_mini *mini)
 {
@@ -44,7 +44,7 @@ static int	minishell_iteration(t_mini *mini)
 char	*shell_loop(t_mini *mini)
 {
 	while (minishell_iteration(mini))
-		continue ;	
+		continue ;
 	free_struct_mini(mini);
 	rl_clear_history();
 	return (NULL);
@@ -52,8 +52,6 @@ char	*shell_loop(t_mini *mini)
 
 int	main(int ac, char **av, char **envp)
 {
-	(void)ac;
-	(void)envp;
 	t_mini	mini;
 
 	ft_bzero(&mini, sizeof(t_mini));

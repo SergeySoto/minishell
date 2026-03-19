@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 int	check_double_pipes(char *str, int i)
@@ -13,7 +12,7 @@ int	check_double_pipes(char *str, int i)
 	else
 	{
 		j = i + 1;
-		while(is_space(str[j]))
+		while (is_space(str[j]))
 			j++;
 		if (str[j] == '|' || str[j] == '\0')
 		{

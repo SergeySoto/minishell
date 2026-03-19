@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 int	is_builtin(char *cmd_name)

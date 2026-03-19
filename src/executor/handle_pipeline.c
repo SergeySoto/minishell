@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 int	init_pipe(t_mini *mini, t_cmd *cmd, int prev_pipe, int *pipe_fd)
@@ -35,13 +34,13 @@ int	spawn_process(t_cmd *cmd, int prev_pipe, int *pipe_fd)
 	return (0);
 }
 
-void	pipe_child_process(t_mini *mini, t_cmd *cmd, int prev_pipe, int *pipe_fd)
+void	pipe_child_process(t_mini *mini, t_cmd *cmd, int prv_pipe, int *pipe_fd)
 {
 	set_signals_default();
-	if (prev_pipe != -1)
+	if (prv_pipe != -1)
 	{
-		dup2(prev_pipe, STDIN_FILENO);
-		close(prev_pipe);
+		dup2(prv_pipe, STDIN_FILENO);
+		close(prv_pipe);
 	}
 	if (cmd->next)
 	{

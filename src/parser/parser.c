@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 static t_cmd	*create_cmd_node(void)

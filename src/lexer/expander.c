@@ -6,12 +6,11 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:12:38 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/13 19:33:00 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/19 17:03:56 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 static char	*replace_string(char *str, char *replace, int start, int len_remove)
 {
@@ -67,7 +66,7 @@ static void	expand_one_token(t_token *tmp, t_mini *mini)
 	}
 }
 
-static t_token *remove_empty_token(t_mini *mini, t_token *prev, t_token *curr)
+static t_token	*remove_empty_token(t_mini *mini, t_token *prev, t_token *curr)
 {
 	t_token	*next;
 
@@ -96,7 +95,7 @@ void	expander(t_mini *mini)
 			if (tmp->content[0] == '\0')
 			{
 				tmp = remove_empty_token(mini, prev, tmp);
-				continue;
+				continue ;
 			}
 		}
 		prev = tmp;

@@ -32,7 +32,7 @@ t_token	*create_token(char *str, int type)
 
 void	add_token_back(t_token **head, char *token)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	if (!head || !*head)
 	{

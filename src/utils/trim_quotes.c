@@ -3,7 +3,7 @@
 static int	should_skip_char(char *content, int i, char quote)
 {
 	if (quote == 0 && content[i] == '$' && (
-		content[i + 1] == '"' || content[i + 1] == '\''))
+			content[i + 1] == '"' || content[i + 1] == '\''))
 		return (1);
 	if (quote == 0 && (content[i] == '"' || content[i] == '\''))
 		return (1);

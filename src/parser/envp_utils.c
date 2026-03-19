@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 static char	*join_env_node(t_env *envp)

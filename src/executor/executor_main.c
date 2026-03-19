@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 void	executor_dispatch(t_mini *mini)

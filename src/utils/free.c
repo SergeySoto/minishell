@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 11:36:34 by carmegon          #+#    #+#             */
-/*   Updated: 2026/03/16 18:21:23 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/19 17:11:51 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ void	*free_token(char *str, char **env)
 void	free_struct_token(t_token **token)
 {
 	t_token	*temp;
-	
+
 	if (!token || !*token)
 		return ;
-	
 	while ((*token) != NULL)
 	{
 		temp = (*token)->next;
@@ -51,7 +50,7 @@ void	free_struct_token(t_token **token)
 void	free_env(t_env **envp)
 {
 	t_env	*temp;
-	
+
 	if (!envp || !*envp)
 		return ;
 	while ((*envp) != NULL)
@@ -93,7 +92,6 @@ void	free_struct_mini(t_mini *mini)
 {
 	if (!mini)
 		return ;
-
 	free_iteration_data(mini);
 	if (mini->env)
 		free_env(&mini->env);

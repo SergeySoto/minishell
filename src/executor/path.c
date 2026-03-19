@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 char	*get_env_val(char *name, t_mini *mini)

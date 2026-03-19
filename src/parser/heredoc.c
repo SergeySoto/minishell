@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 static int	hd_signal_cleanup(int fd, t_mini *mini)
@@ -11,9 +10,10 @@ static int	hd_signal_cleanup(int fd, t_mini *mini)
 	return (-1);
 }
 
-static int	hd_read_loop(int fd,char *delimiter, t_mini *mini)
+static int	hd_read_loop(int fd, char *delimiter, t_mini *mini)
 {
-	char *line;
+	char	*line;
+
 	while (1)
 	{
 		line = readline("> ");
@@ -37,7 +37,7 @@ static int	hd_read_loop(int fd,char *delimiter, t_mini *mini)
 
 int	handle_heredoc(char *delimiter, t_mini *mini)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(".minishell_heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
@@ -54,4 +54,3 @@ int	handle_heredoc(char *delimiter, t_mini *mini)
 	set_signals_interactive();
 	return (fd);
 }
-
