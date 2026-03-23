@@ -1,17 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   smart_split.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/20 20:12:44 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/10 20:00:25 by ssoto-su         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Allocates a NULL-terminated char** array of n_words + 1 pointers.
+ * @param n_words Number of words to allocate space for.
+ * @return Heap-allocated char** array, or NULL on malloc failure.
+ */
 static char	**c_mem(int n_words)
 {
 	char	**words;
@@ -25,6 +18,15 @@ static char	**c_mem(int n_words)
 	return (words);
 }
 
+/**
+ * @brief Extracts an operator token (<, >, <<, >>) from input at position *i
+ *		into str[*word] and advances both counters.
+ * @param str Destination array of strings.
+ * @param input The raw input string.
+ * @param i Pointer to the current position in input (advanced in place).
+ * @param word Pointer to the current word index (incremented in place).
+ * @return void
+ */
 static void	extract_op(char **str, char *input, int *i, int *word)
 {
 	int	start;
@@ -38,6 +40,15 @@ static void	extract_op(char **str, char *input, int *i, int *word)
 	(*word)++;
 }
 
+/**
+ * @brief Extracts a word token (respecting quotes) from input at position *i
+ *		into str[*word] and advances both counters.
+ * @param str Destination array of strings.
+ * @param input The raw input string.
+ * @param i Pointer to the current position in input (advanced in place).
+ * @param word Pointer to the current word index (incremented in place).
+ * @return void
+ */
 static void	extract_word(char **str, char *input, int *i, int *word)
 {
 	int		start;

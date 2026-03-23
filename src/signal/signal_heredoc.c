@@ -1,5 +1,12 @@
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Signal handler for SIGINT during heredoc input. Sets g_signal and
+ *		closes STDIN_FILENO to force readline() to return NULL and abort
+ *		the heredoc read loop.
+ * @param signum The signal number received (SIGINT = 2).
+ * @return void
+ */
 static void	handler_sigint_heredoc(int signum)
 {
 	g_signal = signum;

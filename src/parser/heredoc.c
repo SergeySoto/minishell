@@ -1,5 +1,13 @@
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Cleans up after a heredoc is interrupted by a signal (Ctrl+C).
+ *		Closes the write FD, unlinks the temp file, restores stdin from
+ *		backup and resets signals to interactive mode.
+ * @param fd The write file descriptor of the heredoc temp file.
+ * @param mini Pointer to the main shell structure, uses mini->stdin_backup.
+ * @return Always -1, to signal the caller that the heredoc was aborted.
+ */
 static int	hd_signal_cleanup(int fd, t_mini *mini)
 {
 	close(fd);
@@ -10,6 +18,14 @@ static int	hd_signal_cleanup(int fd, t_mini *mini)
 	return (-1);
 }
 
+/**
+ * @brief Inner read loop for heredoc. Reads lines with readline() until the
+ *		 delimiter is matched or a signal/EOF interrupts.
+ * @param fd Write file descriptor of the heredoc temp file.
+ * @param delimiter String that closes the heredoc.
+ * @param mini Pointer to the main shell structure.
+ * @return 1 on success, -1 if interrupted by a signal.
+ */
 static int	hd_read_loop(int fd, char *delimiter, t_mini *mini)
 {
 	char	*line;

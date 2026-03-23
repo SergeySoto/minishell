@@ -15,6 +15,13 @@ static int	invalid_neighbor(char c)
 	return (0);
 }
 
+/**
+ * @brief Checks that every redirection operator (<, >, <<, >>) is followed
+ *		by a valid filename token (not another operator, pipe or NUL).
+ * @param str The raw input string.
+ * @return 1 if all redirections are valid, 0 if a syntax error is found
+ *		(also prints an error message to stderr).
+ */
 static int	check_redirect(char *str)
 {
 	int		i;
@@ -44,6 +51,12 @@ static int	check_redirect(char *str)
 	return (1);
 }
 
+/**
+ * @brief Checks for invalid double operators: || and &&.
+ * @param str The raw input string.
+ * @return 1 if no invalid doubles are found, 0 otherwise
+ *		(also prints an error message to stderr).
+ */
 static int	check_invalid_double(char *str)
 {
 	int		i;

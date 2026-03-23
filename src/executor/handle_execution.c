@@ -20,6 +20,14 @@ int	execute_builtin_func(t_mini *mini, t_cmd *cmd)
 	return (0);
 }
 
+/**
+ * @brief Executes an external binary using execve(). Converts the t_env list
+ *		to a char** for execve. Prints an error and exits with 127 if the
+ *		path is not found, or 126 if execve fails.
+ * @param mini Pointer to the main shell structure.
+ * @param cmd Pointer to the t_cmd node with cmd_path and args set.
+ * @return void (never returns on success; exits on failure).
+ */
 static void	execute_system_binary(t_mini *mini, t_cmd *cmd)
 {
 	char	**env;

@@ -1,5 +1,12 @@
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Determines the token type from a raw string by comparing it against
+ *		known operator strings.
+ * @param line The raw token string.
+ * @return Token type integer: 0=WORD, 1=PIPE, 2=REDIR_IN, 3=REDIR_OUT,
+ *		4=HEREDOC, 5=APPEND.
+ */
 static int	get_type(char *line)
 {
 	if (ft_strncmp(line, "|", 2) == 0)

@@ -1,5 +1,10 @@
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Builds a single "KEY=VALUE" string from a t_env node.
+ * @param envp Pointer to the t_env node to serialize.
+ * @return Heap-allocated "KEY=VALUE" string, or NULL on malloc failure.
+ */
 static char	*join_env_node(t_env *envp)
 {
 	int		len_str;

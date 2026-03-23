@@ -1,5 +1,11 @@
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Applies the input redirection for a command: dup2s fd_in to stdin
+ *		if it is a heredoc FD, or opens infile and dup2s it.
+ * @param cmd Pointer to the t_cmd node with fd_in and/or infile set.
+ * @return 1 on success, 0 on dup2 or open failure.
+ */
 static int	setup_input(t_cmd *cmd)
 {
 	if (cmd->fd_in > 0)
@@ -20,6 +26,12 @@ static int	setup_input(t_cmd *cmd)
 	return (1);
 }
 
+/**
+ * @brief Opens the output file specified in cmd->outfile with the correct
+ *		flags (truncate or append) and stores the FD in cmd->fd_out.
+ * @param cmd Pointer to the t_cmd node with outfile and append fields set.
+ * @return 1 on success, 0 on open failure.
+ */
 static int	open_outfile(t_cmd *cmd)
 {
 	if (cmd->append == 1)
@@ -31,6 +43,12 @@ static int	open_outfile(t_cmd *cmd)
 	return (1);
 }
 
+/**
+ * @brief Applies the output redirection for a command: dup2s fd_out to stdout
+ *		if it is already open, or opens outfile and dup2s it.
+ * @param cmd Pointer to the t_cmd node with fd_out and/or outfile set.
+ * @return 1 on success, 0 on dup2 or open failure.
+ */
 static int	setup_output(t_cmd *cmd)
 {
 	if (cmd->fd_out > 1)

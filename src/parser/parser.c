@@ -1,5 +1,9 @@
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Allocates and zero-initialises a new t_cmd node.
+ * @return Pointer to the new t_cmd node, or NULL on malloc failure.
+ */
 static t_cmd	*create_cmd_node(void)
 {
 	t_cmd	*cmd;
@@ -18,6 +22,12 @@ static t_cmd	*create_cmd_node(void)
 	return (cmd);
 }
 
+/**
+ * @brief Appends a t_cmd node at the end of the command linked list.
+ * @param cmd_list Address of the head pointer of the t_cmd list.
+ * @param cmd Pointer to the t_cmd node to append.
+ * @return void
+ */
 static void	add_cmd_back(t_cmd **cmd_list, t_cmd *cmd)
 {
 	t_cmd	*temp;

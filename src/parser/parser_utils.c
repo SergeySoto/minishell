@@ -1,5 +1,14 @@
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Opens the output file for a redirection and updates cmd->fd_out.
+ *		Supports both truncate (>) and append (>>) modes.
+ * @param token Address of the current token pointer (points to the redirect
+ *		operator; its ->next is the filename token).
+ * @param cmd Pointer to the t_cmd being populated.
+ * @param is_append 1 for append mode (>>), 0 for truncate mode (>).
+ * @return void
+ */
 static void	handle_output_redirect(t_token **token, t_cmd *cmd, int is_append)
 {
 	int	fd;

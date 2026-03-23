@@ -1,5 +1,11 @@
 #include "../../includes/minishell.h"
 
+/**
+ * @brief Allocates and initialises a new t_env node with the given key/value.
+ * @param key Heap-allocated string for the variable name.
+ * @param value Heap-allocated string for the variable value.
+ * @return Pointer to the new node, or NULL on malloc failure.
+ */
 static t_env	*create_env_node(char *key, char *value)
 {
 	t_env	*env;

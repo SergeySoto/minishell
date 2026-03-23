@@ -39,6 +39,14 @@ void	find_full_path(t_mini *mini)
 	return ;
 }
 
+/**
+ * @brief Tries to build a valid executable path by joining a directory from
+ *		PATH with cmd->args[0] and checking execute permission with access().
+ *		Sets cmd->cmd_path if found.
+ * @param path One directory from the PATH variable.
+ * @param cmd Pointer to the t_cmd node to update.
+ * @return void
+ */
 static void	join_path(char *path, t_cmd *cmd)
 {
 	char	*aux;

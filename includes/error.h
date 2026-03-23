@@ -22,6 +22,6 @@
 # define ERR_SYNTERR_REDIR "Error: syntax error near unexpected token `%s'\n"
 # define ERR_SYNTERR_1D "Error: syntax error near unexpected token `%c'\n"
 # define ERROR_HD "minishell: warning: here-document\
- delimited by end-of-file (wanted `%s')\n"
+delimited by end-of-file (wanted `%s')\n"
 
 # endif

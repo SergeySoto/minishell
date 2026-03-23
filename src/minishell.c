@@ -1,19 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/08 19:28:58 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/20 16:05:39 by ssoto-su         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include ".././includes/minishell.h"
 
 int	g_signal;
 
+/**
+ * @brief Runs a single shell iteration: reads input, tokenizes it 
+ * and executes it.
+ * @param mini Pointer to the main shell structure.
+ * @return 1 to continue the shell loop, 0 if input is NULL (EOF / Ctrl+D).
+ */
 static int	minishell_iteration(t_mini *mini)
 {
 	t_token	*tokens;
@@ -41,6 +35,12 @@ static int	minishell_iteration(t_mini *mini)
 	return (1);
 }
 
+/**
+ * @brief Main shell loop. Calls minishell_iteration() until it returns 0,
+ *        then frees all resources and clears readline history.
+ * @param mini Pointer to the main shell structure.
+ * @return Always NULL.
+ */
 char	*shell_loop(t_mini *mini)
 {
 	while (minishell_iteration(mini))
@@ -50,6 +50,14 @@ char	*shell_loop(t_mini *mini)
 	return (NULL);
 }
 
+/**
+ * @brief Entry point. Initializes the shell structure, environment and
+ *        launches the main loop.
+ * @param ac Argument count (unused).
+ * @param av Argument vector, stored in mini.arg_vector.
+ * @param envp Environment variables array used to build the t_env linked list.
+ * @return Always 0.
+ */
 int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
