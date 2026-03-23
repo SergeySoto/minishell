@@ -25,7 +25,7 @@ static void	execute_system_binary(t_mini *mini, t_cmd *cmd)
 	char	**env;
 	char	*path_value;
 
-	env = NULL;
+	env = env_to_array(mini->env);
 	if (cmd->cmd_path)
 	{
 		access(cmd->cmd_path, X_OK);
