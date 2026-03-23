@@ -25,9 +25,15 @@ static void	execute_system_binary(t_mini *mini, t_cmd *cmd)
 	char	**env;
 	char	*path_value;
 
+	env = NULL;
 	path_value = get_env_val("PATH", mini);
 	if ((!path_value) || (!cmd->cmd_path))
 	{
+		if (access(cmd->cmd_path, X_OK) == 0)
+		{
+			execve(cmd->cmd_path, cmd->args, env);
+			free_token(NULL, env);
+		}
 		if (!path_value)
 			ft_fprintf(2, ERR_ENV_NOT_FILORDIR, cmd->args[0]);
 		else if (!cmd->cmd_path)
