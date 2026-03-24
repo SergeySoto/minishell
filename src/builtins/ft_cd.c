@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 15:36:16 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/24 15:36:17 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	try_getcwd(t_mini *mini, char *path)
@@ -74,7 +86,6 @@ int	ft_cd(t_mini *mini, char **av)
 
 	if (!av || !*av)
 		return (0);
-
 	path = getcwd(NULL, 0);
 	status = how_many_av(mini, av);
 	if (status == 1)

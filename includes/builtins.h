@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 15:48:39 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/24 15:50:10 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
@@ -227,7 +239,7 @@ int		ft_not_exit(t_mini *mini, t_cmd *cmd);
  * @param mini Pointer to the main shell structure, uses mini->input.
  * @return 1 if a pipe '|' is found, 0 otherwise.
  */
-int	ft_exit_pipe(t_mini *mini);
+int		ft_exit_pipe(t_mini *mini);
 
 /**
  * @brief Built-in exit command: exits the shell with an optional 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 15:49:05 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/24 15:49:08 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef UTILS_H
 # define UTILS_H
 
@@ -87,6 +99,5 @@ void	ft_lstiter(t_token *lst, void (*f)(t_token *));
  * @return Heap-allocated deep copy of the array, or NULL on malloc failure.
  */
 char	**dup_arr(char **envp);
-
 
 #endif

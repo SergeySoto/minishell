@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 15:36:44 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/24 15:37:59 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	check_flag(char *str)
@@ -6,13 +18,11 @@ int	check_flag(char *str)
 
 	if (!str || !*str)
 		return (0);
-	
 	i = 0;
 	if (str[0] != '-' || str[i + 1] == '\0')
 		return (0);
 	else
 		i++;
-
 	while (str[i])
 	{
 		if (str[i] != 'n')
@@ -25,9 +35,9 @@ int	check_flag(char *str)
 int	whitout_n(char **av)
 {
 	int	i;
+
 	if (!av || !*av)
 		return (0);
-
 	i = 0;
 	while (check_flag(av[i]) == 1)
 		i++;
@@ -51,7 +61,6 @@ int	whit_n(char **av)
 
 	if (!av || !*av)
 		return (0);
-	
 	i = 1;
 	if (!av[i])
 		write(1, "\n", 1);
@@ -67,7 +76,7 @@ int	whit_n(char **av)
 			ft_putstr_fd(av[i], 1);
 			write(1, " ", 1);
 		}
-			i++;
+		i++;
 	}
 	return (1);
 }

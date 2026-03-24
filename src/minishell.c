@@ -1,6 +1,16 @@
-#include ".././includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 15:33:31 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/24 15:57:20 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	g_signal;
+#include ".././includes/minishell.h"
 
 /**
  * @brief Runs a single shell iteration: reads input, tokenizes it 
@@ -50,6 +60,8 @@ char	*shell_loop(t_mini *mini)
 	return (NULL);
 }
 
+int	g_signal = 0;
+
 /**
  * @brief Entry point. Initializes the shell structure, environment and
  *        launches the main loop.
@@ -60,9 +72,9 @@ char	*shell_loop(t_mini *mini)
  */
 int	main(int ac, char **av, char **envp)
 {
-	(void)ac;
 	t_mini	mini;
 
+	(void)ac;
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.arg_vector = av;
 	mini.env = init_env(envp);

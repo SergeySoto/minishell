@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 15:39:17 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/24 15:39:32 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	ft_error_exit(t_mini *mini, t_cmd *cmd)
@@ -20,7 +32,7 @@ int	ft_error_exit(t_mini *mini, t_cmd *cmd)
 	exit (2);
 }
 
-int	ft_not_exit(t_mini *mini,t_cmd *cmd)
+int	ft_not_exit(t_mini *mini, t_cmd *cmd)
 {
 	int	av;
 

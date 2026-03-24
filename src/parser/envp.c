@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   envp.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 15:44:18 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/24 15:47:01 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 /**
@@ -60,8 +72,8 @@ t_env	*create_basic_env(char **envp)
 {
 	char	*pwd_var;
 	t_env	*env;
-	(void)envp;
 
+	(void)envp;
 	env = NULL;
 	pwd_var = getcwd(NULL, 0);
 	add_env_back(&env, ft_strdup("PWD"), ft_strdup(pwd_var));

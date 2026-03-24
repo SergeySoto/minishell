@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 15:48:36 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/24 15:52:11 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ERROR_H
 # define ERROR_H
 
@@ -14,8 +26,7 @@
 # define ERR_CD_TOO_MANY "minishell: cd: too many arguments\n"
 # define ERR_CD_PERMISSION "minishell: cd: permission denied: %s\n"
 # define ERR_HD_PERMISSION "minishell: heredoc: permission denied: %s\n"
-# define ERR_SYNTERR_ONE_PIPE "Error: syntax error near" \
-" unexpected token '|'\n"
+# define ERR_SYNTERR_ONE_PIPE "Error: syntax error near unexpected token '|'\n"
 # define ERR_SYNTERR_TWO_PIPE "Error: syntax error near unexpected token '||'\n"
 # define ERR_UNCL_QUOTE "Error: Unclosed quotes\n"
 # define ERR_FORBIDDEN_CHAR "Error: Forbidden character found\n"
@@ -24,4 +35,4 @@
 # define ERROR_HD "minishell: warning: here-document\
 delimited by end-of-file (wanted `%s')\n"
 
-# endif
+#endif

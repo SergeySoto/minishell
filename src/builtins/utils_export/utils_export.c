@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_export.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 15:41:01 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/24 15:41:40 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/minishell.h"
 
 int	is_valid(char *av)
@@ -37,10 +49,10 @@ char	*key(char *str)
 
 char	*value(char *str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while(str[i] && str[i] != '=')
+	while (str[i] && str[i] != '=')
 		i++;
 	if (!str[i])
 		return (ft_strdup(""));
