@@ -6,7 +6,7 @@
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 15:43:26 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/24 15:43:27 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2026/03/25 17:42:16 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,15 @@ void	single_cmd_child_process(t_mini *mini, t_cmd *cmd)
 
 void	single_cmd_parent_wait(t_mini *mini, t_cmd *cmd)
 {
-	set_signals_child();
+	set_signals_ignore();
 	waitpid(cmd->pid, &mini->exit_status, 0);
 	if (WIFEXITED(mini->exit_status))
 		mini->exit_status = WEXITSTATUS(mini->exit_status);
 	else if (WIFSIGNALED(mini->exit_status))
 	{
 		g_signal = 128 + WTERMSIG(mini->exit_status);
+		if (WTERMSIG(mini->exit_status) == SIGINT)
+			write(1, "\n", 1);
 		if (WTERMSIG(mini->exit_status) == SIGQUIT)
 			write(2, "Quit (core dumped)\n", 19);
 		mini->exit_status = g_signal;
