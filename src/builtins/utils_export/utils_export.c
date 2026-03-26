@@ -43,7 +43,7 @@ char	*value(char *str)
 	while(str[i] && str[i] != '=')
 		i++;
 	if (!str[i])
-		return (ft_strdup(""));
+		return (NULL);
 	else if (str[i] && str[i] == '=' && str[i + 1] == '\0')
 		return (ft_calloc(1, sizeof(char)));
 	else

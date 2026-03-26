@@ -33,6 +33,11 @@ char	**env_to_array(t_env *envp)
 	i = 0;
 	while (current)
 	{
+		if (current->value == NULL)
+		{
+			current = current->next;
+			continue;
+		}
 		env_array[i] = join_env_node(current);
 		if (!env_array[i])
 			return (free_token(NULL, env_array));
