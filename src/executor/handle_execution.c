@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/24 15:43:20 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/24 15:43:21 by ssoto-su         ###   ########.fr       */
+/*   Created: 2026/03/26 13:41:09 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/26 13:41:10 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	execute_system_binary(t_mini *mini, t_cmd *cmd)
 			ft_fprintf(2, ERR_ENV_NOT_FILORDIR, cmd->args[0]);
 		else if (!cmd->cmd_path)
 			ft_fprintf(2, ERR_CMD_NOT_FOUND, cmd->args[0]);
+		free_token(NULL, env);
 		free_struct_mini(mini);
 		exit(127);
 	}

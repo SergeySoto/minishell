@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/24 15:44:16 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/24 15:44:17 by ssoto-su         ###   ########.fr       */
+/*   Created: 2026/03/26 13:41:17 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/26 13:42:13 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ char	**env_to_array(t_env *envp)
 	i = 0;
 	while (current)
 	{
+		if (current->value == NULL)
+		{
+			current = current->next;
+			continue ;
+		}
 		env_array[i] = join_env_node(current);
 		if (!env_array[i])
 			return (free_token(NULL, env_array));

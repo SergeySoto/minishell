@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/24 15:41:01 by ssoto-su          #+#    #+#             */
-/*   Updated: 2026/03/24 15:41:40 by ssoto-su         ###   ########.fr       */
+/*   Created: 2026/03/26 13:40:51 by ssoto-su          #+#    #+#             */
+/*   Updated: 2026/03/26 13:41:54 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ char	*key(char *str)
 
 char	*value(char *str)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
 	if (!str[i])
-		return (ft_strdup(""));
+		return (NULL);
 	else if (str[i] && str[i] == '=' && str[i + 1] == '\0')
 		return (ft_calloc(1, sizeof(char)));
 	else
